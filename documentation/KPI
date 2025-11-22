@@ -1,1 +1,39 @@
+the project instructions specify that the application, CineMatch, must at a minimum include the display of Key Performance Indicators (KPIs) for a movie, actor, or director.
 
+The team is required to choose at least two of their own indicators.
+
+Suggested KPIs to Implement
+The following are provided as examples of KPIs that the team could choose to implement:
+
+Audience Engagement Score
+
+Star Power Index
+
+Awards Potential
+
+Box Office Popularity Proxy
+
+ General Interpretation of the Suggested KPIs
+While the project itself does not define the calculation method for these specific cinematic KPIs, here is a general idea of what they typically measure in the context of film:
+
+Suggested KPI	Potential Metric Focus
+Audience Engagement Score	Measures the level of user/audience interaction. This could be calculated based on user ratings, comments, number of times a movie is added to a watchlist, or participation in the Quiz/Trivia game.
+Star Power Index	Measures the commercial influence of an actor or director. This could be based on the cumulative box office revenue of their previous films or their general popularity/notoriety over time.
+Awards Potential	An indicator of how likely a film, actor, or director is to receive industry recognition. This might involve factors like critical review scores, film festival nominations/wins, or the presence of a notable director/cast.
+Box Office Popularity Proxy	A measure that estimates or proxies box office success using publicly available data (since actual box office data might be proprietary), such as popularity scores from The Movie Database (TMDb).
+Other Project-Related Metrics
+In addition to the cinematic KPIs required for the application's functionality, the project will also be evaluated based on development process metrics:
+
+Agile/Scrum Metrics: The team needs to track progress through sprints and user stories.
+
+The number of user stories initially planned with points versus the number ultimately implemented.
+
+How the completion of a user story is certified (e.g., passing tests).
+
+Quality & Process Metrics (CI/CD): The overall quality of the development process is a key factor in the assessment.
+
+Quality of the code, confirmed by a sufficient number of code checks/tests.
+
+Use and quality of the CI/CD pipeline (e.g., GitHub Actions).
+
+Testing coverage and success rate.
