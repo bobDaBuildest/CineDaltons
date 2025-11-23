@@ -21,4 +21,3 @@ The project specifically identifies the following external AI services for integ
     * This API offers facial recognition and comparison services, making it a suitable tool for the **"Who Are You?" Actor Lookalike Game**.
 * **Other open REST APIs**
 
-Would you like to explore the implementation details for the sentiment analysis feature using Hugging Face models?
