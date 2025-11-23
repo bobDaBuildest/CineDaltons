@@ -7,10 +7,10 @@ The required and suggested AI integrations are crucial components of the Minimum
  Required AI Features
 
 | Feature | Description | Tools Mentioned |
-| **Sentiment Analysis and Recommendations** | Analyzing the sentiment (e.g., positive, negative) in movie descriptions or user reviews. This is then used to suggest related movies that have a similar "sentiment". | Hugging Face models |
-| **"Who Are You?" Actor Lookalike Game** | A feature where the user can upload a photo, and the application uses AI models to determine which actor the user resembles. | Luxand API or Hugging Face models |
-| **Intelligent KPI Calculation** | The platform must enrich open data (like TMDb) with "intelligent functions" to calculate unique statistical metrics (KPIs) for movies, actors, and directors. | AI models (Implicitly used to enrich data) |
-| **Quiz/Trivia Question Generation** | The questions for the movie Quiz/Trivia game can be generated automatically, potentially using the assistance of AI models. | AI models (e.g., Hugging Face) |
+| Sentiment Analysis and Recommendations** | Analyzing the sentiment (e.g., positive, negative) in movie descriptions or user reviews. This is then used to suggest related movies that have a similar "sentiment". | Hugging Face models |
+| "Who Are You? Actor Lookalike Game** | A feature where the user can upload a photo, and the application uses AI models to determine which actor the user resembles. | Luxand API or Hugging Face models |
+| Intelligent KPI Calculation | The platform must enrich open data (like TMDb) with "intelligent functions" to calculate unique statistical metrics (KPIs) for movies, actors, and directors. | AI models (Implicitly used to enrich data) |
+| Quiz/Trivia Question Generation | The questions for the movie Quiz/Trivia game can be generated automatically, potentially using the assistance of AI models. | AI models (e.g., Hugging Face) |
 
 ️ Required Technologies
 
