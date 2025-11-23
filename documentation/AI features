@@ -24,4 +24,7 @@ classification and generation (NLP).
 * **Luxand API**
     * This API offers facial recognition and comparison services, making it a suitable tool for the **"Who Are You?" Actor Lookalike Game**.
 * **Other open REST APIs**
-
+    Movie Database (TMDB)
+    Open Movie Database (OMDb) API
+    https://rapidapi.com/pierregoutheraud/api/movies-ratings2
+    https://rapidapi.com/yassinezaza20/api/imdb-top-100-movies1/playground/apiendpoint_4d2e6b04-22d1-4753-8b15-b5ce2c2d3b96
