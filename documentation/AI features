@@ -1,23 +1,29 @@
-The project description mandates the inclusion of several advanced **Artificial Intelligence (AI)** and intelligent features for the CineMatch application.
+The project description mandates the inclusion of several advanced **Artificial Intelligence (AI)**
+and intelligent features for the CineMatch application.
 
-The required and suggested AI integrations are crucial components of the Minimum Viable Product (MVP) and are specifically mentioned in the project plan.
+The required and suggested AI integrations are crucial components of the Minimum Viable Product (MVP)
+ and are specifically mentioned in the project plan.
 
-### 🤖 Required AI Features
+ Required AI Features
 
 | Feature | Description | Tools Mentioned |
-| :--- | :--- | :--- |
 | **Sentiment Analysis and Recommendations** | Analyzing the sentiment (e.g., positive, negative) in movie descriptions or user reviews. This is then used to suggest related movies that have a similar "sentiment". | Hugging Face models |
 | **"Who Are You?" Actor Lookalike Game** | A feature where the user can upload a photo, and the application uses AI models to determine which actor the user resembles. | Luxand API or Hugging Face models |
 | **Intelligent KPI Calculation** | The platform must enrich open data (like TMDb) with "intelligent functions" to calculate unique statistical metrics (KPIs) for movies, actors, and directors. | AI models (Implicitly used to enrich data) |
 | **Quiz/Trivia Question Generation** | The questions for the movie Quiz/Trivia game can be generated automatically, potentially using the assistance of AI models. | AI models (e.g., Hugging Face) |
 
-### 🛠️ Required Technologies
+️ Required Technologies
 
 The project specifically identifies the following external AI services for integration:
 
 * **Hugging Face Inference API**
-    * This API is a prime candidate for the **Sentiment Analysis** and **Quiz Question Generation** tasks, as Hugging Face hosts many models suited for text classification and generation (NLP).
+    * This API is a prime candidate for the **Sentiment Analysis** and **Quiz Question Generation** tasks,
+     as Hugging Face hosts many models suited for text classification and generation (NLP).
 * **Luxand API**
-    * This API offers facial recognition and comparison services, making it a suitable tool for the **"Who Are You?" Actor Lookalike Game**.
+    * This API offers facial recognition and comparison services, making it a suitable tool for the
+    **"Who Are You?" Actor Lookalike Game**.
 * **Other open REST APIs**
-
+    Movie Database (TMDB)
+    Open Movie Database (OMDb) API
+    https://rapidapi.com/pierregoutheraud/api/movies-ratings2
+    https://rapidapi.com/yassinezaza20/api/imdb-top-100-movies1/playground/apiendpoint_4d2e6b04-22d1-4753-8b15-b5ce2c2d3b96
