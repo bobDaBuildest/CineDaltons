@@ -1,4 +1,4 @@
-package com.movieapp.entity;
+package com.cinedaltons.entity;
 
 import jakarta.persistence.*;
 
@@ -12,7 +12,6 @@ public class User {
 
     @Column(nullable = false, unique = true) // SOS: Απαγορεύει τα διπλότυπα στη βάση
     private String username;
-
     private String password;
     private String email;
     private String name;
