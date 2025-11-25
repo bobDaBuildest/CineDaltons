@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class YourAppApplication {
+public class CinedaltonsMain {
     public static void main(String[] args) {
-        SpringApplication.run(YourAppApplication.class, args);
+        SpringApplication.run(CinedaltonsMain.class, args);
     }
 }
