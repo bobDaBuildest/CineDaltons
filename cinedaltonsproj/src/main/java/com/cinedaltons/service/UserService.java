@@ -1,6 +1,6 @@
-package com.movieapp.service;
+package com.cinedaltons.service;
 
-import com.movieapp.dto.UserRegisterDTO;
+import com.cinedaltons.dto.UserRegisterDTO;
 
 public interface UserService {
     void registerUser(UserRegisterDTO userDto) throws Exception;

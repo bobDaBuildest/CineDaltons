@@ -1,4 +1,4 @@
-package com.movieapp.service.impl;
+package com.cinedaltons.service.impl;
 
 import com.movieapp.dto.UserRegisterDTO;
 import com.movieapp.entity.User;
