@@ -1,4 +1,4 @@
-package com.movieapp.controller;
+package com.cinedaltons.controller;
 
 import com.movieapp.dto.UserRegisterDTO;
 import com.movieapp.service.UserService;
