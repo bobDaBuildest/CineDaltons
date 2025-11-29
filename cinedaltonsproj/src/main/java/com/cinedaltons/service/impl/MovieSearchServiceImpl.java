@@ -1,4 +1,4 @@
-package com.cinedaltons.service.impl;
+/*** package com.cinedaltons.service.impl;
 
 import com.cinedaltons.dto.UserRegisterDTO;
 import com.cinedaltons.model.User;
@@ -12,3 +12,4 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     // Κλήση στο TMDb API  και στο MovieRepository
     // ... υλοποίηση της μεθόδου searchMovies
 }
+ ***/

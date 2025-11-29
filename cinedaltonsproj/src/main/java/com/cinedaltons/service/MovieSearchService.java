@@ -1,4 +1,4 @@
-package com.cinedaltons.service;
+/**package com.cinedaltons.service;
 
 import com.cinedaltons.dto.UserRegisterDTO;
 import com.cinedaltons.model.User;
@@ -10,4 +10,4 @@ import org.springframework.stereotype.Service;
 public interface MovieSearchService {
     List<Movie> searchMovies(String query);
     // to do
-}
+}**/

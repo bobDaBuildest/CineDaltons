@@ -1,4 +1,4 @@
-package com.cinedaltons.service;
+/**package com.cinedaltons.service;
 
 import com.cinedaltons.dto.UserRegisterDTO;
 import com.cinedaltons.model.User;
@@ -17,4 +17,4 @@ public class MovieService {
     public boolean movieExists(String title) {
         return repository.findByTitle(title).isPresent();
     }
-}
+}**/

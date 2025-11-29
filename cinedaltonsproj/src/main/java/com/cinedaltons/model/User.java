@@ -3,6 +3,16 @@ package com.cinedaltons.model;
 import jakarta.persistence.*; // Για JPA annotations
 import lombok.Data;          // Για getters/setters (προαιρετικό, αλλά συχνό)
 import java.time.LocalDateTime;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.util.List;
+
 
 @Entity
 @Table(name = "users") // Ορίζει το όνομα του πίνακα στη βάση δεδομένων
@@ -28,8 +38,8 @@ public class User {
     // Πρόσθετα πεδία για την αξιολόγηση και παρακολούθηση
     private LocalDateTime registrationDate = LocalDateTime.now();
 
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QuizScore> quizHistory;
+     //   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<QuizScore> quizHistory;
 
 // ...
     // *******************************************************************
@@ -49,4 +59,5 @@ public class User {
      * * @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
      * private List<Comment> comments;
      */
+
 }
