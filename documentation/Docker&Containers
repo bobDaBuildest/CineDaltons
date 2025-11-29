@@ -1,0 +1,15 @@
+Docker is a platform for building and running containers, which are lightweight, isolated environments that package an application with all its dependencies
+Containers are like standardized, portable executables that share the host operating system's kernel, making them more efficient than traditional virtual 
+machines that virtualize an entire computer and OS.
+
+IN SIMPLE TERMS:
+
+Imagine you have a recipe (the image) and you want to cook it (create a container). 
+Docker allows you to package the ingredients and instructions into a portable container, 
+ensuring that the dish (application) will always be cooked the same way, regardless of where you're cooking it.
+
+HOW TO INSTALL DOCKER ON YOUR PC:
+https://youtu.be/ZyBBv1JmnWQ?si=7vS8u6I3j_LuuLbO
+
+INFO:
+https://youtu.be/lpKwgOpxpqg?si=63AfVJt0QSqwONi6

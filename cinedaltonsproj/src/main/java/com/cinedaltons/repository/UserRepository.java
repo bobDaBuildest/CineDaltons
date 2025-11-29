@@ -1,6 +1,6 @@
-package com.movieapp.repository;
+package com.cinedaltons.repository;
 
-import com.movieapp.entity.User;
+import com.cinedaltons.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

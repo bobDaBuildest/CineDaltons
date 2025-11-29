@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Genre Preferences</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <style>
+        /* Additional styles for the genre form */
+        .form-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .checkbox-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .checkbox-item:hover {
+            background: #f0f0f0;
+        }
+        .checkbox-item input {
+            margin-right: 10px;
+        }
+        .selected-count {
+            margin: 15px 0;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .success-message {
+            display: none;
+            padding: 10px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .checkbox-container {
+                grid-template-columns: 1fr;
+            }
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .form-actions button {
+                width: 100%;
+            }
+        }
+        /* Genre-specific styling */
+        .genre-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: inline-block;
+            background: #007bff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="top-right">
+    <button class="btn" id="viewPreferencesBtn">View My Preferences</button>
+    <button class="btn" onclick="window.location.href='CineDaltons1.html'">Home</button>
+</div>
+
+<div class="container">
+    <h1>Movie Genre Preferences</h1>
+    <p>Select your favorite movie genres to get personalized recommendations!</p>
+
+    <div class="form-container">
+        <form id="movieGenreForm">
+            <div class="form-group">
+                <label for="username">Your Name</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Select Your Favorite Movie Genres</label>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">
+                    Choose all genres you enjoy watching
+                </p>
+                <div class="checkbox-container" id="genreContainer">
+                </div>
+            </div>
+
+            <div class="selected-count">
+                Selected: <span id="selectedCount">0</span> genres
+            </div>
+
+            <div class="success-message" id="successMessage">
+                Your genre preferences have been saved successfully!
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn" id="resetBtn">Reset Selection</button>
+                <button type="submit" class="btn submit-btn">Save Preferences</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="preferencesModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>My Genre Preferences</h2>
+        <div id="preferencesDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const movieGenres = [
+        { name: "Action", icon: "A" },
+        { name: "Adventure", icon: "AV" },
+        { name: "Animation", icon: "AN" },
+        { name: "Comedy", icon: "C" },
+        { name: "Crime", icon: "CR" },
+        { name: "Documentary", icon: "D" },
+        { name: "Drama", icon: "DR" },
+        { name: "Fantasy", icon: "F" },
+        { name: "Horror", icon: "H" },
+        { name: "Mystery", icon: "M" },
+        { name: "Romance", icon: "R" },
+        { name: "Science Fiction", icon: "SF" },
+        { name: "Thriller", icon: "T" },
+        { name: "Western", icon: "W" }
+    ];
+
+    function createGenreCheckboxes() {
+        const container = document.getElementById('genreContainer');
+        container.innerHTML = '';
+        movieGenres.forEach(genre => {
+            const checkboxItem = document.createElement('div');
+            checkboxItem.className = 'checkbox-item';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = genre.name.toLowerCase().replace(/\s+/g, '-');
+            checkbox.name = 'genres';
+            checkbox.value = genre.name;
+            const label = document.createElement('label');
+            label.htmlFor = checkbox.id;
+            const icon = document.createElement('span');
+            icon.className = 'genre-icon';
+            icon.textContent = genre.icon;
+            label.appendChild(icon);
+            label.appendChild(document.createTextNode(genre.name));
+            checkboxItem.appendChild(checkbox);
+            checkboxItem.appendChild(label);
+            container.appendChild(checkboxItem);
+        });
+    }
+
+    function initializeForm() {
+        createGenreCheckboxes();
+
+        updateSelectedCount();
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectedCount);
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', resetForm);
+
+        document.getElementById('movieGenreForm').addEventListener('submit', handleFormSubmit);
+
+        document.getElementById('viewPreferencesBtn').addEventListener('click', showPreferencesModal);
+        document.querySelector('.close').addEventListener('click', closeModal);
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('preferencesModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    function updateSelectedCount() {
+        const selectedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        document.getElementById('selectedCount').textContent = selectedCount;
+    }
+
+    function resetForm() {
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        document.getElementById('username').value = '';
+        updateSelectedCount();
+    }
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        if (!username) {
+            alert('Please enter your name');
+            return;
+        }
+
+        const selectedGenres = Array.from(document.querySelectorAll('#genreContainer input:checked'))
+            .map(checkbox => checkbox.value);
+
+        const userPreferences = {
+            username,
+            selectedGenres,
+            timestamp: new Date().toISOString()
+        };
+
+        localStorage.setItem('userGenrePreferences', JSON.stringify(userPreferences));
+
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'block';
+
+        setTimeout(() => {
+            successMessage.style.display = 'none';
+        }, 3000);
+
+        console.log('User genre preferences saved:', userPreferences);
+    }
+
+    function showPreferencesModal() {
+        const preferences = localStorage.getItem('userGenrePreferences');
+        const display = document.getElementById('preferencesDisplay');
+
+        if (preferences) {
+            const data = JSON.parse(preferences);
+            display.innerHTML = `
+                    <p><strong>Name:</strong> ${data.username}</p>
+                    <p><strong>Favorite Genres:</strong> ${data.selectedGenres.join(', ') || 'None selected'}</p>
+                    <p><strong>Last Updated:</strong> ${new Date(data.timestamp).toLocaleString()}</p>
+                `;
+        } else {
+            display.innerHTML = '<p>No genre preferences saved yet.</p>';
+        }
+
+        document.getElementById('preferencesModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('preferencesModal').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeForm);
+</script>
+</body>
+</html>
