@@ -20,7 +20,7 @@ public class UserRegisterDTO {
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
-    public String getSurnamel() {return surname;}
+    public String getSurname() {return surname;}
     public void setSurname(String surname) {this.surname = surname;}
     public String getBirthday() {return birthday;}
     public void setBirthday(String birthday) {this.birthday = birthday;}

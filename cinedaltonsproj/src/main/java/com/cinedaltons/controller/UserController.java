@@ -1,7 +1,7 @@
 package com.cinedaltons.controller;
 
-import com.movieapp.dto.UserRegisterDTO;
-import com.movieapp.service.UserService;
+import com.cinedaltons.dto.UserRegisterDTO;
+import com.cinedaltons.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

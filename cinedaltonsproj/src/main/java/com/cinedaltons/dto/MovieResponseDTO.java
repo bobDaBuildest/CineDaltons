@@ -1,9 +1,9 @@
 package com.cinedaltons.service.impl;
 
-import com.movieapp.dto.UserRegisterDTO;
-import com.movieapp.entity.User;
-import com.movieapp.repository.UserRepository;
-import com.movieapp.service.UserService;
+import com.cinedaltons.dto.UserRegisterDTO;
+import com.cinedaltons.model.User;
+import com.cinedaltons.repository.UserRepository;
+import com.cinedaltons.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class MovieResponseDTO {
         return totalQuizScore;
     }
 
- public setMovieResponseDTO(String username, String email, String registrationDate, int totalQuizScore) {
+ public MovieResponseDTO(String username, String email, String registrationDate, int totalQuizScore) {
         this.username = username;
         this.email = email;
         this.registrationDate = registrationDate;
