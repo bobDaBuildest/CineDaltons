@@ -16,7 +16,6 @@ public class User {
     private String email;
     private String name;
     private String surname;
-    private String birthday;
 
     // Getters and Setters
     public String getUsername() { return username; }
@@ -32,6 +31,5 @@ public class User {
     public void setName(String name) {this.name = name;}
     public String getSurnamel() {return surname;}
     public void setSurname(String surname) {this.surname = surname;}
-    public String getBirthday() {return birthday;}
-    public void setBirthday(String birthday) {this.birthday = birthday;}
+
 }
