@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="database connection">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/MovieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/MovieController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/AISentimentAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/AISentimentAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/HuggingFaceSentimentAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/HuggingFaceSentimentAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieSearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/impl/MovieSearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/impl/MovieSearchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "KyriakosTerzoudis"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/bobDaBuildest/CineDaltons.git",
+    "accountId": "246addb1-031b-438c-9c04-b7753d9a3074"
+  }
+}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="369tcXr8R6qAFEg9RpLf9P0RLWO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "Maven.CineDaltons [-X,clean,spring-boot:run].executor": "Run",
+    "Maven.CineDaltons [-v].executor": "Run",
+    "Maven.CineDaltons [clean,compile].executor": "Run",
+    "Maven.CineDaltons [clean].executor": "Run",
+    "Maven.CineDaltons [spring-boot:run].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.CinedaltonsMain.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/kyrte/OneDrive/Έγγραφα/GitHub/CineDaltons/cinedaltonsproj/src/main/resources/templates",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn -v" />
+      <command value="mvn clean" />
+      <command value="   mvn spring-boot:run" />
+      <command value="mvn clean compile" />
+      <command value="mvn spring-boot:run" />
+      <command value="mvn -X clean spring-boot:run" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="CinedaltonsMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="cinedaltons-proj" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cinedaltons.CinedaltonsMain" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="" />
+      <created>1764430698083</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764430698083</updated>
+      <workItem from="1764430701619" duration="11561000" />
+    </task>
+    <task id="LOCAL-00001" summary="database connection">
+      <option name="closed" value="true" />
+      <created>1764438679355</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764438679355</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="database connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="database connection" />
+  </component>
+  <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
+    <option name="sizePresets">
+      <list>
+        <SizePreset>
+          <option name="caption" value="Phone" />
+          <option name="height" value="568" />
+          <option name="width" value="320" />
+        </SizePreset>
+        <SizePreset>
+          <option name="caption" value="Tablet" />
+          <option name="height" value="1024" />
+          <option name="width" value="768" />
+        </SizePreset>
+        <SizePreset>
+          <option name="caption" value="Desktop" />
+          <option name="height" value="900" />
+          <option name="width" value="1440" />
+        </SizePreset>
+      </list>
+    </option>
+  </component>
+</project>
