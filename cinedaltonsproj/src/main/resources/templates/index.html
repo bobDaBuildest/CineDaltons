@@ -550,6 +550,19 @@
         document.getElementById("watchlist-container").classList.toggle("hidden");
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLicense(); // <--- 1. Ελέγχει και ανοίγει το Popup ΑΜΕΣΩΣ
+
+        renderWatchlist();
+
+        // Allow search with Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMovies();
+            }
+        });
+    });
+
     // -------------------------------------------------------------
     // ΛΕΙΤΟΥΡΓΙΕΣ ΓΙΑ ΤΙΣ ΠΡΟΤΙΜΗΣΕΙΣ ΧΡΗΣΤΗ (USER PREFERENCES)
     // -------------------------------------------------------------
