@@ -330,6 +330,39 @@
     </div>
 </div>
 
+<div id="licenseModal" class="modal" data-backdrop="static">
+    <div class="modal-content" style="max-width: 600px;">
+        <h2>Terms of Use (License)</h2>
+        <p>Please read and accept the license to continue.</p>
+
+        <div style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
+            MIT License
+
+            Copyright (c) 2025 Daltons
+
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
+        </div>
+
+        <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
+    </div>
+</div>
+
 <div id="genrePreferencesModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
         <span class="close" onclick="closeModal('genrePreferencesModal')">&times;</span>
@@ -368,6 +401,23 @@
     // API Configuration
     const API_KEY = "YOUR_API_KEY_HERE";
 
+    // 1. Λειτουργίες License (Άδεια Χρήσης)
+    function checkLicense() {
+        // Ελέγχουμε αν ο χρήστης έχει ήδη αποδεχτεί
+        const accepted = localStorage.getItem('licenseAccepted');
+
+        // Αν ΔΕΝ έχει αποδεχτεί, εμφανίζουμε το modal
+        if (!accepted) {
+            document.getElementById('licenseModal').style.display = "block";
+        }
+    }
+
+    function acceptLicense() {
+        // Αποθηκεύουμε την αποδοχή για να μην ξαναενοχλήσουμε τον χρήστη
+        localStorage.setItem('licenseAccepted', 'true');
+        document.getElementById('licenseModal').style.display = "none";
+    }
+
     // Modal functions
     function openModal(id) {
         document.getElementById(id).style.display = "block";
@@ -380,7 +430,11 @@
     // Close modal when clicking outside
     window.onclick = function(e) {
         document.querySelectorAll(".modal").forEach(modal => {
-            if (e.target === modal) modal.style.display = "none";
+            if (e.target === modal){
+                if (modal.id !== 'licenseModal') {
+                    modal.style.display = "none";
+                }
+            }
         });
     };
 
