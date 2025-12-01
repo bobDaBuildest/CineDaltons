@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="database connection">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/MovieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/MovieController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/AISentimentAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/AISentimentAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/HuggingFaceSentimentAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/HuggingFaceSentimentAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/MovieServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/impl/MovieSearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/impl/MovieSearchServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/frontend/CineDaltons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/frontend/CineDaltons.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,26 +15,31 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "KyriakosTerzoudis"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;KyriakosTerzoudis&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/bobDaBuildest/CineDaltons.git",
-    "accountId": "246addb1-031b-438c-9c04-b7753d9a3074"
+    "accountId": "f9dff005-9aaf-4374-a2b8-9281f466d78d"
   }
 }]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="369tcXr8R6qAFEg9RpLf9P0RLWO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -67,9 +61,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CinedaltonsMain.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "save-preferences",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/kyrte/OneDrive/Έγγραφα/GitHub/CineDaltons/cinedaltonsproj/src/main/resources/templates",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -114,14 +109,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
