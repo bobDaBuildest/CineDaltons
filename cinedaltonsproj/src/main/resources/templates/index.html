@@ -424,6 +424,23 @@
         document.getElementById('licenseModal').style.display = "none";
     }
 
+    function loadLicenseText() {
+        fetch('LICENSE.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.text();
+            })
+            .then(text => {
+                document.getElementById('licenseText').textContent = text;
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                document.getElementById('licenseText').textContent = "Can't find LICENSE.txt";
+            });
+    }
+
     // Modal functions
     function openModal(id) {
         document.getElementById(id).style.display = "block";
@@ -556,10 +573,13 @@
         document.getElementById("watchlist-container").classList.toggle("hidden");
     }
 
+    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
     document.addEventListener('DOMContentLoaded', function() {
-        checkLicense(); // <--- 1. Ελέγχει και ανοίγει το Popup ΑΜΕΣΩΣ
+        loadLicenseText();// Φορτώνει το κείμενο της άδειας
+        checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια
 
         renderWatchlist();
+        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
 
         // Allow search with Enter key
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
@@ -736,18 +756,6 @@
         if (form) form.addEventListener('submit', handleGenreFormSubmit);
     }
 
-    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
-    document.addEventListener('DOMContentLoaded', function() {
-        renderWatchlist();
-        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
-
-        // Allow search with Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchMovies();
-            }
-        });
-    });
 document.querySelector("#signupModal form").addEventListener("submit", function(e) {
     e.preventDefault();
     
