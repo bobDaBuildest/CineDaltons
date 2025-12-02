@@ -255,6 +255,32 @@
                 left: 5%;
             }
         }
+
+        .signup-validation .password-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .signup-validation .password-container input {
+            flex: 1;
+        }
+
+        .signup-validation .password-container button {
+            margin-left: 8px;
+            padding: 8px;
+        }
+
+        .signup-validation #strengthBar {
+            height: 6px;
+            width: 100%;
+            background: lightgray;
+            margin-top: 5px;
+            border-radius: 3px;
+        }
+
+        .signup-validation .strength-weak { background: red !important; }
+        .signup-validation .strength-medium { background: orange !important; }
+        .signup-validation .strength-strong { background: green !important; }
     </style>
 </head>
 <body>
@@ -290,18 +316,30 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>
         <h2>Create an account</h2>
-        <form>
+        <form id="signupForm" class="signup-validation">
+
             <label>Username</label>
-            <input type="text" required />
+            <input type="text" id="su_username" required maxlength="50"/>
+
+            <label>First Name</label>
+            <input type="text" id="su_first" required />
+
+            <label>Last Name</label>
+            <input type="text" id="su_last" required />
 
             <label>Email</label>
-            <input type="email" required />
-
-            <label>Date of Birth</label>
-            <input type="date" required/>
+            <input type="email" id="su_email" required />
 
             <label>Password</label>
-            <input type="password" required />
+            <div class="password-container">
+                <input type="password" id="su_password" required minlength="8"/>
+            </div>
+
+            <div id="strengthText"></div>
+            <div id="strengthBar"></div>
+
+            <label>Confirm Password</label>
+            <input type="password" id="su_confirmPassword" required>
 
             <button type="submit" class="submit-btn">Create Account</button>
         </form>
@@ -699,6 +737,51 @@ document.querySelector("#signupModal form").addEventListener("submit", function(
     })
     .catch(error => console.error("Error:", error));
 });
+
+    // === Password Strength ===
+    const suPass = document.getElementById("su_password");
+    const suConfirm = document.getElementById("su_confirmPassword");
+    const strengthText = document.getElementById("strengthText");
+    const strengthBar = document.getElementById("strengthBar");
+
+    // Strength meter live updates
+    suPass.addEventListener("input", () => {
+        const val = suPass.value;
+        let strength = 0;
+
+        if (val.length >= 8) strength++;
+        if (/[A-Z]/.test(val)) strength++;
+        if (/[0-9]/.test(val)) strength++;
+        if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+        strengthBar.className = "";
+
+        if (strength <= 1) {
+            strengthText.textContent = "Weak";
+            strengthBar.classList.add("strength-weak");
+        } else if (strength <= 3) {
+            strengthText.textContent = "Medium";
+            strengthBar.classList.add("strength-medium");
+        } else {
+            strengthText.textContent = "Strong";
+            strengthBar.classList.add("strength-strong");
+        }
+    });
+
+    // === Password Match Check ===
+    document.getElementById("signupForm").addEventListener("submit", e => {
+        if (suPass.value !== suConfirm.value) {
+            e.preventDefault();
+            alert("Passwords do not match!");
+        }
+    });
+
+    // === Show/Hide Password ===
+    document.querySelector(".togglePasswordBtn").addEventListener("click", function () {
+        const type = suPass.type === "password" ? "text" : "password";
+        suPass.type = type;
+        this.textContent = type === "password" ? "Show" : "Hide";
+    });
 </script>
 </body>
 </html>
