@@ -335,28 +335,8 @@
         <h2>Terms of Use (License)</h2>
         <p>Please read and accept the license to continue.</p>
 
-        <div style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
-            MIT License
-
-            Copyright (c) 2025 Daltons
-
-            Permission is hereby granted, free of charge, to any person obtaining a copy
-            of this software and associated documentation files (the "Software"), to deal
-            in the Software without restriction, including without limitation the rights
-            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-            copies of the Software, and to permit persons to whom the Software is
-            furnished to do so, subject to the following conditions:
-
-            The above copyright notice and this permission notice shall be included in all
-            copies or substantial portions of the Software.
-
-            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-            SOFTWARE.
+        <div id="licenseText" style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
+            Loading license terms...
         </div>
 
         <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
@@ -416,6 +396,23 @@
         // Αποθηκεύουμε την αποδοχή για να μην ξαναενοχλήσουμε τον χρήστη
         localStorage.setItem('licenseAccepted', 'true');
         document.getElementById('licenseModal').style.display = "none";
+    }
+
+    function loadLicenseText() {
+        fetch('LICENSE.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.text();
+            })
+            .then(text => {
+                document.getElementById('licenseText').textContent = text;
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                document.getElementById('licenseText').textContent = "Can't find LICENSE.txt";
+            });
     }
 
     // Modal functions
@@ -550,10 +547,13 @@
         document.getElementById("watchlist-container").classList.toggle("hidden");
     }
 
+    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
     document.addEventListener('DOMContentLoaded', function() {
-        checkLicense(); // <--- 1. Ελέγχει και ανοίγει το Popup ΑΜΕΣΩΣ
+        loadLicenseText();// Φορτώνει το κείμενο της άδειας
+        checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια
 
         renderWatchlist();
+        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
 
         // Allow search with Enter key
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
@@ -726,18 +726,6 @@
         if (form) form.addEventListener('submit', handleGenreFormSubmit);
     }
 
-    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
-    document.addEventListener('DOMContentLoaded', function() {
-        renderWatchlist();
-        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
-
-        // Allow search with Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchMovies();
-            }
-        });
-    });
 document.querySelector("#signupModal form").addEventListener("submit", function(e) {
     e.preventDefault();
     
