@@ -56,11 +56,13 @@
 
         .modal-content {
             background-color: white;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 20px;
             border-radius: 8px;
             width: 90%;
-            max-width: 400px;
+            max-width: 850px; /* Αυξήσαμε το μέγιστο πλάτος */
+            max-height: 90vh; /* Επιτρέπει στο modal να καταλαμβάνει έως 90% του ύψους της οθόνης */
+            overflow-y: auto; /* Προσθέτει scrollbar αν το περιεχόμενο είναι μεγάλο */
             position: relative;
         }
 
@@ -70,6 +72,7 @@
             padding: 10px;
             background-color: #f7f7f7;
             border-radius: 4px;
+            text-align: left;
         }
 
         /* Styles for Genre Preference Form */
@@ -77,6 +80,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 10px;
+            text-align: left;
         }
         .checkbox-item {
             display: flex;
@@ -103,6 +107,7 @@
             background: #d4edda;
             color: #155724;
             border-radius: 5px;
+            margin-top: 15px;
         }
         .form-actions {
             display: flex;
@@ -335,13 +340,35 @@
         <h2>Terms of Use (License)</h2>
         <p>Please read and accept the license to continue.</p>
 
-        <div id="licenseText" style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
-            Loading license terms...
+        <div style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
+
+            MIT License
+
+
+            Copyright (c) 2025 Daltons
+
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
         </div>
 
         <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
-    </div>
-</div>
+    </div></div>
+
 
 <div id="genrePreferencesModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
@@ -360,10 +387,9 @@
                 </div>
             </div>
 
-            <div class="selected-count">
+            <div class="selected-count" style="text-align: right; margin-top: 10px; font-weight: bold;">
                 Selected: <span id="selectedCount">0</span> genres
             </div>
-
             <div class="success-message" id="successMessage" style="display:none;">
                 Your genre preferences have been saved successfully!
             </div>
@@ -376,8 +402,8 @@
         <h3>My Saved Preferences</h3>
         <div id="preferencesDisplay">No genre preferences saved yet.</div>
         <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>
-    </div> </div>
-<script>
+
+    </div> </div><script>
     // API Configuration
     const API_KEY = "YOUR_API_KEY_HERE";
 
@@ -648,8 +674,9 @@
     }
 
     function handleGenreFormSubmit(event) {
+    if (event && event.preventDefault) {
         event.preventDefault();
-
+}
         const usernameInput = document.getElementById('prefUsername');
         if (!usernameInput || !usernameInput.value) {
             alert('Please enter your name');
@@ -716,12 +743,15 @@
         updateSelectedCount();
 
         document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
+        checkbox.removeEventListener('change', updateSelectedCount);
             checkbox.addEventListener('change', updateSelectedCount);
         });
 
         const resetBtn = document.getElementById('resetBtn');
-        if (resetBtn) resetBtn.addEventListener('click', resetForm);
-
+        if (resetBtn){
+        resetBtn.removeEventListener('click', resetForm);
+        resetBtn.addEventListener('click', resetForm);
+}
         const form = document.getElementById('movieGenreForm');
         if (form) form.addEventListener('submit', handleGenreFormSubmit);
     }

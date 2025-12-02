@@ -56,13 +56,15 @@
 
         .modal-content {
             background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            position: relative;
-        }
+             margin: 5% auto; /* Μειώσαμε το πάνω περιθώριο για να ανέβει ψηλότερα */
+                        padding: 20px;
+                        border-radius: 8px;
+                        width: 90%;
+                        max-width: 850px; /* Αυξήσαμε το μέγιστο πλάτος */
+                        max-height: 90vh; /* Επιτρέπει στο modal να καταλαμβάνει έως 90% του ύψους της οθόνης */
+                        overflow-y: auto; /* Προσθέτει scrollbar αν το περιεχόμενο είναι μεγάλο */
+                        position: relative;
+                    }
 
         /* Specific modal content style for preferences */
         #preferencesDisplay {
@@ -70,6 +72,7 @@
             padding: 10px;
             background-color: #f7f7f7;
             border-radius: 4px;
+            text-align: left;
         }
 
         /* Styles for Genre Preference Form */
@@ -77,6 +80,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 10px;
+             text-align: left; /* Εξασφαλίζει την ευθυγράμμιση των στοιχείων */
         }
         .checkbox-item {
             display: flex;
@@ -103,6 +107,7 @@
             background: #d4edda;
             color: #155724;
             border-radius: 5px;
+             margin-top: 15px;
         }
         .form-actions {
             display: flex;
@@ -336,33 +341,63 @@
         <h2>Movie Genre Preferences</h2>
         <p>Select your favorite movie genres to get personalized recommendations!</p>
 
-        <form id="movieGenreForm">
-            <div class="form-group">
-                <label for="prefUsername">Your Name</label> <input type="text" id="prefUsername" name="username" required>
-            </div>
-
-            <div class="form-group">
-                <label>Select Your Favorite Movie Genres</label>
-                <div class="checkbox-container" id="genreContainer">
-                </div>
-            </div>
-
-            <div class="selected-count">
-                Selected: <span id="selectedCount">0</span> genres
-            </div>
-
-            <div class="success-message" id="successMessage" style="display:none;">
-                Your genre preferences have been saved successfully!
-            </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn" id="resetBtn">Reset Selection</button>
-                <button type="submit" class="btn submit-btn">Save Preferences</button>
-            </div>
-        </form> <hr style="margin: 20px 0;">
+        <hr style="margin: 20px 0;">
         <h3>My Saved Preferences</h3>
         <div id="preferencesDisplay">No genre preferences saved yet.</div>
-        <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>
+        <form id="movieGenreForm">
+                    <div class="form-group">
+                        <label for="prefUsername">Your Name</label> <input type="text" id="prefUsername" name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Your Favorite Movie Genres</label>
+                        <div class="checkbox-container" id="genreContainer">
+                        </div>
+                    </div>
+
+                    <div class="selected-count">
+                        Selected: <span id="selectedCount">0</span> genres
+                    </div>
+
+                    <div class="success-message" id="successMessage" style="display:none;">
+                        Your genre preferences have been saved successfully!
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn" id="resetBtn">Reset Selection</button>
+                        <button type="submit" class="btn submit-btn">Save Preferences</button>
+                    </div>
+                </form>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-bottom: 20px;">
+                     <button class="btn" onclick="showPreferencesDisplay()">Refresh Display</button>
+                    <button class="btn" onclick="handleGenreFormSubmit()" id="quickSaveBtn" style="margin-left: 10px;">Save Current Selection</button>
+                </div>
+                <hr style="margin: 20px 0;">
+
+                <form id="movieGenreForm">
+                    <div class="form-group">
+                        <label for="prefUsername">Your Name</label> <input type="text" id="prefUsername" name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Your Favorite Movie Genres</label>
+                        <div class="checkbox-container" id="genreContainer">
+                        </div>
+                    </div>
+
+                    <div class="selected-count" style="text-align: right; margin-top: 10px; font-weight: bold;">
+                        Selected: <span id="selectedCount">0</span> genres
+                    </div>
+
+                    <div class="success-message" id="successMessage" style="display:none;">
+                        Your genre preferences have been saved successfully!
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn" id="resetBtn">Reset Selection</button>
+                    </div>
+                </form>
     </div> </div>
 <script>
     // API Configuration
@@ -581,7 +616,11 @@
     }
 
     function handleGenreFormSubmit(event) {
+     // Χειρισμός του event υποβολής (είτε από το submit button, είτε από το quickSaveBtn)
+            // Αν υπάρχει event (π.χ. υποβολή φόρμας), σταμάτησέ το. Αν δεν υπάρχει (π.χ. κλήση από κουμπί), συνεχίζουμε.
+            if (event && event.preventDefault) {
         event.preventDefault();
+        }
 
         const usernameInput = document.getElementById('prefUsername');
         if (!usernameInput || !usernameInput.value) {
@@ -649,14 +688,18 @@
         updateSelectedCount();
 
         document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', updateSelectedCount);
+           checkbox.removeEventListener('change', updateSelectedCount);
+           checkbox.addEventListener('change', updateSelectedCount);
         });
 
         const resetBtn = document.getElementById('resetBtn');
-        if (resetBtn) resetBtn.addEventListener('click', resetForm);
+         if (resetBtn) {
+                     resetBtn.removeEventListener('click', resetForm);
+                     resetBtn.addEventListener('click', resetForm);
+                }
 
         const form = document.getElementById('movieGenreForm');
-        if (form) form.addEventListener('submit', handleGenreFormSubmit);
+        form.removeEventListener('submit', handleGenreFormSubmit);
     }
 
     // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
