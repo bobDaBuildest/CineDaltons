@@ -13,6 +13,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <favorite-branches>
       <branch-storage>
@@ -96,12 +103,12 @@
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
@@ -125,7 +132,7 @@
   <component name="RunManager">
     <configuration name="CinedaltonsMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="cinedaltons-proj" />
+      <module name="CineDaltons" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cinedaltons.CinedaltonsMain" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -140,6 +147,13 @@
       <option name="presentableId" value="Default" />
       <updated>1764430698083</updated>
       <workItem from="1764430701619" duration="11561000" />
+      <workItem from="1764597492652" duration="760000" />
+      <workItem from="1764620790497" duration="2925000" />
+      <workItem from="1764623772394" duration="1010000" />
+      <workItem from="1764625773388" duration="421000" />
+      <workItem from="1764673868272" duration="7775000" />
+      <workItem from="1764713232466" duration="26000" />
+      <workItem from="1764763572015" duration="3357000" />
     </task>
     <task id="LOCAL-00001" summary="database connection">
       <option name="closed" value="true" />
@@ -176,7 +190,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="database connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="database connection" />
+    <MESSAGE value="Added updated&#10;frontend HTML with signup validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added updated&#10;frontend HTML with signup validation" />
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">
