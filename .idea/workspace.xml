@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/dto/SignupRequest.java" afterDir="false" />
+    <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="database connection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cinedaltons/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cinedaltons/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +21,24 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="save-preferences" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="save-preferences" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -39,7 +50,17 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/bobDaBuildest/CineDaltons.git&quot;,
-    &quot;accountId&quot;: &quot;246addb1-031b-438c-9c04-b7753d9a3074&quot;
+    &quot;accountId&quot;: &quot;f9dff005-9aaf-4374-a2b8-9281f466d78d&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;bobDaBuildest&quot;,
+    &quot;repository&quot;: &quot;CineDaltons&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -53,35 +74,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.CineDaltons [-X,clean,spring-boot:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.CineDaltons [-v].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.CineDaltons [clean,compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.CineDaltons [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.CineDaltons [spring-boot:run].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.CinedaltonsMain.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;33-patch-sign-up&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/kyrte/OneDrive/Έγγραφα/GitHub/CineDaltons/cinedaltonsproj/src/main/resources/templates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "Maven.CineDaltons [-X,clean,spring-boot:run].executor": "Run",
+    "Maven.CineDaltons [-v].executor": "Run",
+    "Maven.CineDaltons [clean,compile].executor": "Run",
+    "Maven.CineDaltons [clean].executor": "Run",
+    "Maven.CineDaltons [spring-boot:run].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.CinedaltonsMain.executor": "Run",
+    "git-widget-placeholder": "Save__preferences",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/kyrte/OneDrive/Έγγραφα/GitHub/CineDaltons/cinedaltonsproj/src/main/resources/templates",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -119,14 +139,6 @@
       </method>
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="" />
@@ -151,13 +163,13 @@
       <option name="project" value="LOCAL" />
       <updated>1764438679355</updated>
     </task>
-    <task id="LOCAL-00002" summary="Added updated&#10;frontend HTML with signup validation">
+    <task id="LOCAL-00002" summary="database connection">
       <option name="closed" value="true" />
-      <created>1764675108560</created>
+      <created>1764612275969</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1764675108560</updated>
+      <updated>1764612275969</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
