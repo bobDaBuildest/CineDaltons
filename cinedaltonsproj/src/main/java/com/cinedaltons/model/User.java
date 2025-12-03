@@ -26,6 +26,10 @@ public class User {
     @Column(unique = true, nullable = false) // Πρέπει να είναι μοναδικό και όχι null
     private String username;
 
+    private String firstName;
+
+    private String lastName;
+
     @Column(nullable = false)
     private String email;
 

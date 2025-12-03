@@ -709,79 +709,135 @@
             }
         });
     });
-document.querySelector("#signupModal form").addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    const userData = {
-        username: this.querySelector("input[type='text']").value,
-        email: this.querySelector("input[type='email']").value,
-        password: this.querySelector("input[type='password']").value,
-        birthday: this.querySelector("input[type='date']").value,
-        name: "", // Χρειάζεστε πεδία για name και surname
-        surname: ""
-    };
-    
-    fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(response => response.text())
-    .then(message => {
-        alert(message);
-        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
-            closeModal('signupModal');
+    // DOM for sign up modal
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // === SIGNUP FORM SUBMISSION (OLD ENDPOINT) ===
+        const signupModalForm = document.querySelector("#signupModal form");
+        if (signupModalForm) {
+            signupModalForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const userData = {
+                    username: this.querySelector("input[type='text']").value,
+                    email: this.querySelector("input[type='email']").value,
+                    password: this.querySelector("input[type='password']").value,
+                    birthday: this.querySelector("input[type='date']").value,
+                    name: "",
+                    surname: ""
+                };
+
+                fetch("/api/users/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData)
+                })
+                    .then(res => res.text())
+                    .then(message => {
+                        alert(message);
+                        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
+                            closeModal('signupModal');
+                        }
+                    })
+                    .catch(err => console.error(err));
+            });
         }
-    })
-    .catch(error => console.error("Error:", error));
-});
 
-    // === Password Strength ===
-    const suPass = document.getElementById("su_password");
-    const suConfirm = document.getElementById("su_confirmPassword");
-    const strengthText = document.getElementById("strengthText");
-    const strengthBar = document.getElementById("strengthBar");
+        // === Password Strength ===
+        const suPass = document.getElementById("su_password");
+        const suConfirm = document.getElementById("su_confirmPassword");
+        const strengthText = document.getElementById("strengthText");
+        const strengthBar = document.getElementById("strengthBar");
 
-    // Strength meter live updates
-    suPass.addEventListener("input", () => {
-        const val = suPass.value;
-        let strength = 0;
+        if (suPass && suConfirm) {
 
-        if (val.length >= 8) strength++;
-        if (/[A-Z]/.test(val)) strength++;
-        if (/[0-9]/.test(val)) strength++;
-        if (/[^A-Za-z0-9]/.test(val)) strength++;
+            suPass.addEventListener("input", () => {
+                const val = suPass.value;
+                let strength = 0;
 
-        strengthBar.className = "";
+                if (val.length >= 8) strength++;
+                if (/[A-Z]/.test(val)) strength++;
+                if (/[0-9]/.test(val)) strength++;
+                if (/[^A-Za-z0-9]/.test(val)) strength++;
 
-        if (strength <= 1) {
-            strengthText.textContent = "Weak";
-            strengthBar.classList.add("strength-weak");
-        } else if (strength <= 3) {
-            strengthText.textContent = "Medium";
-            strengthBar.classList.add("strength-medium");
-        } else {
-            strengthText.textContent = "Strong";
-            strengthBar.classList.add("strength-strong");
+                strengthBar.className = "";
+
+                if (strength <= 1) {
+                    strengthText.textContent = "Weak";
+                    strengthBar.classList.add("strength-weak");
+                } else if (strength <= 3) {
+                    strengthText.textContent = "Medium";
+                    strengthBar.classList.add("strength-medium");
+                } else {
+                    strengthText.textContent = "Strong";
+                    strengthBar.classList.add("strength-strong");
+                }
+            });
+
+            // === Show/Hide Password button ===
+            const toggleBtn = document.querySelector(".togglePasswordBtn");
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", function () {
+                    const type = suPass.type === "password" ? "text" : "password";
+                    suPass.type = type;
+                    this.textContent = type === "password" ? "Show" : "Hide";
+                });
+            }
+
+            // === Password Match Check ===
+            const signupForm = document.getElementById("signupForm");
+            if (signupForm) {
+                signupForm.addEventListener("submit", e => {
+                    if (suPass.value !== suConfirm.value) {
+                        e.preventDefault();
+                        alert("Passwords do not match!");
+                    }
+                });
+            }
         }
+
+        // === NEW SIGNUP ENDPOINT ===
+        const realSignupForm = document.getElementById("signupForm");
+        if (realSignupForm) {
+            realSignupForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const username = document.getElementById("su_username").value;
+                const first = document.getElementById("su_first").value;
+                const last = document.getElementById("su_last").value;
+                const email = document.getElementById("su_email").value;
+                const password = document.getElementById("su_password").value;
+                const confirm = document.getElementById("su_confirmPassword").value;
+
+                if (password !== confirm) {
+                    alert("Passwords do not match.");
+                    return;
+                }
+
+                const response = await fetch("/api/auth/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username,
+                        firstName: first,
+                        lastName: last,
+                        email,
+                        password
+                    })
+                });
+
+                const result = await response.json();
+                if (result.status === "error") {
+                    alert(result.message);
+                } else {
+                    alert("Account created successfully!");
+                }
+            });
+        }
+
     });
 
-    // === Password Match Check ===
-    document.getElementById("signupForm").addEventListener("submit", e => {
-        if (suPass.value !== suConfirm.value) {
-            e.preventDefault();
-            alert("Passwords do not match!");
-        }
-    });
 
-    // === Show/Hide Password ===
-    document.querySelector(".togglePasswordBtn").addEventListener("click", function () {
-        const type = suPass.type === "password" ? "text" : "password";
-        suPass.type = type;
-        this.textContent = type === "password" ? "Show" : "Hide";
-    });
 </script>
 </body>
 </html>

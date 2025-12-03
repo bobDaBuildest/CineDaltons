@@ -255,6 +255,32 @@
                 left: 5%;
             }
         }
+
+        .signup-validation .password-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .signup-validation .password-container input {
+            flex: 1;
+        }
+
+        .signup-validation .password-container button {
+            margin-left: 8px;
+            padding: 8px;
+        }
+
+        .signup-validation #strengthBar {
+            height: 6px;
+            width: 100%;
+            background: lightgray;
+            margin-top: 5px;
+            border-radius: 3px;
+        }
+
+        .signup-validation .strength-weak { background: red !important; }
+        .signup-validation .strength-medium { background: orange !important; }
+        .signup-validation .strength-strong { background: green !important; }
     </style>
 </head>
 <body>
@@ -290,18 +316,30 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>
         <h2>Create an account</h2>
-        <form>
+        <form id="signupForm" class="signup-validation">
+
             <label>Username</label>
-            <input type="text" required />
+            <input type="text" id="su_username" required maxlength="50"/>
+
+            <label>First Name</label>
+            <input type="text" id="su_first" required />
+
+            <label>Last Name</label>
+            <input type="text" id="su_last" required />
 
             <label>Email</label>
-            <input type="email" required />
-
-            <label>Date of Birth</label>
-            <input type="date" required/>
+            <input type="email" id="su_email" required />
 
             <label>Password</label>
-            <input type="password" required />
+            <div class="password-container">
+                <input type="password" id="su_password" required minlength="8"/>
+            </div>
+
+            <div id="strengthText"></div>
+            <div id="strengthBar"></div>
+
+            <label>Confirm Password</label>
+            <input type="password" id="su_confirmPassword" required>
 
             <button type="submit" class="submit-btn">Create Account</button>
         </form>
@@ -671,34 +709,135 @@
             }
         });
     });
-document.querySelector("#signupModal form").addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    const userData = {
-        username: this.querySelector("input[type='text']").value,
-        email: this.querySelector("input[type='email']").value,
-        password: this.querySelector("input[type='password']").value,
-        birthday: this.querySelector("input[type='date']").value,
-        name: "", // Χρειάζεστε πεδία για name και surname
-        surname: ""
-    };
-    
-    fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(response => response.text())
-    .then(message => {
-        alert(message);
-        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
-            closeModal('signupModal');
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // === SIGNUP FORM SUBMISSION (OLD ENDPOINT) ===
+        const signupModalForm = document.querySelector("#signupModal form");
+        if (signupModalForm) {
+            signupModalForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const userData = {
+                    username: this.querySelector("input[type='text']").value,
+                    email: this.querySelector("input[type='email']").value,
+                    password: this.querySelector("input[type='password']").value,
+                    birthday: this.querySelector("input[type='date']").value,
+                    name: "",
+                    surname: ""
+                };
+
+                fetch("/api/users/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData)
+                })
+                    .then(res => res.text())
+                    .then(message => {
+                        alert(message);
+                        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
+                            closeModal('signupModal');
+                        }
+                    })
+                    .catch(err => console.error(err));
+            });
         }
-    })
-    .catch(error => console.error("Error:", error));
-});
+
+        // === Password Strength ===
+        const suPass = document.getElementById("su_password");
+        const suConfirm = document.getElementById("su_confirmPassword");
+        const strengthText = document.getElementById("strengthText");
+        const strengthBar = document.getElementById("strengthBar");
+
+        if (suPass && suConfirm) {
+
+            suPass.addEventListener("input", () => {
+                const val = suPass.value;
+                let strength = 0;
+
+                if (val.length >= 8) strength++;
+                if (/[A-Z]/.test(val)) strength++;
+                if (/[0-9]/.test(val)) strength++;
+                if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+                strengthBar.className = "";
+
+                if (strength <= 1) {
+                    strengthText.textContent = "Weak";
+                    strengthBar.classList.add("strength-weak");
+                } else if (strength <= 3) {
+                    strengthText.textContent = "Medium";
+                    strengthBar.classList.add("strength-medium");
+                } else {
+                    strengthText.textContent = "Strong";
+                    strengthBar.classList.add("strength-strong");
+                }
+            });
+
+            // === Show/Hide Password button ===
+            const toggleBtn = document.querySelector(".togglePasswordBtn");
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", function () {
+                    const type = suPass.type === "password" ? "text" : "password";
+                    suPass.type = type;
+                    this.textContent = type === "password" ? "Show" : "Hide";
+                });
+            }
+
+            // === Password Match Check ===
+            const signupForm = document.getElementById("signupForm");
+            if (signupForm) {
+                signupForm.addEventListener("submit", e => {
+                    if (suPass.value !== suConfirm.value) {
+                        e.preventDefault();
+                        alert("Passwords do not match!");
+                    }
+                });
+            }
+        }
+
+        // === NEW SIGNUP ENDPOINT ===
+        const realSignupForm = document.getElementById("signupForm");
+        if (realSignupForm) {
+            realSignupForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const username = document.getElementById("su_username").value;
+                const first = document.getElementById("su_first").value;
+                const last = document.getElementById("su_last").value;
+                const email = document.getElementById("su_email").value;
+                const password = document.getElementById("su_password").value;
+                const confirm = document.getElementById("su_confirmPassword").value;
+
+                if (password !== confirm) {
+                    alert("Passwords do not match.");
+                    return;
+                }
+
+                const response = await fetch("/api/auth/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username,
+                        firstName: first,
+                        lastName: last,
+                        email,
+                        password
+                    })
+                });
+
+                const result = await response.json();
+                if (result.status === "error") {
+                    alert(result.message);
+                } else {
+                    alert("Account created successfully!");
+                }
+            });
+        }
+
+    });
+
+
 </script>
 </body>
 </html>
