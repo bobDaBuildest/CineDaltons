@@ -4,130 +4,86 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="database connection">
+    <list default="true" id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/genres.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/frontend/CineDaltons.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/frontend/CineDaltons1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/dto/UserProfileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/dto/UserProfileDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/css/styles.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/user-preference.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/user-preference.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cinedaltons/dto/UserProfileDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cinedaltons/dto/UserProfileDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cinedaltons/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cinedaltons/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/user-preference.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user-preference.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="save-preferences" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="save-preferences" />
+        <entry key="$PROJECT_DIR$" value="patch_gitignore_signin" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;KyriakosTerzoudis&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "bobDaBuildest"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/bobDaBuildest/CineDaltons.git&quot;,
-    &quot;accountId&quot;: &quot;f9dff005-9aaf-4374-a2b8-9281f466d78d&quot;
-  },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
-    },
-    &quot;owner&quot;: &quot;bobDaBuildest&quot;,
-    &quot;repository&quot;: &quot;CineDaltons&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/bobDaBuildest/CineDaltons.git",
+    "accountId": "0b81fcd1-c5f9-4eb2-9d6b-002f9ad703b4"
   }
-}</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="369tcXr8R6qAFEg9RpLf9P0RLWO" />
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="36LKMqIPqqGETU33NMk0LuUkW4N" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JavaScript Debug.index.html.executor": "Run",
-    "Maven.CineDaltons [-X,clean,spring-boot:run].executor": "Run",
-    "Maven.CineDaltons [-v].executor": "Run",
-    "Maven.CineDaltons [clean,compile].executor": "Run",
-    "Maven.CineDaltons [clean].executor": "Run",
-    "Maven.CineDaltons [spring-boot:run].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CinedaltonsMain.executor": "Run",
-    "git-widget-placeholder": "Save__preferences",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
+    "git-widget-placeholder": "patch__gitignore__structure__colors",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/kyrte/OneDrive/Έγγραφα/GitHub/CineDaltons/cinedaltonsproj/src/main/resources/templates",
+    "last_opened_file_path": "C:/Users/30698/Desktop/9thSemester/CineDaltons/cinedaltonsproj/src/main/resources/templates",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
-    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+      <recent name="C:\Users\30698\Desktop\9thSemester\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+      <recent name="C:\Users\30698\Desktop\9thSemester\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
+      <recent name="C:\Users\30698\Desktop\9thSemester\CineDaltons" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons" />
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
-    </key>
-  </component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="mvn -v" />
-      <command value="mvn clean" />
-      <command value="   mvn spring-boot:run" />
-      <command value="mvn clean compile" />
-      <command value="mvn spring-boot:run" />
-      <command value="mvn -X clean spring-boot:run" />
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="CinedaltonsMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -139,79 +95,26 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="" />
-      <created>1764430698083</created>
+      <changelist id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="" />
+      <created>1764780370967</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764430698083</updated>
-      <workItem from="1764430701619" duration="11561000" />
-      <workItem from="1764597492652" duration="760000" />
-      <workItem from="1764620790497" duration="2925000" />
-      <workItem from="1764623772394" duration="1010000" />
-      <workItem from="1764625773388" duration="421000" />
-      <workItem from="1764673868272" duration="7775000" />
-      <workItem from="1764713232466" duration="26000" />
-      <workItem from="1764763572015" duration="3357000" />
+      <updated>1764780370967</updated>
+      <workItem from="1764780373510" duration="2570000" />
     </task>
-    <task id="LOCAL-00001" summary="database connection">
-      <option name="closed" value="true" />
-      <created>1764438679355</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1764438679355</updated>
-    </task>
-    <task id="LOCAL-00002" summary="database connection">
-      <option name="closed" value="true" />
-      <created>1764612275969</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1764612275969</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="database connection" />
-    <MESSAGE value="Added updated&#10;frontend HTML with signup validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added updated&#10;frontend HTML with signup validation" />
-  </component>
-  <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
-    <option name="sizePresets">
-      <list>
-        <SizePreset>
-          <option name="caption" value="Phone" />
-          <option name="height" value="568" />
-          <option name="width" value="320" />
-        </SizePreset>
-        <SizePreset>
-          <option name="caption" value="Tablet" />
-          <option name="height" value="1024" />
-          <option name="width" value="768" />
-        </SizePreset>
-        <SizePreset>
-          <option name="caption" value="Desktop" />
-          <option name="height" value="900" />
-          <option name="width" value="1440" />
-        </SizePreset>
-      </list>
-    </option>
   </component>
 </project>
