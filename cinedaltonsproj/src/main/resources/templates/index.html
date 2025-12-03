@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<div id="licenseModal" class="modal"  style="display:block;">
+    <div class="modal-content" style="max-width: 600px;">
+        <h2>License and Terms of Service</h2>
+        <p>Please review and accept the terms to continue using CineDaltons.</p>
+        <div class="license-text">
+            <p><strong>1. Acceptance:</strong> By accessing or using the Service, you agree to be bound by these Terms.</p>
+            <p><strong>2. API Usage:</strong> This application relies on the TMDb API. Use of search features is subject to TMDb's terms of use.</p>
+            <p><strong>3. Disclaimer:</strong> CineDaltons is a demonstration project. We assume no liability for the content or functionality.</p>
+            <p><strong>4. Data:</strong> We use local storage for watchlist and preferences. No user data is transmitted to a server (simulated).</p>
+        </div>
+        <button class="btn submit-btn" onclick="acceptLicense()">Accept and Continue</button>
+    </div>
+</div>
+
+<div id="appContent" class="hidden-app">
 <header class="top-right">
     <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
     <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
@@ -35,7 +50,7 @@
     <button class="btn" onclick="renderWatchlist()">Refresh</button>
     <div id="watchlist"></div>
 </div>
-
+</div>
 <div id="signupModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>

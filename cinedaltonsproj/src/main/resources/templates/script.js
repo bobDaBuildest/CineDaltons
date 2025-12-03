@@ -367,25 +367,74 @@ function initializeAPIInfo() {
 }
 
 // -------------------------------------------------------------
-// VI. INITIALIZATION
-// -------------------------------------------------------------
+function acceptLicense() {
+    console.log("License accepted! Function fired.");
+    // 1. Save acceptance status to local storage
+    localStorage.setItem('licenseAccepted', 'true');
 
-document.addEventListener('DOMContentLoaded', function() {
-    // This is the correct execution order:
-    renderWatchlist();
-    setupSignupValidation();
-    initializeAPIInfo();
+    // 2. Hide the modal
+    document.getElementById('licenseModal').style.display = 'none';
 
-    // Initialize search on Enter key press
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            searchMovies();
+    // 3. Enable the main application content
+    enableAppContent();
+}
+
+function enableAppContent() {
+    const appContent = document.getElementById('appContent');
+    if (appContent) {
+        // Remove the blocking/hiding class and add the active class
+        appContent.classList.remove('hidden-app');
+            // Remove the blur effect or overlay if you have one
+            document.body.style.overflow = 'auto'; // Restore scrolling
         }
-    });
+    }
 
-    document.getElementById('signInForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Signed in successfully (Simulated)!');
-        closeModal('signinModal');
+    function checkLicenseAndInit() {
+        const licenseAccepted = localStorage.getItem('licenseAccepted');
+        const licenseModal = document.getElementById('licenseModal');
+
+        if (licenseAccepted === 'true') {
+            // If accepted, hide the modal and enable the app immediately
+            if (licenseModal) licenseModal.style.display = 'none';
+            enableAppContent();
+        } else {
+            // If not accepted, show the modal and keep the app hidden
+            if (licenseModal) licenseModal.style.display = 'block';
+
+            // Ensure the app content remains hidden until accepted
+            const appContent = document.getElementById('appContent');
+            if (appContent) appContent.classList.add('hidden-app');
+        }
+
+        // Initialize all other components regardless of license status
+        renderWatchlist();
+        setupSignupValidation();
+        initializeAPIInfo();
+
+        // Initialize search on Enter key press
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchMovies();
+                }
+            });
+        }
+
+        const signInForm = document.getElementById('signInForm');
+        if (signInForm) {
+            signInForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Signed in successfully (Simulated)!');
+                closeModal('signinModal');
+            });
+        }
+    }
+
+    // -------------------------------------------------------------
+    // V. INITIALIZATION
+    // -------------------------------------------------------------
+
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLicenseAndInit();
     });
-});
