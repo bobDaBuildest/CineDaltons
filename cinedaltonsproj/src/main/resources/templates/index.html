@@ -299,13 +299,34 @@
     <p>Discover and track your favorite movies</p>
 </div>
 
-<div class="search-section">
-    <input type="text" id="searchInput" placeholder="Search movies...">
-    <button class="btn" onclick="searchMovies()">Search</button>
-</div>
+<form action="/search" method="get" class="search-section">
+    <input type="text" name="query" id="searchInput" placeholder="Search movies..." required>
+    <button type="submit" class="btn">Search</button>
+</form>
 
 <h2 style="text-align: center;">Search Results</h2>
-<div id="results"></div>
+
+<div id="results">
+    <div th:if="${error}" style="color: red; width: 100%; text-align: center;">
+        <h3 th:text="${error}">Error Message</h3>
+    </div>
+
+    <div th:each="movie : ${movies}" class="movie">
+
+        <img th:if="${movie.posterPath != null}"
+             th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
+             alt="Movie Poster">
+        <img th:if="${movie.posterPath == null}"
+             src="https://via.placeholder.com/200x300?text=No+Image"
+             alt="No Image">
+
+        <h3 th:text="${movie.title}">Movie Title</h3>
+
+        <p th:text="${movie.releaseDate}">2024</p>
+
+        <button class="btn">Add to Watchlist</button>
+    </div>
+</div>
 
 <button id="watchlist-toggle" onclick="toggleWatchlist()">
     Watchlist <span id="watchlist-badge">0</span>
@@ -443,7 +464,7 @@
 
     </div> </div><script>
     // API Configuration
-    const API_KEY = "YOUR_API_KEY_HERE";
+    const API_KEY = "fbdfbb87f57e7fd7d5778016a7b26f49";
 
     // 1. Λειτουργίες License (Άδεια Χρήσης)
     function checkLicense() {

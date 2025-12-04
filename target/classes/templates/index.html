@@ -56,11 +56,13 @@
 
         .modal-content {
             background-color: white;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 20px;
             border-radius: 8px;
             width: 90%;
-            max-width: 400px;
+            max-width: 850px; /* Αυξήσαμε το μέγιστο πλάτος */
+            max-height: 90vh; /* Επιτρέπει στο modal να καταλαμβάνει έως 90% του ύψους της οθόνης */
+            overflow-y: auto; /* Προσθέτει scrollbar αν το περιεχόμενο είναι μεγάλο */
             position: relative;
         }
 
@@ -70,6 +72,7 @@
             padding: 10px;
             background-color: #f7f7f7;
             border-radius: 4px;
+            text-align: left;
         }
 
         /* Styles for Genre Preference Form */
@@ -77,6 +80,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 10px;
+            text-align: left;
         }
         .checkbox-item {
             display: flex;
@@ -103,6 +107,7 @@
             background: #d4edda;
             color: #155724;
             border-radius: 5px;
+            margin-top: 15px;
         }
         .form-actions {
             display: flex;
@@ -294,13 +299,34 @@
     <p>Discover and track your favorite movies</p>
 </div>
 
-<div class="search-section">
-    <input type="text" id="searchInput" placeholder="Search movies...">
-    <button class="btn" onclick="searchMovies()">Search</button>
-</div>
+<form action="/search" method="get" class="search-section">
+    <input type="text" name="query" id="searchInput" placeholder="Search movies..." required>
+    <button type="submit" class="btn">Search</button>
+</form>
 
 <h2 style="text-align: center;">Search Results</h2>
-<div id="results"></div>
+
+<div id="results">
+    <div th:if="${error}" style="color: red; width: 100%; text-align: center;">
+        <h3 th:text="${error}">Error Message</h3>
+    </div>
+
+    <div th:each="movie : ${movies}" class="movie">
+
+        <img th:if="${movie.posterPath != null}"
+             th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
+             alt="Movie Poster">
+        <img th:if="${movie.posterPath == null}"
+             src="https://via.placeholder.com/200x300?text=No+Image"
+             alt="No Image">
+
+        <h3 th:text="${movie.title}">Movie Title</h3>
+
+        <p th:text="${movie.releaseDate}">2024</p>
+
+        <button class="btn">Add to Watchlist</button>
+    </div>
+</div>
 
 <button id="watchlist-toggle" onclick="toggleWatchlist()">
     Watchlist <span id="watchlist-badge">0</span>
@@ -368,6 +394,41 @@
     </div>
 </div>
 
+<div id="licenseModal" class="modal" data-backdrop="static">
+    <div class="modal-content" style="max-width: 600px;">
+        <h2>Terms of Use (License)</h2>
+        <p>Please read and accept the license to continue.</p>
+
+        <div style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
+
+            MIT License
+
+
+            Copyright (c) 2025 Daltons
+
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
+        </div>
+
+        <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
+    </div></div>
+
+
 <div id="genrePreferencesModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
         <span class="close" onclick="closeModal('genrePreferencesModal')">&times;</span>
@@ -385,10 +446,9 @@
                 </div>
             </div>
 
-            <div class="selected-count">
+            <div class="selected-count" style="text-align: right; margin-top: 10px; font-weight: bold;">
                 Selected: <span id="selectedCount">0</span> genres
             </div>
-
             <div class="success-message" id="successMessage" style="display:none;">
                 Your genre preferences have been saved successfully!
             </div>
@@ -401,10 +461,44 @@
         <h3>My Saved Preferences</h3>
         <div id="preferencesDisplay">No genre preferences saved yet.</div>
         <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>
-    </div> </div>
-<script>
+
+    </div> </div><script>
     // API Configuration
-    const API_KEY = "YOUR_API_KEY_HERE";
+    const API_KEY = "fbdfbb87f57e7fd7d5778016a7b26f49";
+
+    // 1. Λειτουργίες License (Άδεια Χρήσης)
+    function checkLicense() {
+        // Ελέγχουμε αν ο χρήστης έχει ήδη αποδεχτεί
+        const accepted = localStorage.getItem('licenseAccepted');
+
+        // Αν ΔΕΝ έχει αποδεχτεί, εμφανίζουμε το modal
+        if (!accepted) {
+            document.getElementById('licenseModal').style.display = "block";
+        }
+    }
+
+    function acceptLicense() {
+        // Αποθηκεύουμε την αποδοχή για να μην ξαναενοχλήσουμε τον χρήστη
+        localStorage.setItem('licenseAccepted', 'true');
+        document.getElementById('licenseModal').style.display = "none";
+    }
+
+    function loadLicenseText() {
+        fetch('LICENSE.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.text();
+            })
+            .then(text => {
+                document.getElementById('licenseText').textContent = text;
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                document.getElementById('licenseText').textContent = "Can't find LICENSE.txt";
+            });
+    }
 
     // Modal functions
     function openModal(id) {
@@ -418,7 +512,11 @@
     // Close modal when clicking outside
     window.onclick = function(e) {
         document.querySelectorAll(".modal").forEach(modal => {
-            if (e.target === modal) modal.style.display = "none";
+            if (e.target === modal){
+                if (modal.id !== 'licenseModal') {
+                    modal.style.display = "none";
+                }
+            }
         });
     };
 
@@ -534,6 +632,22 @@
         document.getElementById("watchlist-container").classList.toggle("hidden");
     }
 
+    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        loadLicenseText();// Φορτώνει το κείμενο της άδειας
+        checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια
+
+        renderWatchlist();
+        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
+
+        // Allow search with Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMovies();
+            }
+        });
+    });
+
     // -------------------------------------------------------------
     // ΛΕΙΤΟΥΡΓΙΕΣ ΓΙΑ ΤΙΣ ΠΡΟΤΙΜΗΣΕΙΣ ΧΡΗΣΤΗ (USER PREFERENCES)
     // -------------------------------------------------------------
@@ -619,8 +733,9 @@
     }
 
     function handleGenreFormSubmit(event) {
+    if (event && event.preventDefault) {
         event.preventDefault();
-
+}
         const usernameInput = document.getElementById('prefUsername');
         if (!usernameInput || !usernameInput.value) {
             alert('Please enter your name');
@@ -687,157 +802,47 @@
         updateSelectedCount();
 
         document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
+        checkbox.removeEventListener('change', updateSelectedCount);
             checkbox.addEventListener('change', updateSelectedCount);
         });
 
         const resetBtn = document.getElementById('resetBtn');
-        if (resetBtn) resetBtn.addEventListener('click', resetForm);
-
+        if (resetBtn){
+        resetBtn.removeEventListener('click', resetForm);
+        resetBtn.addEventListener('click', resetForm);
+}
         const form = document.getElementById('movieGenreForm');
         if (form) form.addEventListener('submit', handleGenreFormSubmit);
     }
 
-    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
-    document.addEventListener('DOMContentLoaded', function() {
-        renderWatchlist();
-        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
-
-        // Allow search with Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchMovies();
-            }
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        // === SIGNUP FORM SUBMISSION (OLD ENDPOINT) ===
-        const signupModalForm = document.querySelector("#signupModal form");
-        if (signupModalForm) {
-            signupModalForm.addEventListener("submit", function (e) {
-                e.preventDefault();
-
-                const userData = {
-                    username: this.querySelector("input[type='text']").value,
-                    email: this.querySelector("input[type='email']").value,
-                    password: this.querySelector("input[type='password']").value,
-                    birthday: this.querySelector("input[type='date']").value,
-                    name: "",
-                    surname: ""
-                };
-
-                fetch("/api/users/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(userData)
-                })
-                    .then(res => res.text())
-                    .then(message => {
-                        alert(message);
-                        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
-                            closeModal('signupModal');
-                        }
-                    })
-                    .catch(err => console.error(err));
-            });
+document.querySelector("#signupModal form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const userData = {
+        username: this.querySelector("input[type='text']").value,
+        email: this.querySelector("input[type='email']").value,
+        password: this.querySelector("input[type='password']").value,
+        birthday: this.querySelector("input[type='date']").value,
+        name: "", // Χρειάζεστε πεδία για name και surname
+        surname: ""
+    };
+    
+    fetch("/api/users/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => response.text())
+    .then(message => {
+        alert(message);
+        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
+            closeModal('signupModal');
         }
-
-        // === Password Strength ===
-        const suPass = document.getElementById("su_password");
-        const suConfirm = document.getElementById("su_confirmPassword");
-        const strengthText = document.getElementById("strengthText");
-        const strengthBar = document.getElementById("strengthBar");
-
-        if (suPass && suConfirm) {
-
-            suPass.addEventListener("input", () => {
-                const val = suPass.value;
-                let strength = 0;
-
-                if (val.length >= 8) strength++;
-                if (/[A-Z]/.test(val)) strength++;
-                if (/[0-9]/.test(val)) strength++;
-                if (/[^A-Za-z0-9]/.test(val)) strength++;
-
-                strengthBar.className = "";
-
-                if (strength <= 1) {
-                    strengthText.textContent = "Weak";
-                    strengthBar.classList.add("strength-weak");
-                } else if (strength <= 3) {
-                    strengthText.textContent = "Medium";
-                    strengthBar.classList.add("strength-medium");
-                } else {
-                    strengthText.textContent = "Strong";
-                    strengthBar.classList.add("strength-strong");
-                }
-            });
-
-            // === Show/Hide Password button ===
-            const toggleBtn = document.querySelector(".togglePasswordBtn");
-            if (toggleBtn) {
-                toggleBtn.addEventListener("click", function () {
-                    const type = suPass.type === "password" ? "text" : "password";
-                    suPass.type = type;
-                    this.textContent = type === "password" ? "Show" : "Hide";
-                });
-            }
-
-            // === Password Match Check ===
-            const signupForm = document.getElementById("signupForm");
-            if (signupForm) {
-                signupForm.addEventListener("submit", e => {
-                    if (suPass.value !== suConfirm.value) {
-                        e.preventDefault();
-                        alert("Passwords do not match!");
-                    }
-                });
-            }
-        }
-
-        // === NEW SIGNUP ENDPOINT ===
-        const realSignupForm = document.getElementById("signupForm");
-        if (realSignupForm) {
-            realSignupForm.addEventListener("submit", async function (e) {
-                e.preventDefault();
-
-                const username = document.getElementById("su_username").value;
-                const first = document.getElementById("su_first").value;
-                const last = document.getElementById("su_last").value;
-                const email = document.getElementById("su_email").value;
-                const password = document.getElementById("su_password").value;
-                const confirm = document.getElementById("su_confirmPassword").value;
-
-                if (password !== confirm) {
-                    alert("Passwords do not match.");
-                    return;
-                }
-
-                const response = await fetch("/api/auth/signup", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        username,
-                        firstName: first,
-                        lastName: last,
-                        email,
-                        password
-                    })
-                });
-
-                const result = await response.json();
-                if (result.status === "error") {
-                    alert(result.message);
-                } else {
-                    alert("Account created successfully!");
-                }
-            });
-        }
-
-    });
-
-
+    })
+    .catch(error => console.error("Error:", error));
+});
 </script>
 </body>
 </html>
