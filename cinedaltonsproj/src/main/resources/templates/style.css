@@ -7,15 +7,63 @@
     --accent-color: #e6b800; /* Darker Yellow for hover */
     --border-color: #444444;
 }
-
-/* --- Base Styles --- */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: #000000;
+    color: #FFA500; /* Orange text */
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+margin: 0;
+padding: 20px;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FF8C00; /* Darker orange for headers */
+}
+
+a {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #FFA500;
+}
+
+/* Buttons */
+button, .btn, input[type="submit"], input[type="button"] {
+    background-color: #FFA500;
+    color: #000000;
+    border: 2px solid #FF8C00;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #FF8C00;
+}
+
+/* Inputs */
+input[type="text"], input[type="password"], input[type="search"] {
+    background-color: #333;
+    color: #FFA500;
+    border: 1px solid #FFA500;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* Layout containers if any */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+hr {
+    border-color: #333;
+}
+/* --- Base Styles --- */
 
 /* --- Header Styles --- */
 header.top-right {

@@ -1,296 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
     <title>CineDaltons</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        /* Header styles */
-        header.top-right {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        /* Button styles */
-        .btn {
-            background-color: #2b8cff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-left: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn:hover {
-            background-color: #1a7ae6;
-        }
-
-        /* Container styles */
-        .container {
-            text-align: center;
-            padding: 100px 20px 20px;
-        }
-
-        /* Modal styles */
+        /* Βασική δομή για να λειτουργήσουν τα modals και οι κρυφές κλάσεις */
         .modal {
-            display: none; /* Κλειδί για την αρχική απόκρυψη */
+            display: none; /* Κρύβει όλα τα modals από προεπιλογή */
             position: fixed;
-            z-index: 1001;
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
         }
-
         .modal-content {
-            background-color: white;
-            margin: 5% auto;
+            background-color: #fefefe;
+            margin: 10% auto;
             padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            color: #333;
             border-radius: 8px;
-            width: 90%;
-            max-width: 850px; /* Αυξήσαμε το μέγιστο πλάτος */
-            max-height: 90vh; /* Επιτρέπει στο modal να καταλαμβάνει έως 90% του ύψους της οθόνης */
-            overflow-y: auto; /* Προσθέτει scrollbar αν το περιεχόμενο είναι μεγάλο */
-            position: relative;
         }
-
-        /* Specific modal content style for preferences */
-        #preferencesDisplay {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f7f7f7;
-            border-radius: 4px;
-            text-align: left;
-        }
-
-        /* Styles for Genre Preference Form */
-        .checkbox-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            text-align: left;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            background: #f9f9f9;
-            border-radius: 5px;
-        }
-        .genre-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            display: inline-block;
-            background: #2b8cff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
-            color: white;
-            font-size: 12px;
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
             font-weight: bold;
         }
-        .success-message {
-            padding: 10px;
-            background: #d4edda;
-            color: #155724;
-            border-radius: 5px;
-            margin-top: 15px;
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+        .hidden-app {
+            display: none; /* Αυτό θα κρύψει το κύριο περιεχόμενο μέχρι την αποδοχή της άδειας */
         }
-
-
-        .close {
+        .top-right {
             position: absolute;
-            right: 15px;
-            top: 10px;
-            font-size: 24px;
-            cursor: pointer;
+            top: 20px;
+            right: 20px;
         }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-top: 10px;
-            margin-bottom: 5px;
-            text-align: left;
-        }
-
-        input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .submit-btn {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #2b8cff;
-            color: white;
+        .btn {
+            background-color: #fdd835;
             border: none;
-            border-radius: 4px;
+            padding: 10px 15px;
             cursor: pointer;
-        }
-
-        /* Search section */
-        .search-section {
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        #searchInput {
-            padding: 10px;
-            width: 300px;
-            max-width: 80%;
-            border: 1px solid #ddd;
             border-radius: 4px;
+            margin-left: 10px;
         }
-
-        /* Results section */
-        #results {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        /* Movie card */
-        .movie {
-            border: 1px solid #ddd;
-            width: 250px;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .movie img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        /* Watchlist button */
+        /* Προσομοίωση του style.css για το watchlist toggle */
         #watchlist-toggle {
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             left: 20px;
-            background: #2b8cff;
-            color: white;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 20px;
-            cursor: pointer;
+            padding: 15px;
+            background-color: #fdd835;
+            border-radius: 50px;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1000;
+            cursor: pointer;
         }
-
-        #watchlist-badge {
-            background: red;
-            color: white;
-            border-radius: 50%;
-            padding: 3px 7px;
-            font-size: 12px;
-            margin-left: 6px;
-        }
-
-        /* Watchlist panel */
         #watchlist-container {
             position: fixed;
-            top: 70px;
+            bottom: 80px;
             left: 20px;
-            width: 320px;
-            max-height: 80vh;
-            overflow-y: auto;
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #ccc;
+            width: 300px;
+            background-color: #333;
+            color: white;
             padding: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-            transition: 0.3s ease;
-            z-index: 1000;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
-
-        #watchlist-container.hidden {
-            transform: translateX(-140%);
+        .hidden {
+            display: none;
         }
-
-        .watchlist-item {
-            background: #f7f7f7;
+        .movie {
+            border: 1px solid #444;
             padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            border-radius: 6px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
         }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .container {
-                padding-top: 150px;
-            }
-
-            #watchlist-container {
-                width: 90%;
-                left: 5%;
-            }
-        }
-
-        .signup-validation .password-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .signup-validation .password-container input {
-            flex: 1;
-        }
-
-        .signup-validation .password-container button {
-            margin-left: 8px;
-            padding: 8px;
-        }
-
-        .signup-validation #strengthBar {
-            height: 6px;
-            width: 100%;
-            background: lightgray;
-            margin-top: 5px;
-            border-radius: 3px;
-        }
-
-        .signup-validation .strength-weak { background: red !important; }
-        .signup-validation .strength-medium { background: orange !important; }
-        .signup-validation .strength-strong { background: green !important; }
     </style>
 </head>
-<body>
-<div id="licenseModal" class="modal"  style="display:block;">
-    <div class="modal-content" style="max-width: 600px;">
+<body style="background-color: #1a1a1a; color: white; font-family: sans-serif;">
+
+<div id="licenseModal" class="modal" style="display:block;">
+    <div class="modal-content">
         <h2>License and Terms of Service</h2>
         <p>Please review and accept the terms to continue using CineDaltons.</p>
         <div class="license-text">
@@ -304,43 +108,48 @@
 </div>
 
 <div id="appContent" class="hidden-app">
-<header class="top-right">
-    <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
-    <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
-    <button class="btn" onclick="openModal('signinModal')">Sign In</button>
-</header>
+    <header class="top-right">
+        <div id="auth-buttons">
+            <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+            <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+            <button class="btn" onclick="openModal('signinModal')">Sign In</button>
+        </div>
+    </header>
 
-<div class="container">
-    <h1>Welcome to CineDaltons</h1>
-    <p>Discover and track your favorite movies</p>
-</div>
+    <div class="container" style="text-align: center; padding-top: 50px;">
+        <img th:if="${error}" src="https://via.placeholder.com/100x100?text=Error" alt="Error" style="display: none;"/>
+        <img th:if="${error}" src="/images/error-icon.png" alt="Error" style="display: none;"/>
 
-<form action="/search" method="get" class="search-section">
-    <input type="text" name="query" id="searchInput" placeholder="Search movies..." required>
-    <button type="submit" class="btn">Search</button>
-</form>
-
-<h2 style="text-align: center;">Search Results</h2>
-
-<div id="results">
-    <div th:if="${error}" style="color: red; width: 100%; text-align: center;">
-        <h3 th:text="${error}">Error Message</h3>
+        <h1>Welcome to CineDaltons</h1>
+        <p>Discover and track your favorite movies</p>
     </div>
 
-    <div th:each="movie : ${movies}" class="movie">
+    <form action="/search" method="get" class="search-section" style="text-align: center; margin: 20px auto;">
+        <input type="text" name="query" id="searchInput" placeholder="Search movies..." required
+               style="padding: 10px; width: 400px; border-radius: 4px; border: none; background-color: #333; color: white;">
+        <button type="button" class="btn" onclick="searchMovies()">Search</button>
+    </form>
 
-        <img th:if="${movie.posterPath != null}"
-             th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
-             alt="Movie Poster">
-        <img th:if="${movie.posterPath == null}"
-             src="https://via.placeholder.com/200x300?text=No+Image"
-             alt="No Image">
+    <h2 style="text-align: center;">Search Results</h2>
 
-        <h3 th:text="${movie.title}">Movie Title</h3>
+    <div id="results" style="text-align: center;">
+        <div th:if="${error}" style="color: red; width: 100%; text-align: center;">
+            <h3 th:text="${error}">Error Message</h3>
+        </div>
 
-        <p th:text="${movie.releaseDate}">2024</p>
+        <div th:each="movie : ${movies}" class="movie">
+            <img th:if="${movie.posterPath != null}"
+                 th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
+                 alt="Movie Poster">
+            <img th:if="${movie.posterPath == null}"
+                 src="https://via.placeholder.com/200x300?text=No+Image"
+                 alt="No Image">
 
-        <button class="btn">Add to Watchlist</button>
+            <h3 th:text="${movie.title}">Movie Title</h3>
+            <p th:text="${movie.releaseDate}">2024</p>
+
+            <button class="btn">Add to Watchlist</button>
+        </div>
     </div>
 </div>
 
@@ -353,35 +162,46 @@
     <button class="btn" onclick="renderWatchlist()">Refresh</button>
     <div id="watchlist"></div>
 </div>
-</div>
+
 <div id="signupModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>
         <h2>Create an account</h2>
         <form id="signupForm" class="signup-validation">
-            <label>Username</label>
-            <input type="text" id="su_username" required maxlength="50"/>
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Username</label>
+                <input type="text" id="su_username" required maxlength="50" style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
 
-            <label>First Name</label>
-            <input type="text" id="su_first" required />
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">First Name</label>
+                <input type="text" id="su_first" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
 
-            <label>Last Name</label>
-            <input type="text" id="su_last" required />
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Last Name</label>
+                <input type="text" id="su_last" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
 
-            <label>Email</label>
-            <input type="email" id="su_email" required />
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Email</label>
+                <input type="email" id="su_email" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
 
-            <label>Password</label>
-            <div class="password-container">
-                <input type="password" id="su_password" required minlength="8"/>
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Password</label>
+                <div class="password-container">
+                    <input type="password" id="su_password" required minlength="8" style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+                </div>
             </div>
 
             <div id="strengthText"></div>
             <div id="strengthBar"></div>
 
-            <label>Confirm Password</label>
-            <input type="password" id="su_confirmPassword" required>
-
+            <div style="margin-bottom: 20px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Confirm Password</label>
+                <input type="password" id="su_confirmPassword" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+            </div>
             <button type="submit" class="submit-btn">Create Account</button>
         </form>
     </div>
@@ -392,57 +212,19 @@
         <span class="close" onclick="closeModal('signinModal')">&times;</span>
         <h2>Sign In</h2>
         <form id="signInForm">
-            <label>Email</label>
+            <label style="color: black;">Email</label>
             <input type="email" required />
-
-            <label>Password</label>
+            <label style="color: black;">Password</label>
             <input type="password" required />
-
             <div style="margin-top: 10px; text-align: right;">
                 <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" class="text-link">
                     Forgot Password?
                 </button>
             </div>
-
             <button type="submit" class="submit-btn">Login</button>
         </form>
     </div>
 </div>
-
-<div id="licenseModal" class="modal" data-backdrop="static">
-    <div class="modal-content" style="max-width: 600px;">
-        <h2>Terms of Use (License)</h2>
-        <p>Please read and accept the license to continue.</p>
-
-        <div style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
-
-            MIT License
-
-
-            Copyright (c) 2025 Daltons
-
-            Permission is hereby granted, free of charge, to any person obtaining a copy
-            of this software and associated documentation files (the "Software"), to deal
-            in the Software without restriction, including without limitation the rights
-            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-            copies of the Software, and to permit persons to whom the Software is
-            furnished to do so, subject to the following conditions:
-
-            The above copyright notice and this permission notice shall be included in all
-            copies or substantial portions of the Software.
-
-            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-            SOFTWARE.
-        </div>
-
-        <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
-    </div></div>
-
 
 <div id="genrePreferencesModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
@@ -452,19 +234,20 @@
 
         <form id="movieGenreForm">
             <div class="form-group">
-                <label for="prefUsername">Your Name</label> <input type="text" id="prefUsername" name="username" required>
+                <label for="prefUsername" style="color: black;">Your Name</label> <input type="text" id="prefUsername" name="username" required>
             </div>
 
             <div class="form-group">
-                <label>Select Your Favorite Movie Genres</label>
+                <label style="color: black;">Select Your Favorite Movie Genres</label>
                 <div class="checkbox-container" id="genreContainer">
                 </div>
             </div>
 
-            <div class="selected-count" style="text-align: right; margin-top: 10px; font-weight: bold;">
+            <div class="selected-count" style="color: black;">
                 Selected: <span id="selectedCount">0</span> genres
             </div>
-            <div class="success-message" id="successMessage" style="display:none;">
+
+            <div class="success-message" id="successMessage" style="display:none; color: green;">
                 Your genre preferences have been saved successfully!
             </div>
 
@@ -474,31 +257,42 @@
             </div>
         </form>
         <hr>
-        <h3>My Saved Preferences</h3>
-        <div id="preferencesDisplay">No genre preferences saved yet.</div>
+        <h3 style="color: black;">My Saved Preferences</h3>
+        <div id="preferencesDisplay" style="color: black;">No genre preferences saved yet.</div>
         <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>
 
-    </div> </div><script>
+    </div>
+</div>
+
+<script>
     // API Configuration
+    // ΠΡΟΣΟΧΗ: Το API key είναι δημόσιο, αλλά είναι καλό να μην το εκθέτετε σε πραγματική εφαρμογή.
     const API_KEY = "fbdfbb87f57e7fd7d5778016a7b26f49";
 
     // 1. Λειτουργίες License (Άδεια Χρήσης)
     function checkLicense() {
-        // Ελέγχουμε αν ο χρήστης έχει ήδη αποδεχτεί
         const accepted = localStorage.getItem('licenseAccepted');
+        const licenseModal = document.getElementById('licenseModal');
+        const appContent = document.getElementById('appContent');
 
-        // Αν ΔΕΝ έχει αποδεχτεί, εμφανίζουμε το modal
         if (!accepted) {
-            document.getElementById('licenseModal').style.display = "block";
+            licenseModal.style.display = "block";
+            appContent.style.display = "none";
+        } else {
+            licenseModal.style.display = "none";
+            appContent.style.display = "block"; // Εμφάνιση περιεχομένου μετά την αποδοχή
         }
     }
 
     function acceptLicense() {
-        // Αποθηκεύουμε την αποδοχή για να μην ξαναενοχλήσουμε τον χρήστη
         localStorage.setItem('licenseAccepted', 'true');
         document.getElementById('licenseModal').style.display = "none";
+        document.getElementById('appContent').style.display = "block"; // Εμφάνιση του κύριου περιεχομένου
     }
 
+    // Η συνάρτηση loadLicenseText() δεν μπορεί να φορτώσει το αρχείο LICENSE.txt σε απλό περιβάλλον browser
+    // χωρίς server, οπότε την σχολιάζω/αφαιρώ την κλήση της, κρατώντας το κείμενο απευθείας στο HTML.
+    /*
     function loadLicenseText() {
         fetch('LICENSE.txt')
             .then(response => {
@@ -508,13 +302,14 @@
                 return response.text();
             })
             .then(text => {
-                document.getElementById('licenseText').textContent = text;
+                // Προσοχή: Δεν υπάρχει πλέον στο HTML
+                // document.getElementById('licenseText').textContent = text;
             })
             .catch(err => {
                 console.error("Error:", err);
-                document.getElementById('licenseText').textContent = "Can't find LICENSE.txt";
             });
     }
+    */
 
     // Modal functions
     function openModal(id) {
@@ -529,14 +324,14 @@
     window.onclick = function(e) {
         document.querySelectorAll(".modal").forEach(modal => {
             if (e.target === modal){
-                if (modal.id !== 'licenseModal') {
+                if (modal.id !== 'licenseModal') { // Το licenseModal πρέπει να κλείνει μόνο με το Accept
                     modal.style.display = "none";
                 }
             }
         });
     };
 
-    // Watchlist functions (No changes needed here)
+    // Watchlist functions
     function getWatchlist() {
         return JSON.parse(localStorage.getItem("watchlist") || "[]");
     }
@@ -545,24 +340,25 @@
         localStorage.setItem("watchlist", JSON.stringify(list));
     }
 
-    // Search movies function
+    // Search movies function (Διορθωμένο για να δουλεύει με το button type="button" και το JS)
     async function searchMovies() {
         const query = document.getElementById("searchInput").value;
-        if (!query) return;
+        const resultsDiv = document.getElementById("results");
+
+        if (!query) {
+            resultsDiv.innerHTML = "<p>Please enter a movie title to search.</p>";
+            return;
+        }
+
+        resultsDiv.innerHTML = "<h3>Searching...</h3>";
 
         try {
             const response = await fetch(
-                `https://api.themoviedb.org/3/search/movie?query=${query}`,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${API_KEY}`,
-                        "Content-Type": "application/json;charset=utf-8"
-                    }
-                }
+                `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=${API_KEY}`
+                // Χρησιμοποιώ την πιο απλή μορφή με api_key στην query string για ευκολία
             );
 
             const data = await response.json();
-            const resultsDiv = document.getElementById("results");
             resultsDiv.innerHTML = "";
 
             if (data.results && data.results.length > 0) {
@@ -574,9 +370,9 @@
                     const card = document.createElement("div");
                     card.className = "movie";
                     card.innerHTML = `
-                            <img src="${posterPath}" alt="${movie.title}">
-                            <h3>${movie.title}</h3>
-                            <p>${movie.release_date ? movie.release_date.substring(0,4) : 'N/A'}</p>
+                            <img src="${posterPath}" alt="${movie.title}" style="max-width: 100%; height: auto;">
+                            <h3 style="font-size: 1.1em; margin: 10px 0;">${movie.title}</h3>
+                            <p style="margin: 5px 0;">${movie.release_date ? movie.release_date.substring(0,4) : 'N/A'}</p>
                             <button class="btn" onclick='addToWatchlist(${JSON.stringify(movie)})'>
                                 Add to Watchlist
                             </button>
@@ -588,9 +384,10 @@
             }
         } catch (error) {
             console.error("Error fetching movies:", error);
-            document.getElementById("results").innerHTML = "<p>Error searching for movies. Please try again.</p>";
+            document.getElementById("results").innerHTML = "<p>Error searching for movies. Please check your API key or network connection.</p>";
         }
     }
+
 
     // Add to watchlist
     function addToWatchlist(movie) {
@@ -635,9 +432,10 @@
         items.forEach(movie => {
             const item = document.createElement("div");
             item.className = "watchlist-item";
+            item.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 5px 0;";
             item.innerHTML = `
                     <span>${movie.title}</span>
-                    <button class="btn" onclick="removeFromWatchlist(${movie.id})">X</button>
+                    <button class="btn" style="padding: 5px 10px;" onclick="removeFromWatchlist(${movie.id})">X</button>
                 `;
             container.appendChild(item);
         });
@@ -646,23 +444,11 @@
     // Toggle watchlist panel
     function toggleWatchlist() {
         document.getElementById("watchlist-container").classList.toggle("hidden");
+        // Ενημέρωση της λίστας κάθε φορά που ανοίγει
+        if (!document.getElementById("watchlist-container").classList.contains("hidden")) {
+            renderWatchlist();
+        }
     }
-
-    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
-    document.addEventListener('DOMContentLoaded', function() {
-        loadLicenseText();// Φορτώνει το κείμενο της άδειας
-        checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια
-
-        renderWatchlist();
-        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
-
-        // Allow search with Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchMovies();
-            }
-        });
-    });
 
     // -------------------------------------------------------------
     // ΛΕΙΤΟΥΡΓΙΕΣ ΓΙΑ ΤΙΣ ΠΡΟΤΙΜΗΣΕΙΣ ΧΡΗΣΤΗ (USER PREFERENCES)
@@ -692,6 +478,7 @@
         movieGenres.forEach(genre => {
             const checkboxItem = document.createElement('div');
             checkboxItem.className = 'checkbox-item';
+            checkboxItem.style.cssText = 'display: inline-block; margin: 5px;';
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
@@ -701,14 +488,16 @@
 
             const label = document.createElement('label');
             label.htmlFor = checkbox.id;
-            label.style.marginLeft = '10px';
+            label.style.marginLeft = '5px';
+            label.style.color = 'black'; // Επειδή το modal-content είναι λευκό
 
             const icon = document.createElement('span');
             icon.className = 'genre-icon';
             icon.textContent = genre.icon;
+            icon.style.cssText = 'background-color: #fdd835; padding: 2px 5px; border-radius: 3px; font-weight: bold; color: black;';
 
             label.appendChild(icon);
-            label.appendChild(document.createTextNode(genre.name));
+            label.appendChild(document.createTextNode(' ' + genre.name));
 
             checkboxItem.appendChild(checkbox);
             checkboxItem.appendChild(label);
@@ -749,9 +538,9 @@
     }
 
     function handleGenreFormSubmit(event) {
-    if (event && event.preventDefault) {
-        event.preventDefault();
-}
+        if (event && event.preventDefault) {
+            event.preventDefault();
+        }
         const usernameInput = document.getElementById('prefUsername');
         if (!usernameInput || !usernameInput.value) {
             alert('Please enter your name');
@@ -777,19 +566,18 @@
             }, 3000);
         }
 
-        showPreferencesDisplay(); // ΚΛΕΙΔΙ: Ενημερώνουμε το κάτω display αμέσως μετά την αποθήκευση
+        showPreferencesDisplay();
         alert('Preferences saved successfully!');
     }
 
-    // Σωστή συνάρτηση για άνοιγμα του modal των προτιμήσεων
     function showPreferencesModal() {
         initializeGenreForm();
-        showPreferencesDisplay(); // ΚΛΕΙΔΙ: Ενημερώνουμε το κάτω display αμέσως πριν ανοίξουμε το modal
+        showPreferencesDisplay();
         openModal('genrePreferencesModal');
     }
 
     function initializeGenreForm() {
-        createGenreCheckboxes();
+        createGenreCheckboxes(); // Δημιουργεί τα checkboxes
 
         const preferences = localStorage.getItem('userGenrePreferences');
 
@@ -802,63 +590,60 @@
                 usernameInput.value = data.username || '';
             }
 
-            // 2. Συμπλήρωση των checkboxes
+            // 2. Συμπλήρωση των checkboxes (πρέπει να γίνει *μετά* την createGenreCheckboxes)
             document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
-                if (data.selectedGenres.includes(checkbox.value)) {
+                if (data.selectedGenres && data.selectedGenres.includes(checkbox.value)) {
                     checkbox.checked = true;
                 } else {
                     checkbox.checked = false;
                 }
             });
         } else {
-            // Εάν δεν υπάρχουν αποθηκευμένα, καθαρίζουμε τη φόρμα
             resetForm();
         }
 
         updateSelectedCount();
 
+        // 3. Προσθήκη Event Listeners
         document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
-        checkbox.removeEventListener('change', updateSelectedCount);
+            checkbox.removeEventListener('change', updateSelectedCount); // Αφαίρεση για αποφυγή διπλοεγγραφών
             checkbox.addEventListener('change', updateSelectedCount);
         });
 
         const resetBtn = document.getElementById('resetBtn');
         if (resetBtn){
-        resetBtn.removeEventListener('click', resetForm);
-        resetBtn.addEventListener('click', resetForm);
-}
+            resetBtn.removeEventListener('click', resetForm);
+            resetBtn.addEventListener('click', resetForm);
+        }
+
+        // Αφαίρεση και επαναπροσθήκη του submit listener
         const form = document.getElementById('movieGenreForm');
-        if (form) form.addEventListener('submit', handleGenreFormSubmit);
+        if (form) {
+            form.removeEventListener('submit', handleGenreFormSubmit);
+            form.addEventListener('submit', handleGenreFormSubmit);
+        }
     }
 
-document.querySelector("#signupModal form").addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    const userData = {
-        username: this.querySelector("input[type='text']").value,
-        email: this.querySelector("input[type='email']").value,
-        password: this.querySelector("input[type='password']").value,
-        birthday: this.querySelector("input[type='date']").value,
-        name: "", // Χρειάζεστε πεδία για name και surname
-        surname: ""
-    };
-    
-    fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(response => response.text())
-    .then(message => {
-        alert(message);
-        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
-            closeModal('signupModal');
+    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια και εμφανίζει το περιεχόμενο
+
+        renderWatchlist(); // Αρχική φόρτωση του badge/watchlist
+        // Η initializeGenreForm() καλείται μόνο όταν ανοίγει το Preferences Modal
+
+        // Allow search with Enter key on search input
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); // Αποτρέπει το default submit της φόρμας
+                    searchMovies();
+                }
+            });
         }
-    })
-    .catch(error => console.error("Error:", error));
-});
+    });
+
 </script>
+
 </body>
 </html>
