@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="database connection">
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/config/TmdbWebClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/TmdbViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/dto/TmdbGenreDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/dto/TmdbMovieDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/model/TmdbResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/service/TmdbService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/HtmlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/controller/HtmlController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cinedaltons/controller/HtmlController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cinedaltons/controller/HtmlController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="Added search functionality and movie details page" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,8 +104,17 @@
       <option name="presentableId" value="Default" />
       <updated>1764780370967</updated>
       <workItem from="1764780373510" duration="2570000" />
-      <workItem from="1764803451269" duration="5383000" />
+      <workItem from="1764803451269" duration="6333000" />
     </task>
+    <task id="LOCAL-00001" summary="Added search functionality and movie details page">
+      <option name="closed" value="true" />
+      <created>1764836210136</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764836210136</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
