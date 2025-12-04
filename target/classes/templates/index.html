@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -289,11 +289,27 @@
     </style>
 </head>
 <body>
+<div id="licenseModal" class="modal"  style="display:block;">
+    <div class="modal-content" style="max-width: 600px;">
+        <h2>License and Terms of Service</h2>
+        <p>Please review and accept the terms to continue using CineDaltons.</p>
+        <div class="license-text">
+            <p><strong>1. Acceptance:</strong> By accessing or using the Service, you agree to be bound by these Terms.</p>
+            <p><strong>2. API Usage:</strong> This application relies on the TMDb API. Use of search features is subject to TMDb's terms of use.</p>
+            <p><strong>3. Disclaimer:</strong> CineDaltons is a demonstration project. We assume no liability for the content or functionality.</p>
+            <p><strong>4. Data:</strong> We use local storage for watchlist and preferences. No user data is transmitted to a server (simulated).</p>
+        </div>
+        <button class="btn submit-btn" onclick="acceptLicense()">Accept and Continue</button>
+    </div>
+</div>
+
+<div id="appContent" class="hidden-app">
 <header class="top-right">
     <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
     <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
     <button class="btn" onclick="openModal('signinModal')">Sign In</button>
 </header>
+
 <div class="container">
     <h1>Welcome to CineDaltons</h1>
     <p>Discover and track your favorite movies</p>
@@ -337,13 +353,12 @@
     <button class="btn" onclick="renderWatchlist()">Refresh</button>
     <div id="watchlist"></div>
 </div>
-
+</div>
 <div id="signupModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>
         <h2>Create an account</h2>
         <form id="signupForm" class="signup-validation">
-
             <label>Username</label>
             <input type="text" id="su_username" required maxlength="50"/>
 
@@ -384,7 +399,7 @@
             <input type="password" required />
 
             <div style="margin-top: 10px; text-align: right;">
-                <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" style="background: none; border: none; color: #2b8cff; cursor: pointer; font-size: 14px;">
+                <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" class="text-link">
                     Forgot Password?
                 </button>
             </div>
@@ -454,10 +469,11 @@
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn" id="resetBtn">Reset Selection</button>
+                <button type="button" class="btn secondary-btn" id="resetBtn">Reset Selection</button>
                 <button type="submit" class="btn submit-btn">Save Preferences</button>
             </div>
-        </form> <hr style="margin: 20px 0;">
+        </form>
+        <hr>
         <h3>My Saved Preferences</h3>
         <div id="preferencesDisplay">No genre preferences saved yet.</div>
         <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>

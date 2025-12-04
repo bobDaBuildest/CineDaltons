@@ -3,8 +3,8 @@ package com.cinedaltons.dto;
 public class UserProfileDTO {
     private String username;
     private String email;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
 
     // Constructor από User entity
     public UserProfileDTO() {}
@@ -26,19 +26,19 @@ public class UserProfileDTO {
         this.email = email;
     }
     
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
     
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstNameName(String name) {
+        this.firstName = firstName;
     }
     
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
     
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

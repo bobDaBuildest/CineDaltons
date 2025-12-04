@@ -1,299 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CineDaltons</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        /* Header styles */
-        header.top-right {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        /* Button styles */
-        .btn {
-            background-color: #2b8cff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-left: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn:hover {
-            background-color: #1a7ae6;
-        }
-
-        /* Container styles */
-        .container {
-            text-align: center;
-            padding: 100px 20px 20px;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none; /* Κλειδί για την αρχική απόκρυψη */
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 850px; /* Αυξήσαμε το μέγιστο πλάτος */
-            max-height: 90vh; /* Επιτρέπει στο modal να καταλαμβάνει έως 90% του ύψους της οθόνης */
-            overflow-y: auto; /* Προσθέτει scrollbar αν το περιεχόμενο είναι μεγάλο */
-            position: relative;
-        }
-
-        /* Specific modal content style for preferences */
-        #preferencesDisplay {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f7f7f7;
-            border-radius: 4px;
-            text-align: left;
-        }
-
-        /* Styles for Genre Preference Form */
-        .checkbox-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            text-align: left;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            background: #f9f9f9;
-            border-radius: 5px;
-        }
-        .genre-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            display: inline-block;
-            background: #2b8cff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .success-message {
-            padding: 10px;
-            background: #d4edda;
-            color: #155724;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-
-        .close {
-            position: absolute;
-            right: 15px;
-            top: 10px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-top: 10px;
-            margin-bottom: 5px;
-            text-align: left;
-        }
-
-        input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .submit-btn {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #2b8cff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        /* Search section */
-        .search-section {
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        #searchInput {
-            padding: 10px;
-            width: 300px;
-            max-width: 80%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        /* Results section */
-        #results {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        /* Movie card */
-        .movie {
-            border: 1px solid #ddd;
-            width: 250px;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .movie img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        /* Watchlist button */
-        #watchlist-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #2b8cff;
-            color: white;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1000;
-        }
-
-        #watchlist-badge {
-            background: red;
-            color: white;
-            border-radius: 50%;
-            padding: 3px 7px;
-            font-size: 12px;
-            margin-left: 6px;
-        }
-
-        /* Watchlist panel */
-        #watchlist-container {
-            position: fixed;
-            top: 70px;
-            left: 20px;
-            width: 320px;
-            max-height: 80vh;
-            overflow-y: auto;
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #ccc;
-            padding: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-            transition: 0.3s ease;
-            z-index: 1000;
-        }
-
-        #watchlist-container.hidden {
-            transform: translateX(-140%);
-        }
-
-        .watchlist-item {
-            background: #f7f7f7;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            border-radius: 6px;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .container {
-                padding-top: 150px;
-            }
-
-            #watchlist-container {
-                width: 90%;
-                left: 5%;
-            }
-        }
-
-        .signup-validation .password-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .signup-validation .password-container input {
-            flex: 1;
-        }
-
-        .signup-validation .password-container button {
-            margin-left: 8px;
-            padding: 8px;
-        }
-
-        .signup-validation #strengthBar {
-            height: 6px;
-            width: 100%;
-            background: lightgray;
-            margin-top: 5px;
-            border-radius: 3px;
-        }
-
-        .signup-validation .strength-weak { background: red !important; }
-        .signup-validation .strength-medium { background: orange !important; }
-        .signup-validation .strength-strong { background: green !important; }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<div id="licenseModal" class="modal"  style="display:block;">
+    <div class="modal-content" style="max-width: 600px;">
+        <h2>License and Terms of Service</h2>
+        <p>Please review and accept the terms to continue using CineDaltons.</p>
+        <div class="license-text">
+            <p><strong>1. Acceptance:</strong> By accessing or using the Service, you agree to be bound by these Terms.</p>
+            <p><strong>2. API Usage:</strong> This application relies on the TMDb API. Use of search features is subject to TMDb's terms of use.</p>
+            <p><strong>3. Disclaimer:</strong> CineDaltons is a demonstration project. We assume no liability for the content or functionality.</p>
+            <p><strong>4. Data:</strong> We use local storage for watchlist and preferences. No user data is transmitted to a server (simulated).</p>
+        </div>
+        <button class="btn submit-btn" onclick="acceptLicense()">Accept and Continue</button>
+    </div>
+</div>
+
+<div id="appContent" class="hidden-app">
 <header class="top-right">
     <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
     <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
     <button class="btn" onclick="openModal('signinModal')">Sign In</button>
 </header>
+
 <div class="container">
     <h1>Welcome to CineDaltons</h1>
     <p>Discover and track your favorite movies</p>
@@ -337,13 +71,12 @@
     <button class="btn" onclick="renderWatchlist()">Refresh</button>
     <div id="watchlist"></div>
 </div>
-
+</div>
 <div id="signupModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>
         <h2>Create an account</h2>
         <form id="signupForm" class="signup-validation">
-
             <label>Username</label>
             <input type="text" id="su_username" required maxlength="50"/>
 
@@ -384,7 +117,7 @@
             <input type="password" required />
 
             <div style="margin-top: 10px; text-align: right;">
-                <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" style="background: none; border: none; color: #2b8cff; cursor: pointer; font-size: 14px;">
+                <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" class="text-link">
                     Forgot Password?
                 </button>
             </div>
@@ -393,41 +126,6 @@
         </form>
     </div>
 </div>
-
-<div id="licenseModal" class="modal" data-backdrop="static">
-    <div class="modal-content" style="max-width: 600px;">
-        <h2>Terms of Use (License)</h2>
-        <p>Please read and accept the license to continue.</p>
-
-        <div style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
-
-            MIT License
-
-
-            Copyright (c) 2025 Daltons
-
-            Permission is hereby granted, free of charge, to any person obtaining a copy
-            of this software and associated documentation files (the "Software"), to deal
-            in the Software without restriction, including without limitation the rights
-            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-            copies of the Software, and to permit persons to whom the Software is
-            furnished to do so, subject to the following conditions:
-
-            The above copyright notice and this permission notice shall be included in all
-            copies or substantial portions of the Software.
-
-            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-            SOFTWARE.
-        </div>
-
-        <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
-    </div></div>
-
 
 <div id="genrePreferencesModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
@@ -446,18 +144,20 @@
                 </div>
             </div>
 
-            <div class="selected-count" style="text-align: right; margin-top: 10px; font-weight: bold;">
+            <div class="selected-count">
                 Selected: <span id="selectedCount">0</span> genres
             </div>
+
             <div class="success-message" id="successMessage" style="display:none;">
                 Your genre preferences have been saved successfully!
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn" id="resetBtn">Reset Selection</button>
+                <button type="button" class="btn secondary-btn" id="resetBtn">Reset Selection</button>
                 <button type="submit" class="btn submit-btn">Save Preferences</button>
             </div>
-        </form> <hr style="margin: 20px 0;">
+        </form>
+        <hr>
         <h3>My Saved Preferences</h3>
         <div id="preferencesDisplay">No genre preferences saved yet.</div>
         <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>
@@ -815,34 +515,7 @@
         if (form) form.addEventListener('submit', handleGenreFormSubmit);
     }
 
-document.querySelector("#signupModal form").addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    const userData = {
-        username: this.querySelector("input[type='text']").value,
-        email: this.querySelector("input[type='email']").value,
-        password: this.querySelector("input[type='password']").value,
-        birthday: this.querySelector("input[type='date']").value,
-        name: "", // Χρειάζεστε πεδία για name και surname
-        surname: ""
-    };
-    
-    fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(response => response.text())
-    .then(message => {
-        alert(message);
-        if (message === "Ο χρήστης δημιουργήθηκε επιτυχώς!") {
-            closeModal('signupModal');
-        }
-    })
-    .catch(error => console.error("Error:", error));
-});
-</script>
+<script src="genres.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

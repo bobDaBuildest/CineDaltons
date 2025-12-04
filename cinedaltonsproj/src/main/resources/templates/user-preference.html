@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Genre Preferences</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <style>
         /* Additional styles for the genre form */
         .form-container {
@@ -252,9 +252,197 @@
         console.log('User genre preferences saved:', userPreferences);
     }
 
-    function showPreferencesModal() {
+    function showPreferencesDisplay() {
         const preferences = localStorage.getItem('userGenrePreferences');
         const display = document.getElementById('preferencesDisplay');
+
+        if (preferences && display) {
+            const data = JSON.parse(preferences);
+            display.innerHTML = `
+                <p><strong>Name:</strong> ${data.username}</p>
+                <p><strong>Favorite Genres:</strong> ${data.selectedGenres.join(', ') || 'None selected'}</p>
+                <p><strong>Last Updated:</strong> ${new Date(data.timestamp).toLocaleString()}</p>
+            `;
+        } else if (display) {
+            display.innerHTML = '<p>No genre preferences saved yet. Please complete the survey.</p>';
+        }
+    }
+
+    function handleGenreFormSubmit(event) {
+        event.preventDefault();
+
+        const usernameInput = document.getElementById('prefUsername');
+        if (!usernameInput || !usernameInput.value) {
+            alert('Please enter your name');
+            return;
+        }
+
+        const selectedGenres = Array.from(document.querySelectorAll('#genreContainer input:checked'))
+            .map(checkbox => checkbox.value);
+
+        const userPreferences = {
+            username: usernameInput.value,
+            selectedGenres,
+            timestamp: new Date().toISOString()
+        };
+
+        localStorage.setItem('userGenrePreferences', JSON.stringify(userPreferences));
+
+        const successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        showPreferencesDisplay();
+        alert('Preferences saved successfully!');
+    }
+
+    function showPreferencesModal() {
+        initializeGenreForm();
+        showPreferencesDisplay();
+        openModal('genrePreferencesModal');
+    }
+
+    function initializeGenreForm() {
+        createGenreCheckboxes();
+
+        const preferences = localStorage.getItem('userGenrePreferences');
+
+        if (preferences) {
+            const data = JSON.parse(preferences);
+
+            // 1. Pre-fill name field
+            const usernameInput = document.getElementById('prefUsername');
+            if (usernameInput) {
+                usernameInput.value = data.username || '';
+            }
+
+            // 2. Check the saved checkboxes
+            document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = data.selectedGenres.includes(checkbox.value);
+            });
+        } else {
+            // Clear form if no preferences are saved
+            resetForm();
+        }
+
+        updateSelectedCount();
+
+        // Attach event listeners after (re)creating elements
+        document.querySelectorAll('#genreContainer input[type="checkbox"]').forEach(checkbox => {
+            checkbox.removeEventListener('change', updateSelectedCount); // Prevent double-binding
+            checkbox.addEventListener('change', updateSelectedCount);
+        });
+
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.removeEventListener('click', resetForm);
+            resetBtn.addEventListener('click', resetForm);
+        }
+
+        const form = document.getElementById('movieGenreForm');
+        if (form) {
+            form.removeEventListener('submit', handleGenreFormSubmit);
+            form.addEventListener('submit', handleGenreFormSubmit);
+        }
+    }
+
+    // -------------------------------------------------------------
+    // IV. AUTH/VALIDATION FUNCTIONS
+    // -------------------------------------------------------------
+
+    // --- Password Strength & Match Logic ---
+    function setupSignupValidation() {
+        const suPass = document.getElementById("su_password");
+        const suConfirm = document.getElementById("su_confirmPassword");
+        const strengthText = document.getElementById("strengthText");
+        const strengthBar = document.getElementById("strengthBar");
+        const signupForm = document.getElementById("signupForm");
+
+        if (!suPass || !signupForm) return;
+
+        // Strength meter live updates
+        suPass.addEventListener("input", () => {
+            const val = suPass.value;
+            let strength = 0;
+
+            if (val.length >= 8) strength++;
+            if (/[A-Z]/.test(val)) strength++;
+            if (/[0-9]/.test(val)) strength++;
+            if (/[^A-Za-z0-9]/.test(val)) strength++; // Special character check
+
+            strengthBar.className = "";
+            strengthBar.style.width = '0%'; // Reset width before applying new class
+
+            if (strength <= 1) {
+                strengthText.textContent = "Weak";
+                strengthBar.classList.add("strength-weak");
+            } else if (strength <= 3) {
+                strengthText.textContent = "Medium";
+                strengthBar.classList.add("strength-medium");
+            } else {
+                strengthText.textContent = "Strong";
+                strengthBar.classList.add("strength-strong");
+            }
+        });
+
+        // Password Match Check on submit
+        signupForm.addEventListener("submit", e => {
+            // Check for password match
+            if (suPass.value !== suConfirm.value) {
+                e.preventDefault();
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // --- Simulated User Registration Logic (Your original code was missing some fields) ---
+            // Since you don't have a backend, this is just a simulated success
+            e.preventDefault();
+
+            // In a real application, you would send data to the server here
+            const userData = {
+                username: document.getElementById("su_username").value,
+                first_name: document.getElementById("su_first").value,
+                last_name: document.getElementById("su_last").value,
+                email: document.getElementById("su_email").value,
+                password: suPass.value
+            };
+
+            console.log("Simulating registration with data:", userData);
+            alert("Account created successfully (Simulated)! You can now sign in.");
+            closeModal('signupModal');
+            // --- End of Simulated Registration Logic ---
+        });
+    }
+
+    // -------------------------------------------------------------
+    // V. INITIALIZATION
+    // -------------------------------------------------------------
+
+    document.addEventListener('DOMContentLoaded', function() {
+        renderWatchlist();
+        setupSignupValidation();
+
+        // Initialize search on Enter key press
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchMovies();
+                }
+            });
+        }
+
+        // You might want to initialize the sign-in form too, but it has no validation/fetch logic yet.
+        document.getElementById('signInForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Signed in successfully (Simulated)!');
+            closeModal('signinModal');
+        });
+    });
 
         if (preferences) {
             const data = JSON.parse(preferences);
@@ -267,8 +455,7 @@
             display.innerHTML = '<p>No genre preferences saved yet.</p>';
         }
 
-        document.getElementById('preferencesModal').style.display = 'block';
-    }
+        document.getElementById('preferencesModal').style.display = `block`;
 
     function closeModal() {
         document.getElementById('preferencesModal').style.display = 'none';
