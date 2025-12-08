@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="Added search functionality and movie details page">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +28,12 @@
     &quot;assignee&quot;: &quot;bobDaBuildest&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/bobDaBuildest/CineDaltons.git&quot;,
-    &quot;accountId&quot;: &quot;c6e401a9-b5c3-4a20-94e0-385c2cbd99cf&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/bobDaBuildest/CineDaltons.git",
+    "accountId": "f9dff005-9aaf-4374-a2b8-9281f466d78d"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -56,7 +55,7 @@
     "Spring Boot.CinedaltonsMain.executor": "Run",
     "cidr.known.project.marker": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "watchlist-sign-in",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/30698/Desktop/9thSemester/CineDaltons/cinedaltonsproj/src/main/resources/templates",
@@ -89,8 +88,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
       </set>
     </attachedChunks>
   </component>
