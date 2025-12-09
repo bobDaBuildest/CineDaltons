@@ -46,6 +46,9 @@
             position: absolute;
             top: 20px;
             right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .btn {
             background-color: #fdd835;
@@ -55,6 +58,10 @@
             border-radius: 4px;
             margin-left: 10px;
         }
+        .btn:hover {
+            background-color: #ffeb3b;
+        }
+
         /* Προσομοίωση του style.css για το watchlist toggle */
         #watchlist-toggle {
             position: fixed;
@@ -65,7 +72,14 @@
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: none; /* Αρχικά κρυμμένο */
         }
+         #watchlist-toggle:hover {
+            background-color: #ffeb3b;
+            transform: scale(1.05);
+            }
         #watchlist-container {
             position: fixed;
             bottom: 80px;
@@ -88,6 +102,34 @@
             display: inline-block;
             width: 200px;
             text-align: center;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+         .watchlist-item {
+            border-bottom: 1px solid #444;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .watchlist-item:last-child {
+            border-bottom: none;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        .welcome-message {
+            font-size: 14px;
+            color: #fdd835;
+        }
+        .auth-forms input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -213,9 +255,9 @@
         <h2>Sign In</h2>
         <form id="signInForm">
             <label style="color: black;">Email</label>
-            <input type="email" required />
+            <input type="email" id="si_email" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
             <label style="color: black;">Password</label>
-            <input type="password" required />
+            <input type="password" id="si_password" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
             <div style="margin-top: 10px; text-align: right;">
                 <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" class="text-link">
                     Forgot Password?
@@ -269,6 +311,57 @@
     // ΠΡΟΣΟΧΗ: Το API key είναι δημόσιο, αλλά είναι καλό να μην το εκθέτετε σε πραγματική εφαρμογή.
     const API_KEY = "fbdfbb87f57e7fd7d5778016a7b26f49";
 
+    // ==============================================
+    // ΚΕΝΤΡΙΚΗ ΑΛΛΑΓΗ: Authentication State Management
+    // ==============================================
+    let currentUser = null;
+
+    //  Authentication Functions
+    function setCurrentUser(user) {
+        currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        updateUIForAuthState();
+         renderWatchlist();
+    }
+
+    function clearCurrentUser() {
+        currentUser = null;
+        localStorage.removeItem('currentUser');
+        updateUIForAuthState();
+         renderWatchlist();
+    }
+
+    function updateUIForAuthState() {
+        const watchlistToggle = document.getElementById('watchlist-toggle');
+        const authButtons = document.getElementById('auth-buttons');
+
+        if (currentUser) {
+            // Εμφάνιση watchlist και αλλαγή των auth buttons
+            watchlistToggle.style.display = 'block';
+            authButtons.innerHTML = `
+                <div class="user-info">
+                    <span class="welcome-message">Welcome, ${currentUser.username || currentUser.email}</span>
+                    <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+                    <button class="btn" onclick="logout()">Logout</button>
+                </div>
+            `;
+        } else {
+            // Απόκρυψη watchlist και εμφάνιση sign in/sign up
+            watchlistToggle.style.display = 'none';
+            document.getElementById('watchlist-container').classList.add('hidden');
+            authButtons.innerHTML = `
+                <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                <button class="btn" onclick="openModal('signinModal')">Sign In</button>
+            `;
+        }
+    }
+
+    function logout() {
+        clearCurrentUser();
+        alert('Logged out successfully!');
+        renderWatchlist(); // Ενημέρωση του badge (θα γίνει 0)
+    }
     // 1. Λειτουργίες License (Άδεια Χρήσης)
     function checkLicense() {
         const accepted = localStorage.getItem('licenseAccepted');
@@ -331,13 +424,17 @@
         });
     };
 
-    // Watchlist functions
+    // ΚΕΝΤΡΙΚΗ ΑΛΛΑΓΗ: User-specific Watchlist
+    // ==============================================
     function getWatchlist() {
-        return JSON.parse(localStorage.getItem("watchlist") || "[]");
+        if (!currentUser) return [];
+        const userWatchlist = JSON.parse(localStorage.getItem(`watchlist_${currentUser.id}`) || "[]");
+        return userWatchlist;
     }
 
     function saveWatchlist(list) {
-        localStorage.setItem("watchlist", JSON.stringify(list));
+        if (!currentUser) return;
+        localStorage.setItem(`watchlist_${currentUser.id}`, JSON.stringify(list));
     }
 
     // Search movies function (Διορθωμένο για να δουλεύει με το button type="button" και το JS)
@@ -391,6 +488,11 @@
 
     // Add to watchlist
     function addToWatchlist(movie) {
+     if (!currentUser) {
+            alert('Please sign in to add movies to your watchlist!');
+            openModal('signinModal');
+            return;
+        }
         let list = getWatchlist();
 
         if (!list.some(m => m.id === movie.id)) {
@@ -406,6 +508,7 @@
 
     // Remove from watchlist
     function removeFromWatchlist(id) {
+     if (!currentUser) return;
         let list = getWatchlist().filter(m => m.id !== id);
         saveWatchlist(list);
         renderWatchlist();
@@ -423,6 +526,10 @@
         container.innerHTML = "";
 
         updateBadge();
+         if (!currentUser) {
+            container.innerHTML = "<p>Please sign in to view your watchlist</p>";
+            return;
+        }
 
         if (items.length === 0) {
             container.innerHTML = "<p>Your watchlist is empty.</p>";
@@ -443,7 +550,13 @@
 
     // Toggle watchlist panel
     function toggleWatchlist() {
+      if (!currentUser) {
+            alert('Please sign in to view your watchlist!');
+            openModal('signinModal');
+            return;
+        }
         document.getElementById("watchlist-container").classList.toggle("hidden");
+
         // Ενημέρωση της λίστας κάθε φορά που ανοίγει
         if (!document.getElementById("watchlist-container").classList.contains("hidden")) {
             renderWatchlist();
@@ -541,6 +654,11 @@
         if (event && event.preventDefault) {
             event.preventDefault();
         }
+         if (!currentUser) {
+            alert('Please sign in to save preferences!');
+            openModal('signinModal');
+            return;
+        }
         const usernameInput = document.getElementById('prefUsername');
         if (!usernameInput || !usernameInput.value) {
             alert('Please enter your name');
@@ -628,8 +746,84 @@
     document.addEventListener('DOMContentLoaded', function() {
         checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια και εμφανίζει το περιεχόμενο
 
+           // Έλεγχος αν υπάρχει αποθηκευμένος χρήστης
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            updateUIForAuthState();
+        } else {
+            updateUIForAuthState();
+        }
+
         renderWatchlist(); // Αρχική φόρτωση του badge/watchlist
         // Η initializeGenreForm() καλείται μόνο όταν ανοίγει το Preferences Modal
+
+         const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                 const username = document.getElementById('su_username').value;
+                const email = document.getElementById('su_email').value;
+                const password = document.getElementById('su_password').value;
+                const confirmPassword = document.getElementById('su_confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                // Προσομοίωση login (για demo)
+                const user = {
+                    id: 1,
+                    username: email.split('@')[0],
+                    email: email,
+                    name: 'Demo User'
+                };
+
+                setCurrentUser(user);
+
+                closeModal('signupModal');
+                alert('Account created successfully!');
+                signupForm.reset();
+            });
+        }
+            const signinForm = document.getElementById('signInForm');
+        if (signinForm) {
+            signinForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // ΠΡΟΣΟΧΗ: Τα IDs πρέπει να υπάρχουν στα inputs!
+                const emailInput = document.getElementById('si_email');
+                const passwordInput = document.getElementById('si_password');
+
+                if (!emailInput || !passwordInput) {
+                    alert('Form elements missing! Check HTML IDs.');
+                    return;
+                }
+
+                const email = emailInput.value;
+                const password = passwordInput.value;
+
+                if (!email || !password) {
+                    alert('Please fill in both fields');
+                    return;
+                }
+
+                // Προσομοίωση login (για demo)
+                const user = {
+                    id: Date.now(), // Καλύτερο από σταθερό ID
+                    username: email.split('@')[0],
+                    email: email,
+                    name: email.split('@')[0] // Χρησιμοποιούμε το username ως name
+                };
+
+                setCurrentUser(user);
+
+                closeModal('signinModal');
+                alert('Signed in successfully!');
+                signinForm.reset();
+            });
+        }
 
         // Allow search with Enter key on search input
         const searchInput = document.getElementById('searchInput');
@@ -643,7 +837,7 @@
         }
     });
 
-</script>
 
+</script>
 </body>
 </html>
