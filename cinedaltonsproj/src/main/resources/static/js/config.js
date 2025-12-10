@@ -1,0 +1,4 @@
+const TMDB_API_KEY = "fbdfbb87f57e7fd7d5778016a7b26f49";
+
+const SUPABASE_URL = "https://vnymaccnyaedghawxkoo.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZueW1hY2NueWFlZGdoYXd4a29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNjQ4OTgsImV4cCI6MjA4MDk0MDg5OH0.DNb5T2biC4ofFNlxJoln9xfRxxcSw1WilfmUXQI78FA";

@@ -1,0 +1,147 @@
+/* ========== RESET ========== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ========== TOP RIGHT HEADER ========== */
+.top-right {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+    background-color: #f5c518;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #ffdd33;
+}
+
+/* ========== HERO ========== */
+.container {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.container h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.container p {
+    font-size: 16px;
+    color: #ccc;
+}
+
+/* ========== SEARCH ========== */
+.search-section {
+    margin: 30px auto;
+}
+
+.search-section input {
+    width: 380px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+/* ========== RESULTS ========== */
+#results {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+/* ========== MOVIE GRID ========== */
+.movie {
+    background-color: #1c1c1c;
+    padding: 12px;
+    margin: 12px;
+    width: 220px;
+    border-radius: 10px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.movie:hover {
+    transform: scale(1.04);
+}
+
+.movie img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.movie h3 {
+    font-size: 15px;
+    margin: 10px 0;
+}
+
+.movie p {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* ========== WATCHLIST FLOATING BUTTON ========== */
+#watchlist-toggle {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    padding: 14px 18px;
+    background-color: #f5c518;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+}
+
+/* ========== WATCHLIST PANEL ========== */
+#watchlist-container {
+    position: fixed;
+    bottom: 90px;
+    left: 25px;
+    width: 300px;
+    background-color: #1c1c1c;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.watchlist-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #333;
+}
+
+/* ========== MODALS ========== */
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+/* ========== HIDDEN HELPERS ========== */
+.hidden,
+.hidden-app {
+    display: none;
+}
