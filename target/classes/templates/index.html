@@ -383,39 +383,50 @@
         // ==============================================
         // 3. AUTHENTICATION METHODS (SUPABASE)
         // ==============================================
+        // Στον index.html
 
         async function signUp(username, first_name, last_name, email, password) {
-        document.getElementById('signup-error').innerText = '';
-        if (!supabase || !supabase.auth) return false;
-        try {
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: { data: { username, first_name, last_name } }
-    });
+            document.getElementById('signup-error').innerText = '';
+            if (!supabase || !supabase.auth) {
+                document.getElementById('signup-error').innerText = 'System error: Supabase connection failed.';
+                return false;
+            }
+            try {
+                // ΒΗΜΑ 1: Εγγραφή στο Supabase Auth (Διαχείριση Κωδικού/Email)
+                const { data: authData, error: authError } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: { data: { username, first_name, last_name } } // Αποθήκευση στο Auth metadata
+                });
 
-        if (authError) throw authError;
+                if (authError) throw authError;
 
-        const user = authData.user;
-        if (!user) {
-        document.getElementById('signup-error').innerText = 'Registration successful! Please check your email for a confirmation link.';
-        return true;
-    }
+                const user = authData.user;
+                if (!user) {
+                    document.getElementById('signup-error').innerText = 'Registration successful! Please check your email for a confirmation link.';
+                    return true;
+                }
 
-        const { error: dbError } = await supabase
-        .from('users')
-        .insert([{ id: user.id, username, email, password, first_name, last_name }]);
+                // ΒΗΜΑ 2: Εισαγωγή στον πίνακα public.users (για το username, κλπ.)
+                // Αυτό λειτουργεί επειδή το RLS policy (Enable insert for all users) επιτρέπει την εισαγωγή.
+                const { error: dbError } = await supabase
+                    .from('users')
+                    .insert([{ id: user.id, username, email, password, first_name, last_name }]);
 
-        if (dbError) throw dbError;
+                if (dbError) {
+                    console.warn('Warning: Failed to insert data into public.users table. Check RLS and table structure.', dbError);
+                }
 
-        alert('Account created successfully! You are now logged in.');
-        return true;
+                alert('Account created successfully! You are now logged in.');
+                return true;
 
-    } catch (error) {
-        console.error('Sign Up Error:', error);
-        document.getElementById('signup-error').innerText = error.message || 'An unexpected error occurred during sign up.';
-        return false;
-    }
+            } catch (error) {
+                console.error('Sign Up Error:', error);
+                document.getElementById('signup-error').innerText = error.message || 'An unexpected error occurred during sign up.';
+                return false;
+            }
+        
+
     }
 
         async function signIn(email, password) {
