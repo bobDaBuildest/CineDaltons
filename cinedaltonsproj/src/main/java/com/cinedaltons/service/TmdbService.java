@@ -1,17 +1,17 @@
 package com.cinedaltons.service;
 
 import com.cinedaltons.dto.TmdbMovieDto;
+import com.cinedaltons.model.TmdbCreditsResponse;
+import com.cinedaltons.model.TmdbReviewResponse;
 import com.cinedaltons.model.TmdbResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Service for fetching movie data from The Movie Database (TMDB) API.
- */
 @Service
 public class TmdbService {
 
@@ -24,27 +24,76 @@ public class TmdbService {
         this.webClient = webClient;
     }
 
-    // Μέθοδος για δημοφιλείς ταινίες (Υπήρχε ήδη)
+    // --- 1. Δημοφιλείς Ταινίες (Υπήρχε ήδη) ---
     public List<TmdbMovieDto> getPopularMovies() {
         String uri = String.format("/movie/popular?api_key=%s&language=el-GR", apiKey);
-        return fetchMovies(uri, "popular movies");
+        return fetchMovieList(uri, "popular movies");
     }
 
-    // --- ΝΕΑ ΜΕΘΟΔΟΣ: Αναζήτηση Ταινιών ---
+    // --- 2. Αναζήτηση Ταινιών (Υπήρχε ήδη) ---
     public List<TmdbMovieDto> searchMovies(String query) {
         if (query == null || query.trim().isEmpty()) {
             return Collections.emptyList();
         }
-
-        // Κατασκευή του URL για αναζήτηση
-        // Προσθέτουμε το query και τη γλώσσα
         String uri = String.format("/search/movie?api_key=%s&query=%s&language=el-GR", apiKey, query);
-
-        return fetchMovies(uri, "search results for: " + query);
+        return fetchMovieList(uri, "search results for: " + query);
     }
 
-    // Βοηθητική μέθοδος για να μην γράφουμε τον ίδιο κώδικα WebClient δύο φορές
-    private List<TmdbMovieDto> fetchMovies(String uri, String logMessage) {
+    // --- 3. ΝΕΑ ΜΕΘΟΔΟΣ: Λεπτομέρειες Ταινίας (Overview, Cast, Reviews) ---
+    public TmdbMovieDto getMovieDetails(Long movieId) {
+        try {
+            // Βήμα Α: Ζητάμε τα βασικά στοιχεία (Περίληψη, Διάρκεια, Εικόνες)
+            String movieUri = String.format("/movie/%d?api_key=%s&language=el-GR", movieId, apiKey);
+
+            TmdbMovieDto movie = webClient.get()
+                    .uri(movieUri)
+                    .retrieve()
+                    .bodyToMono(TmdbMovieDto.class)
+                    .block(); // Περιμένουμε την απάντηση
+
+            if (movie != null) {
+                // Βήμα Β: Ζητάμε τους Ηθοποιούς (Credits)
+                try {
+                    String creditsUri = String.format("/movie/%d/credits?api_key=%s", movieId, apiKey);
+                    TmdbCreditsResponse credits = webClient.get()
+                            .uri(creditsUri)
+                            .retrieve()
+                            .bodyToMono(TmdbCreditsResponse.class)
+                            .block();
+
+                    if (credits != null) {
+                        movie.setCast(credits.getCast());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Could not fetch cast for movie " + movieId);
+                }
+
+                // Βήμα Γ: Ζητάμε τις Κριτικές (Reviews) - Χωρίς γλώσσα el-GR συνήθως
+                try {
+                    String reviewsUri = String.format("/movie/%d/reviews?api_key=%s", movieId, apiKey);
+                    TmdbReviewResponse reviews = webClient.get()
+                            .uri(reviewsUri)
+                            .retrieve()
+                            .bodyToMono(TmdbReviewResponse.class)
+                            .block();
+
+                    if (reviews != null) {
+                        movie.setReviews(reviews.getResults());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Could not fetch reviews for movie " + movieId);
+                }
+            }
+            return movie;
+
+        } catch (Exception e) {
+            System.err.println("Error fetching movie details: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // --- Βοηθητική μέθοδος για λίστες (Search & Popular) ---
+    private List<TmdbMovieDto> fetchMovieList(String uri, String logMessage) {
         try {
             TmdbResponse response = webClient.get()
                     .uri(uri)

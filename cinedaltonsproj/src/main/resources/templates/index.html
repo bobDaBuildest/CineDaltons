@@ -175,22 +175,33 @@
     <h2 style="text-align: center;">Search Results</h2>
 
     <div id="results" style="text-align: center;">
-        <div th:if="${error}" style="color: red; width: 100%; text-align: center;">
-            <h3 th:text="${error}">Error Message</h3>
-        </div>
 
         <div th:each="movie : ${movies}" class="movie">
-            <img th:if="${movie.posterPath != null}"
-                 th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
-                 alt="Movie Poster">
-            <img th:if="${movie.posterPath == null}"
-                 src="https://via.placeholder.com/200x300?text=No+Image"
-                 alt="No Image">
 
-            <h3 th:text="${movie.title}">Movie Title</h3>
+            <a th:href="@{/movie/{id}(id=${movie.id})}" style="text-decoration: none; color: inherit; cursor: pointer;">
+
+                <img th:if="${movie.posterPath != null}"
+                     th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
+                     alt="Movie Poster" style="max-width: 100%; height: auto;">
+                <img th:if="${movie.posterPath == null}"
+                     src="https://via.placeholder.com/200x300?text=No+Image"
+                     alt="No Image" style="max-width: 100%; height: auto;">
+
+                <h3 th:text="${movie.title}" style="font-size: 1.1em; margin: 10px 0;">Movie Title</h3>
+            </a>
+
             <p th:text="${movie.releaseDate}">2024</p>
 
-            <button class="btn">Add to Watchlist</button>
+            <button class="btn"
+                    th:data-movie="${movie.jsonRepresentation}"
+                    onclick='addToWatchlist(JSON.parse(this.getAttribute("data-movie")))'
+            >
+                Add to Watchlist
+            </button>
+        </div>
+
+        <div th:if="${error}" style="color: red; width: 100%; text-align: center;" th:text="${error}">
+            Error message here
         </div>
     </div>
 </div>
@@ -467,10 +478,12 @@
                     const card = document.createElement("div");
                     card.className = "movie";
                     card.innerHTML = `
-                            <img src="${posterPath}" alt="${movie.title}" style="max-width: 100%; height: auto;">
-                            <h3 style="font-size: 1.1em; margin: 10px 0;">${movie.title}</h3>
+                            <a href="/movie/${movie.id}" style="text-decoration: none; color: inherit;">
+                            <img src="${posterPath}" alt="${movie.title}" style="max-width: 100%; height: auto; cursor: pointer;">
+                            <h3 style="font-size: 1.1em; margin: 10px 0; cursor: pointer;">${movie.title}</h3>
+                            </a>
                             <p style="margin: 5px 0;">${movie.release_date ? movie.release_date.substring(0,4) : 'N/A'}</p>
-                            <button class="btn" onclick='addToWatchlist(${JSON.stringify(movie)})'>
+                            <button class="btn" onclick='event.preventDefault(); addToWatchlist(${JSON.stringify(movie)})'>
                                 Add to Watchlist
                             </button>
                         `;

@@ -24,7 +24,7 @@ public class TmdbWebClientConfig {
      */
     @Bean
     public WebClient tmdbWebClient(WebClient.Builder builder) {
-        // The baseUrl is correctly injected here, as this is a @Configuration class.
+
         return builder.baseUrl(baseUrl).build();
     }
 }
