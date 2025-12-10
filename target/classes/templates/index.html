@@ -381,6 +381,57 @@
     // API Configuration
     const API_KEY = "YOUR_API_KEY_HERE";
 
+    // ==============================================
+    // ΚΕΝΤΡΙΚΗ ΑΛΛΑΓΗ: Authentication State Management
+    // ==============================================
+    let currentUser = null;
+
+    //  Authentication Functions
+    function setCurrentUser(user) {
+        currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        updateUIForAuthState();
+         renderWatchlist();
+    }
+
+    function clearCurrentUser() {
+        currentUser = null;
+        localStorage.removeItem('currentUser');
+        updateUIForAuthState();
+         renderWatchlist();
+    }
+
+    function updateUIForAuthState() {
+        const watchlistToggle = document.getElementById('watchlist-toggle');
+        const authButtons = document.getElementById('auth-buttons');
+
+        if (currentUser) {
+            // Εμφάνιση watchlist και αλλαγή των auth buttons
+            watchlistToggle.style.display = 'block';
+            authButtons.innerHTML = `
+                <div class="user-info">
+                    <span class="welcome-message">Welcome, ${currentUser.username || currentUser.email}</span>
+                    <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+                    <button class="btn" onclick="logout()">Logout</button>
+                </div>
+            `;
+        } else {
+            // Απόκρυψη watchlist και εμφάνιση sign in/sign up
+            watchlistToggle.style.display = 'none';
+            document.getElementById('watchlist-container').classList.add('hidden');
+            authButtons.innerHTML = `
+                <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                <button class="btn" onclick="openModal('signinModal')">Sign In</button>
+            `;
+        }
+    }
+
+    function logout() {
+        clearCurrentUser();
+        alert('Logged out successfully!');
+        renderWatchlist(); // Ενημέρωση του badge (θα γίνει 0)
+    }
     // 1. Λειτουργίες License (Άδεια Χρήσης)
     function checkLicense() {
         // Ελέγχουμε αν ο χρήστης έχει ήδη αποδεχτεί
@@ -437,11 +488,14 @@
 
     // Watchlist functions (No changes needed here)
     function getWatchlist() {
-        return JSON.parse(localStorage.getItem("watchlist") || "[]");
+        if (!currentUser) return [];
+        const userWatchlist = JSON.parse(localStorage.getItem(`watchlist_${currentUser.id}`) || "[]");
+        return userWatchlist;
     }
 
     function saveWatchlist(list) {
-        localStorage.setItem("watchlist", JSON.stringify(list));
+        if (!currentUser) return;
+        localStorage.setItem(`watchlist_${currentUser.id}`, JSON.stringify(list));
     }
 
     // Search movies function
@@ -493,6 +547,11 @@
 
     // Add to watchlist
     function addToWatchlist(movie) {
+     if (!currentUser) {
+            alert('Please sign in to add movies to your watchlist!');
+            openModal('signinModal');
+            return;
+        }
         let list = getWatchlist();
 
         if (!list.some(m => m.id === movie.id)) {
@@ -508,6 +567,7 @@
 
     // Remove from watchlist
     function removeFromWatchlist(id) {
+     if (!currentUser) return;
         let list = getWatchlist().filter(m => m.id !== id);
         saveWatchlist(list);
         renderWatchlist();
@@ -525,6 +585,10 @@
         container.innerHTML = "";
 
         updateBadge();
+         if (!currentUser) {
+            container.innerHTML = "<p>Please sign in to view your watchlist</p>";
+            return;
+        }
 
         if (items.length === 0) {
             container.innerHTML = "<p>Your watchlist is empty.</p>";
@@ -544,6 +608,11 @@
 
     // Toggle watchlist panel
     function toggleWatchlist() {
+      if (!currentUser) {
+            alert('Please sign in to view your watchlist!');
+            openModal('signinModal');
+            return;
+        }
         document.getElementById("watchlist-container").classList.toggle("hidden");
     }
 

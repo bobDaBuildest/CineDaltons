@@ -5,7 +5,9 @@ import com.cinedaltons.service.TmdbService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 @Controller
@@ -13,6 +15,7 @@ public class TmdbViewController {
 
     private final TmdbService tmdbService;
 
+    // Constructor Injection του Service
     public TmdbViewController(TmdbService tmdbService) {
         this.tmdbService = tmdbService;
     }
@@ -26,7 +29,6 @@ public class TmdbViewController {
 
     @GetMapping("/search")
     public String searchMovies(@RequestParam("query") String query, Model model) {
-        // Αυτό θα συνεχίσει να είναι κόκκινο μέχρι να κάνουμε το Βήμα 2
         List<TmdbMovieDto> searchResults = tmdbService.searchMovies(query);
 
         if (searchResults != null && !searchResults.isEmpty()) {
@@ -35,5 +37,16 @@ public class TmdbViewController {
             model.addAttribute("error", "Δεν βρέθηκαν ταινίες.");
         }
         return "index";
+    }
+
+    @GetMapping("/movie/{id}")
+    public String getMovieDetails(@PathVariable("id") Long id, Model model) {
+
+
+        TmdbMovieDto movie = tmdbService.getMovieDetails(id);
+
+        model.addAttribute("movie", movie);
+
+        return "details";
     }
 }
