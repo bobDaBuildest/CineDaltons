@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="Implement TMDB Movie Details (Cast &amp; Reviews)">
+    <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="MIT pop up">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cinedaltons/service/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,79 +20,139 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;bobDaBuildest&quot;
+    &quot;assignee&quot;: &quot;KyriakosTerzoudis&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/bobDaBuildest/CineDaltons.git&quot;,
-    &quot;accountId&quot;: &quot;f9dff005-9aaf-4374-a2b8-9281f466d78d&quot;
+    &quot;accountId&quot;: &quot;2190a3ec-8348-4d4a-9bcc-17c27c4ed384&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
+  &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="36LKMqIPqqGETU33NMk0LuUkW4N" />
+  <component name="ProjectId" id="369tcXr8R6qAFEg9RpLf9P0RLWO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
+    "JUnit.UserServiceImplTest.executor": "Run",
+    "JUnit.UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists.executor": "Run",
+    "JavaScript Debug.index.html.executor": "Run",
+    "Maven.CineDaltons [-X,clean,spring-boot:run].executor": "Run",
+    "Maven.CineDaltons [-v].executor": "Run",
+    "Maven.CineDaltons [clean,compile].executor": "Run",
     "Maven.CineDaltons [clean].executor": "Run",
-    "Maven.CineDaltons [install].executor": "Run",
+    "Maven.CineDaltons [spring-boot:run].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CinedaltonsMain.executor": "Run",
-    "cidr.known.project.marker": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "api-patch",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/30698/Desktop/9thSemester/CineDaltons/cinedaltonsproj/src/main/resources/templates",
+    "last_opened_file_path": "C:/Users/kyrte/OneDrive/Έγγραφα/GitHub/CineDaltons/cinedaltonsproj/src/main/resources/templates",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\30698\Desktop\9thSemester\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
-      <recent name="C:\Users\30698\Desktop\9thSemester\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
-      <recent name="C:\Users\30698\Desktop\9thSemester\CineDaltons" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cinedaltons.service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\konis\Desktop\CineDaltons\cinedaltonsproj\src\main\resources\templates\static\css" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn -v" />
+      <command value="mvn clean" />
+      <command value="   mvn spring-boot:run" />
+      <command value="mvn clean compile" />
+      <command value="mvn spring-boot:run" />
+      <command value="mvn -X clean spring-boot:run" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.UserServiceImplTest">
+    <configuration name="UserServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CineDaltons" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cinedaltons.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cinedaltons.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.cinedaltons.service.impl.UserServiceImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CineDaltons" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cinedaltons.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cinedaltons.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.cinedaltons.service.impl.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="testRegisterUser_ThrowsException_WhenUserExists" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/CineDaltons/templates/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="CinedaltonsMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="CineDaltons" />
@@ -96,57 +161,110 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserServiceImplTest" />
+        <item itemvalue="JUnit.UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists" />
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="" />
-      <created>1764780370967</created>
+      <changelist id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="" />
+      <created>1764430698083</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764780370967</updated>
-      <workItem from="1764780373510" duration="2570000" />
-      <workItem from="1764803451269" duration="6333000" />
+      <updated>1764430698083</updated>
+      <workItem from="1764430701619" duration="11561000" />
+      <workItem from="1764603924965" duration="951000" />
+      <workItem from="1764605907946" duration="186000" />
+      <workItem from="1764606418337" duration="479000" />
+      <workItem from="1764666391368" duration="946000" />
+      <workItem from="1764849838411" duration="228000" />
+      <workItem from="1765382696424" duration="1368000" />
     </task>
-    <task id="LOCAL-00001" summary="Added search functionality and movie details page">
+    <task id="LOCAL-00001" summary="database connection">
       <option name="closed" value="true" />
-      <created>1764836210136</created>
+      <created>1764438679355</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1764836210136</updated>
+      <updated>1764438679355</updated>
     </task>
-    <task id="LOCAL-00002" summary="Added search functionality and movie details page">
+    <task id="LOCAL-00002" summary="MIT pop up">
       <option name="closed" value="true" />
-      <created>1765218720738</created>
+      <created>1764604648053</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1765218720738</updated>
+      <updated>1764604648053</updated>
     </task>
-    <task id="LOCAL-00003" summary="Implement TMDB Movie Details (Cast &amp; Reviews)">
+    <task id="LOCAL-00003" summary="MIT pop up">
       <option name="closed" value="true" />
-      <created>1765384393367</created>
+      <created>1764606715865</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1765384393367</updated>
+      <updated>1764606715865</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="MIT pop up">
+      <option name="closed" value="true" />
+      <created>1764667301872</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764667301872</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added search functionality and movie details page" />
-    <MESSAGE value="Implement TMDB Movie Details (Cast &amp; Reviews)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement TMDB Movie Details (Cast &amp; Reviews)" />
+    <MESSAGE value="database connection" />
+    <MESSAGE value="MIT pop up" />
+    <option name="LAST_COMMIT_MESSAGE" value="MIT pop up" />
+  </component>
+  <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
+    <option name="sizePresets">
+      <list>
+        <SizePreset>
+          <option name="caption" value="Phone" />
+          <option name="height" value="568" />
+          <option name="width" value="320" />
+        </SizePreset>
+        <SizePreset>
+          <option name="caption" value="Tablet" />
+          <option name="height" value="1024" />
+          <option name="width" value="768" />
+        </SizePreset>
+        <SizePreset>
+          <option name="caption" value="Desktop" />
+          <option name="height" value="900" />
+          <option name="width" value="1440" />
+        </SizePreset>
+      </list>
+    </option>
   </component>
 </project>
