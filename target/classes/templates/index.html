@@ -330,6 +330,19 @@
     </div>
 </div>
 
+<div id="licenseModal" class="modal" data-backdrop="static">
+    <div class="modal-content" style="max-width: 600px;">
+        <h2>Terms of Use (License)</h2>
+        <p>Please read and accept the license to continue.</p>
+
+        <div id="licenseText" style="height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ccc; font-family: monospace; font-size: 12px; margin-bottom: 20px; white-space: pre-wrap;">
+            Loading license terms...
+        </div>
+
+        <button class="submit-btn" onclick="acceptLicense()" style="width: 100%;"> Accept & Continue </button>
+    </div>
+</div>
+
 <div id="genrePreferencesModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
         <span class="close" onclick="closeModal('genrePreferencesModal')">&times;</span>
@@ -368,6 +381,40 @@
     // API Configuration
     const API_KEY = "YOUR_API_KEY_HERE";
 
+    // 1. Λειτουργίες License (Άδεια Χρήσης)
+    function checkLicense() {
+        // Ελέγχουμε αν ο χρήστης έχει ήδη αποδεχτεί
+        const accepted = localStorage.getItem('licenseAccepted');
+
+        // Αν ΔΕΝ έχει αποδεχτεί, εμφανίζουμε το modal
+        if (!accepted) {
+            document.getElementById('licenseModal').style.display = "block";
+        }
+    }
+
+    function acceptLicense() {
+        // Αποθηκεύουμε την αποδοχή για να μην ξαναενοχλήσουμε τον χρήστη
+        localStorage.setItem('licenseAccepted', 'true');
+        document.getElementById('licenseModal').style.display = "none";
+    }
+
+    function loadLicenseText() {
+        fetch('LICENSE.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.text();
+            })
+            .then(text => {
+                document.getElementById('licenseText').textContent = text;
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                document.getElementById('licenseText').textContent = "Can't find LICENSE.txt";
+            });
+    }
+
     // Modal functions
     function openModal(id) {
         document.getElementById(id).style.display = "block";
@@ -380,7 +427,11 @@
     // Close modal when clicking outside
     window.onclick = function(e) {
         document.querySelectorAll(".modal").forEach(modal => {
-            if (e.target === modal) modal.style.display = "none";
+            if (e.target === modal){
+                if (modal.id !== 'licenseModal') {
+                    modal.style.display = "none";
+                }
+            }
         });
     };
 
@@ -495,6 +546,22 @@
     function toggleWatchlist() {
         document.getElementById("watchlist-container").classList.toggle("hidden");
     }
+
+    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        loadLicenseText();// Φορτώνει το κείμενο της άδειας
+        checkLicense(); // Ελέγχει αν έχει αποδεχτεί ο χρήστης την άδεια
+
+        renderWatchlist();
+        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
+
+        // Allow search with Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMovies();
+            }
+        });
+    });
 
     // -------------------------------------------------------------
     // ΛΕΙΤΟΥΡΓΙΕΣ ΓΙΑ ΤΙΣ ΠΡΟΤΙΜΗΣΕΙΣ ΧΡΗΣΤΗ (USER PREFERENCES)
@@ -659,18 +726,6 @@
         if (form) form.addEventListener('submit', handleGenreFormSubmit);
     }
 
-    // Κλήση όλων των αρχικοποιήσεων κατά τη φόρτωση του DOM
-    document.addEventListener('DOMContentLoaded', function() {
-        renderWatchlist();
-        // Δεν καλούμε την initializeGenreForm εδώ, καθώς γίνεται στην showPreferencesModal
-
-        // Allow search with Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchMovies();
-            }
-        });
-    });
 document.querySelector("#signupModal form").addEventListener("submit", function(e) {
     e.preventDefault();
     
