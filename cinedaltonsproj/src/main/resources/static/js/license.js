@@ -1,17 +1,44 @@
+async function loadLicense() {
+    try {
+        const response = await fetch("/license-text");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const text = await response.text();
+        document.getElementById("licenseText").innerText = text;
+    } catch (error) {
+        console.error("Failed to load license:", error);
+        document.getElementById("licenseText").innerText =
+            "Failed to load license text. Please try again.";
+    }
+   /* const response = await fetch("/license-text");
+    const text = await response.text();
+    document.getElementById("licenseText").innerText = text;*/
+}
+
 function checkLicense() {
     const accepted = localStorage.getItem("licenseAccepted");
-    toggleApp(!accepted);
+    const modal = document.getElementById("licenseModal");
+    const app = document.getElementById("appContent");
+
+    if (!accepted) {
+        // ΔΕΝ έχει δεχτεί → δείξε modal
+        modal.classList.remove("hidden");
+        app.classList.add("hidden-app");
+        loadLicense();
+    } else {
+        // Έχει δεχτεί → δείξε εφαρμογή
+        modal.classList.add("hidden");
+        app.classList.remove("hidden-app");
+    }
 }
 
 function acceptLicense() {
     localStorage.setItem("licenseAccepted", "true");
-    toggleApp(false);
+
+    document.getElementById("licenseModal").classList.add("hidden");
+    document.getElementById("appContent").classList.remove("hidden-app");
 }
 
-function toggleApp(showLicense) {
-    document.getElementById("licenseModal").style.display =
-        showLicense ? "block" : "none";
+document.addEventListener("DOMContentLoaded", checkLicense);
 
-    document.getElementById("appContent").style.display =
-        showLicense ? "none" : "block";
-}

@@ -117,7 +117,7 @@ async function handlePasswordReset() {
     const password = prompt("Password");
 
     const { error } = await supabase.auth.signUp({ email, password });
-    alert(error ? error.message : "✅ Account created");
+    alert(error ? error.message : " Account created");
 }
 
 async function signIn() {
@@ -129,7 +129,7 @@ async function signIn() {
         password
     });
 
-    alert(error ? error.message : "✅ Logged in");
+    alert(error ? error.message : " Logged in");
 }
 document.addEventListener("DOMContentLoaded", () => {
     const signupForm = document.getElementById("signupForm");
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 closeModal("signupModal");
-                alert("Account created successfully ✅");
+                alert("Account created successfully");
 
             } catch (err) {
                 console.error(err);

@@ -43,7 +43,7 @@ function createGenreCheckboxes() {
         const checkboxItem = document.createElement('div');
         checkboxItem.className = 'checkbox-item';
         checkboxItem.style.cssText = 'display: inline-block; margin: 5px;';
-        // ... (checkbox and label creation)
+        //  (checkbox and label creation)
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = 'genre-' + genre.name.toLowerCase().replace(/\s+/g, '-');

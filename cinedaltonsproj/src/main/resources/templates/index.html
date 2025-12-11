@@ -4,61 +4,34 @@
     <meta charset="UTF-8">
     <title>CineDaltons</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
 
-<!--  TOP RIGHT BUTTONS -->
-<div class="top-right">
-    <button class="btn" onclick="openPreferences()">Genre Preferences</button>
-    <button class="btn" onclick="signUp()">Sign Up</button>
-    <button class="btn" onclick="signIn()">Sign In</button>
-</div>
-
-<!--  LICENSE -->
-<div id="licenseModal" class="hidden">
-    <h2>Όροι Χρήσης</h2>
-    <button onclick="acceptLicense()">Αποδοχή</button>
-</div>
-
-<!--  APP -->
-<div id="appContent" class="hidden">
-    <div class="container">
-        <h1>Welcome to CineDaltons</h1>
-        <p>Discover and track your favorite movies</p>
-
-        <div class="search-section">
-            <input id="searchInput" placeholder="Search movies..." />
-            <button class="btn" onclick="searchMovies()">Search</button>
-        </div>
-
-        <h2>Search Results</h2>
-        <div id="results"></div>
+<!-- MODAL LICENSE -->
+<div id="licenseModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>MIT License</h2>
+        <pre id="licenseText" style="white-space: pre-wrap; background:#eee; padding:15px; border-radius:5px; height:300px; overflow-y:auto;">
+            Loading license text...
+        </pre>
+        <button class="btn submit-btn" onclick="acceptLicense()">Accept and Continue</button>
     </div>
 </div>
 
-<!--  WATCHLIST -->
-<div id="watchlist-toggle" onclick="toggleWatchlist()">Watchlist</div>
-<div id="watchlist-container" class="hidden"></div>
+<!-- ΚΥΡΙΑ ΕΦΑΡΜΟΓΗ -->
+<div id="appContent" class="hidden-app">
+    <!-- ... υπόλοιπος κώδικας ... -->
+</div>
 
-
-
-<!--  JS MODULES -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script th:src="@{/js/config.js}"></script>     <!-- ΟΡΙΖΕΙ SUPABASE_URL -->
-<script th:src="@{/js/supabase.js}"></script>
-<script th:src="@{/js/license.js}"></script>
-<script th:src="@{/js/auth.js}"></script>
-<script th:src="@{/js/tmdb.js}"></script>
-<script th:src="@{/js/watchlist.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<!-- JavaScript -->
+<script src="/js/config.js"></script>
+<script src="/js/supabase.js"></script>
+<script src="/js/license.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/tmdb.js"></script>
+<script src="/js/watchlist.js"></script>
+<script src="/js/main.js"></script>
 
 </body>
 </html>

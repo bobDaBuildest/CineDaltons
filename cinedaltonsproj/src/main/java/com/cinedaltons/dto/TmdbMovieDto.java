@@ -14,6 +14,7 @@ public class TmdbMovieDto {
     private Long id;
     private String title;
 
+    // --- Βασικές Πληροφορίες ---
     @JsonProperty("overview")
     private String overview;
 
@@ -23,24 +24,49 @@ public class TmdbMovieDto {
     @JsonProperty("poster_path")
     private String posterPath;
 
+    @JsonProperty("backdrop_path")
+    private String backdropPath; // Μεγάλη εικόνα φόντου
+
     @JsonProperty("vote_average")
     private double voteAverage;
 
-    // Αυτό το πεδίο είναι απαραίτητο για το Thymeleaf να φτιάχνει τη σωστή διαδρομή
+    @JsonProperty("runtime")
+    private Integer runtime; // Διάρκεια σε λεπτά
+
+    // --- Λίστες Δεδομένων ---
+
+    @JsonProperty("genres")
+    private List<TmdbGenreDto> genres; // Τα είδη (Action, Comedy κλπ)
+
+    // Αυτά τα γεμίζουμε με ξεχωριστές κλήσεις στο Service:
+    private List<TmdbCastDto> cast;     // Οι ηθοποιοί
+    private List<TmdbReviewDto> reviews; // Οι κριτικές
+
+
+    // --- Helper Methods για το HTML ---
+
     public String getFullPosterPath() {
-        if (posterPath == null) {
-            return "https://via.placeholder.com/150x225?text=No+Image";
-        }
-        return "https://image.tmdb.org/t/p/w200" + posterPath;
+        if (posterPath == null) return "https://via.placeholder.com/300x450?text=No+Poster";
+        return "https://image.tmdb.org/t/p/w500" + posterPath;
     }
 
-    // Αυτή η μέθοδος είναι απαραίτητη για να λειτουργήσει το κουμπί Watchlist του JavaScript
+    public String getFullBackdropPath() {
+        if (backdropPath == null) return "https://via.placeholder.com/1280x720?text=No+Backdrop";
+        return "https://image.tmdb.org/t/p/original" + backdropPath;
+    }
+
+    // Επιστρέφει μόνο τους top 5 ηθοποιούς για να μην γεμίζει η σελίδα
+    public List<TmdbCastDto> getTopCast() {
+        if (cast != null && cast.size() > 5) {
+            return cast.subList(0, 5);
+        }
+        return cast;
+    }
+
     @JsonIgnore
     public String getJsonRepresentation() {
         try {
-            // Χρειάζεται το Jackson dependency (Spring WebFlux το φέρνει)
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(this);
+            return new ObjectMapper().writeValueAsString(this);
         } catch (Exception e) {
             return "{}";
         }

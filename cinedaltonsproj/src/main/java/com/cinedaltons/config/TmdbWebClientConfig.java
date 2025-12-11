@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * using the properties defined in application.properties.
  * This ensures @Value fields are injected before the WebClient is built.
  */
+
 @Configuration
 public class TmdbWebClientConfig {
 
