@@ -1,4 +1,4 @@
-package com.cinedaltons.util;
+package com.cinedaltons.utility;
 
 import org.mindrot.jbcrypt.BCrypt;
 

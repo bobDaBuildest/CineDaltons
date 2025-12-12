@@ -15,10 +15,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // disable CSRF for development
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
-                );
+                        .requestMatchers("/", "/index", "/index.html", "/css/**", "/js/**", "/images/**",
+                                "/api/auth/signup").permitAll() // allow signup & index.html
+                )
+                .formLogin(form -> form.disable()); // disable Spring login form completely
 
         return http.build();
     }

@@ -21,17 +21,184 @@
 
 <!-- ΚΥΡΙΑ ΕΦΑΡΜΟΓΗ -->
 <div id="appContent" class="hidden-app">
-    <!-- ... υπόλοιπος κώδικας ... -->
+    <header class="top-right">
+        <div id="auth-buttons">
+            <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+            <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+            <button class="btn" onclick="openModal('signinModal')">Sign In</button>
+        </div>
+    </header>
+
+    <div class="container" style="text-align: center; padding-top: 50px;">
+        <img th:if="${error}" src="https://via.placeholder.com/100x100?text=Error" alt="Error" style="display: none;"/>
+        <img th:if="${error}" src="/images/error-icon.png" alt="Error" style="display: none;"/>
+
+        <h1>Welcome to CineDaltons</h1>
+        <p>Discover and track your favorite movies</p>
+    </div>
+
+    <form action="/search" method="get" class="search-section" style="text-align: center; margin: 20px auto;">
+        <input type="text" name="query" id="searchInput" placeholder="Search movies..." required
+               style="padding: 10px; width: 400px; border-radius: 4px; border: none; background-color: #333; color: white;">
+        <button type="button" class="btn" onclick="searchMovies()">Search</button>
+    </form>
+
+
+    <div id="results" style="text-align: center;">
+
+        <div th:each="movie : ${movies}" class="movie">
+
+            <a th:href="@{/movie/{id}(id=${movie.id})}" style="text-decoration: none; color: inherit; cursor: pointer;">
+
+                <img th:if="${movie.posterPath != null}"
+                     th:src="${'https://image.tmdb.org/t/p/w200' + movie.posterPath}"
+                     alt="Movie Poster" style="max-width: 100%; height: auto;">
+                <img th:if="${movie.posterPath == null}"
+                     src="https://via.placeholder.com/200x300?text=No+Image"
+                     alt="No Image" style="max-width: 100%; height: auto;">
+
+                <h3 th:text="${movie.title}" style="font-size: 1.1em; margin: 10px 0;">Movie Title</h3>
+            </a>
+
+            <p th:text="${movie.releaseDate}">2024</p>
+
+            <button class="btn"
+                    th:data-movie="${movie.jsonRepresentation}"
+                    onclick='addToWatchlist(JSON.parse(this.getAttribute("data-movie")))'
+            >
+                Add to Watchlist
+            </button>
+        </div>
+
+        <div th:if="${error}" style="color: red; width: 100%; text-align: center;" th:text="${error}">
+            Error message here
+        </div>
+    </div>
 </div>
 
-<!-- JavaScript -->
-<script src="/js/config.js"></script>
-<script src="/js/supabase.js"></script>
-<script src="/js/license.js"></script>
-<script src="/js/auth.js"></script>
-<script src="/js/tmdb.js"></script>
-<script src="/js/watchlist.js"></script>
-<script src="/js/main.js"></script>
+<button id="watchlist-toggle" onclick="toggleWatchlist()">
+    Watchlist <span id="watchlist-badge">0</span>
+</button>
+
+<div id="watchlist-container" class="hidden">
+    <h2>Your Watchlist</h2>
+    <button class="btn" onclick="renderWatchlist()">Refresh</button>
+    <div id="watchlist"></div>
+</div>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('signupModal')">&times;</span>
+        <h2>Create an account</h2>
+        <form id="signupForm" class="signup-validation">
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Username</label>
+                <input type="text" id="su_username" required maxlength="50" style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">First Name</label>
+                <input type="text" id="su_first" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Last Name</label>
+                <input type="text" id="su_last" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Email</label>
+                <input type="email" id="su_email" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Password</label>
+                <div class="password-container">
+                    <input type="password" id="su_password" required minlength="8" style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+                </div>
+            </div>
+
+            <div id="strengthText"></div>
+            <div id="strengthBar"></div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="color: black; display: block; margin-bottom: 5px;">Confirm Password</label>
+                <input type="password" id="su_confirmPassword" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="submit-btn">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<div id="signinModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('signinModal')">&times;</span>
+        <h2>Sign In</h2>
+        <form id="signInForm">
+            <label style="color: black;">Email</label>
+            <input type="email" id="si_email" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            <label style="color: black;">Password</label>
+            <input type="password" id="si_password" required style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+            <div style="margin-top: 10px; text-align: right;">
+                <button type="button" onclick="alert('Password reset link sent to your email (simulated).')" class="text-link">
+                    Forgot Password?
+                </button>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+<div id="genrePreferencesModal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <span class="close" onclick="closeModal('genrePreferencesModal')">&times;</span>
+        <h2>Movie Genre Preferences</h2>
+        <p>Select your favorite movie genres to get personalized recommendations!</p>
+
+        <form id="movieGenreForm">
+            <div class="form-group">
+                <label for="prefUsername" style="color: black;">Your Name</label> <input type="text" id="prefUsername" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label style="color: black;">Select Your Favorite Movie Genres</label>
+                <div class="checkbox-container" id="genreContainer">
+                </div>
+            </div>
+
+            <div class="selected-count" style="color: black;">
+                Selected: <span id="selectedCount">0</span> genres
+            </div>
+
+            <div class="success-message" id="successMessage" style="display:none; color: green;">
+                Your genre preferences have been saved successfully!
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn secondary-btn" id="resetBtn">Reset Selection</button>
+                <button type="submit" class="btn submit-btn">Save Preferences</button>
+            </div>
+        </form>
+        <hr>
+        <h3 style="color: black;">My Saved Preferences</h3>
+        <div id="preferencesDisplay" style="color: black;">No genre preferences saved yet.</div>
+        <button class="btn" onclick="showPreferencesDisplay()">View/Refresh Saved</button>
+
+    </div>
+</div>
+
+
+
+<!--  JS MODULES -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script th:src="@{/js/config.js}"></script>     <!-- ΟΡΙΖΕΙ SUPABASE_URL -->
+<script th:src="@{/js/supabase.js}"></script>
+<script th:src="@{/js/license.js}"></script>
+<script th:src="@{/js/auth.js}"></script>
+<script th:src="@{/js/tmdb.js}"></script>
+<script th:src="@{/js/watchlist.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>
