@@ -16,28 +16,25 @@ async function loadLicense() {
     document.getElementById("licenseText").innerText = text;*/
 }
 
+// 1. Λειτουργίες License (Άδεια Χρήσης)
 function checkLicense() {
-    const accepted = localStorage.getItem("licenseAccepted");
-    const modal = document.getElementById("licenseModal");
-    const app = document.getElementById("appContent");
+    const accepted = localStorage.getItem('licenseAccepted');
+    const licenseModal = document.getElementById('licenseModal');
+    const appContent = document.getElementById('appContent');
 
     if (!accepted) {
-        // ΔΕΝ έχει δεχτεί → δείξε modal
-        modal.classList.remove("hidden");
-        app.classList.add("hidden-app");
-        loadLicense();
+        licenseModal.style.display = "block";
+        appContent.style.display = "none";
     } else {
-        // Έχει δεχτεί → δείξε εφαρμογή
-        modal.classList.add("hidden");
-        app.classList.remove("hidden-app");
+        licenseModal.style.display = "none";
+        appContent.style.display = "block"; // Εμφάνιση περιεχομένου μετά την αποδοχή
     }
 }
 
 function acceptLicense() {
-    localStorage.setItem("licenseAccepted", "true");
-
-    document.getElementById("licenseModal").classList.add("hidden");
-    document.getElementById("appContent").classList.remove("hidden-app");
+    localStorage.setItem('licenseAccepted', 'true');
+    document.getElementById('licenseModal').style.display = "none";
+    document.getElementById('appContent').style.display = "block"; // Εμφάνιση του κύριου περιεχομένου
 }
 
 document.addEventListener("DOMContentLoaded", checkLicense);

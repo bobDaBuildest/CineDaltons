@@ -1,7 +1,7 @@
 // API Configuration
-const API_KEY = "f8947b5a30msh284eb84742f0b0cp1ec490jsn3e5c66478f7f";
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
+//const API_KEY = "f8947b5a30msh284eb84742f0b0cp1ec490jsn3e5c66478f7f";
+//const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+//const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 
 // -------------------------------------------------------------
 // I. MODAL FUNCTIONS

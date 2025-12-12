@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b467aff8-c2ba-4cbb-a11b-5d6aaa0dee5b" name="Changes" comment="added soupabase patched springboot">
+      <change afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/license.js" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/license.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/static/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cinedaltons/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cinedaltons/config/SecurityConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +128,7 @@
       <workItem from="1765456383715" duration="5747000" />
       <workItem from="1765471231498" duration="3426000" />
       <workItem from="1765484609583" duration="2767000" />
-      <workItem from="1765547110405" duration="957000" />
+      <workItem from="1765547110405" duration="3421000" />
     </task>
     <task id="LOCAL-00001" summary="Added search functionality and movie details page">
       <option name="closed" value="true" />
@@ -173,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765486478215</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added soupabase patched springboot">
+      <option name="closed" value="true" />
+      <created>1765548275325</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765548275325</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

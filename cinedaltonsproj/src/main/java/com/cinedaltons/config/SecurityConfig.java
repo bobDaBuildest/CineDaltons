@@ -17,7 +17,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // disable CSRF for development
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index", "/index.html", "/css/**", "/js/**", "/images/**",
+                        .requestMatchers("/",
+                                "/index",
+                                "/index.html",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
                                 "/api/auth/signup").permitAll() // allow signup & index.html
                 )
                 .formLogin(form -> form.disable()); // disable Spring login form completely

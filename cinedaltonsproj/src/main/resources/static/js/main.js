@@ -2,7 +2,7 @@
 // -------------------------------------------------------------
 // I. MODAL FUNCTIONS (Προστέθηκαν για να λειτουργήσουν τα buttons)
 // -------------------------------------------------------------
-function openModal(id) {
+/*function openModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
         modal.style.display = "block";
@@ -14,6 +14,24 @@ function closeModal(id) {
     if (modal) {
         modal.style.display = "none";
     }
+}*/
+function openModal(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+// Close modal when clicking outside
+window.onclick = function(e) {
+    document.querySelectorAll(".modal").forEach(modal => {
+        if (e.target === modal) {
+            if (modal.id !== 'licenseModal') { // Το licenseModal πρέπει να κλείνει μόνο με το Accept
+                modal.style.display = "none";
+            }
+        }
+    });
 }
 
 // Κλείσιμο modal όταν ο χρήστης κάνει κλικ έξω από αυτό

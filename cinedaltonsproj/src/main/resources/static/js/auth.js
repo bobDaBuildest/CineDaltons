@@ -131,6 +131,32 @@ async function signIn() {
 
     alert(error ? error.message : " Logged in");
 }
+
+function updateUIForAuthState() {
+    const watchlistToggle = document.getElementById('watchlist-toggle');
+    const authButtons = document.getElementById('auth-buttons');
+
+    if (currentUser) {
+        // Εμφάνιση watchlist και αλλαγή των auth buttons
+        watchlistToggle.style.display = 'block';
+        authButtons.innerHTML = `
+                <div class="user-info">
+                    <span class="welcome-message">Welcome, ${currentUser.username || currentUser.email}</span>
+                    <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+                    <button class="btn" onclick="logout()">Logout</button>
+                </div>
+            `;
+    } else {
+        // Απόκρυψη watchlist και εμφάνιση sign in/sign up
+        watchlistToggle.style.display = 'none';
+        document.getElementById('watchlist-container').classList.add('hidden');
+        authButtons.innerHTML = `
+                <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                <button class="btn" onclick="openModal('signinModal')">Sign In</button>
+            `;
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
     const signupForm = document.getElementById("signupForm");
 
