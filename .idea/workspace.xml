@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="MIT pop up">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cinedaltons/service/UserServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cinedaltons/service/TmdbServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
@@ -52,6 +50,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.TmdbServiceTest.executor": "Run",
     "JUnit.UserServiceImplTest.executor": "Run",
     "JUnit.UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists.executor": "Run",
     "JavaScript Debug.index.html.executor": "Run",
@@ -94,18 +93,13 @@
       <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons" />
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
-      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
+      <recent name="C:\Users\konis\Desktop\CineDaltons\cinedaltonsproj\src\main\resources\templates\static\css" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.cinedaltons.service" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\konis\Desktop\CineDaltons\cinedaltonsproj\src\main\resources\templates\static\css" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -118,7 +112,7 @@
       <command value="mvn -X clean spring-boot:run" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceImplTest">
+  <component name="RunManager">
     <configuration name="UserServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CineDaltons" />
       <extension name="coverage">
@@ -163,9 +157,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JUnit.UserServiceImplTest" />
         <item itemvalue="JUnit.UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists" />
-        <item itemvalue="JavaScript Debug.index.html" />
       </list>
     </recent_temporary>
   </component>
@@ -191,6 +185,8 @@
       <workItem from="1764666391368" duration="946000" />
       <workItem from="1764849838411" duration="228000" />
       <workItem from="1765382696424" duration="1368000" />
+      <workItem from="1765577087715" duration="1697000" />
+      <workItem from="1765999226441" duration="2057000" />
     </task>
     <task id="LOCAL-00001" summary="database connection">
       <option name="closed" value="true" />
