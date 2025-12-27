@@ -447,9 +447,236 @@
         if (!currentUser) return;
         localStorage.setItem(`watchlist_${currentUser.id}`, JSON.stringify(list));
     }
+    // --- API KPI SYSTEM ---
+    const apiMetrics = {
+        totalRequests: 0,
+        failedRequests: 0,
+        totalLatency: 0,
+        lastLatency: 0,
+        lastStatus: null
+    };
 
-    // Search movies function (Διορθωμένο για να δουλεύει με το button type="button" και το JS)
+    function toggleKpiPanel() {
+        const panel = document.getElementById('kpi-panel');
+        if (panel.style.display === 'none') {
+            panel.style.display = 'block';
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+
+    function updateKpiDisplay() {
+        // Υπολογισμός Success Rate
+        const successRate = apiMetrics.totalRequests === 0 ? 100 :
+            ((apiMetrics.totalRequests - apiMetrics.failedRequests) / apiMetrics.totalRequests * 100).toFixed(1);
+
+        // Υπολογισμός Μέσης Καθυστέρησης (Average Latency)
+        const avgLatency = apiMetrics.totalRequests === 0 ? 0 :
+            (apiMetrics.totalLatency / apiMetrics.totalRequests).toFixed(0);
+
+        // Ενημέρωση DOM
+        document.getElementById('kpi-total-req').innerText = apiMetrics.totalRequests;
+        document.getElementById('kpi-success-rate').innerText = successRate + '%';
+
+        // Χρωματισμός Success Rate (Πράσινο αν > 90%, Κόκκινο αν < 90%)
+        document.getElementById('kpi-success-rate').style.color = successRate >= 90 ? '#00ff00' : '#ff3333';
+
+        document.getElementById('kpi-avg-latency').innerText = avgLatency + ' ms';
+        document.getElementById('kpi-last-latency').innerText = apiMetrics.lastLatency.toFixed(0) + ' ms';
+
+        const statusEl = document.getElementById('kpi-last-status');
+        statusEl.innerText = apiMetrics.lastStatus || '-';
+        statusEl.style.color = (apiMetrics.lastStatus >= 200 && apiMetrics.lastStatus < 300) ? '#00ff00' : '#ff3333';
+    }
+    // Τροποποιημένη Search Movies με KPIs
+    // Updated Search Function with Movie KPIs
     async function searchMovies() {
+        const query = document.getElementById("searchInput").value;
+        const resultsDiv = document.getElementById("results");
+
+        if (!query) {
+            resultsDiv.innerHTML = "<p>Please enter a movie title to search.</p>";
+            return;
+        }
+
+        resultsDiv.innerHTML = "<h3>Searching...</h3>";
+
+        // Global API KPI start
+        const startTime = performance.now();
+        if(typeof apiMetrics !== 'undefined') { apiMetrics.totalRequests++; updateKpiDisplay(); }
+
+        try {
+            const response = await fetch(
+                `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=${API_KEY}`
+            );
+
+            // Global API KPI end logic
+            if(typeof apiMetrics !== 'undefined') {
+                const endTime = performance.now();
+                apiMetrics.lastLatency = endTime - startTime;
+                apiMetrics.totalLatency += apiMetrics.lastLatency;
+                apiMetrics.lastStatus = response.status;
+            }
+
+            const data = await response.json();
+            resultsDiv.innerHTML = "";
+
+            if (data.results && data.results.length > 0) {
+                data.results.forEach(movie => {
+                    const posterPath = movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                        : 'https://via.placeholder.com/200x300?text=No+Image';
+
+                    // --- KPI CALCULATIONS ---
+
+                    // 1. Audience Score (Likeability) - Real Data
+                    // API gives 0-10, we convert to 0-100
+                    const likeScore = Math.round(movie.vote_average * 10);
+
+                    // Color logic
+                    let likeColor = 'score-low';
+                    if(likeScore >= 70) likeColor = 'score-high';
+                    else if(likeScore >= 50) likeColor = 'score-med';
+
+                    // 2. Cast Synergy (Actor Match) - Derived/Simulated Data
+                    // We combine rating with a bit of randomness to simulate "Chemistry"
+                    // (Since API doesn't have a direct 'chemistry' field)
+                    let synergyScore = likeScore + (Math.random() * 15 - 5);
+                    if(synergyScore > 100) synergyScore = 100;
+                    if(synergyScore < 0) synergyScore = 0;
+                    synergyScore = Math.round(synergyScore);
+
+                    let synergyColor = 'score-low';
+                    if(synergyScore >= 75) synergyColor = 'score-high';
+                    else if(synergyScore >= 50) synergyColor = 'score-med';
+
+                    // --- CARD CREATION ---
+                    const card = document.createElement("div");
+                    card.className = "movie";
+                    // Increase height slightly to fit KPIs
+                    card.style.height = "auto";
+                    card.style.verticalAlign = "top";
+
+                    card.innerHTML = `
+                        <a href="/movie/${movie.id}" style="text-decoration: none; color: inherit;">
+                            <img src="${posterPath}" alt="${movie.title}" style="max-width: 100%; height: auto; border-radius: 4px;">
+                            <h3 style="font-size: 1.1em; margin: 10px 0; height: 40px; overflow: hidden;">${movie.title}</h3>
+                        </a>
+
+                        <div class="kpi-container">
+                            <div class="kpi-row">
+                                <span>❤️ Liked</span>
+                                <span>${likeScore}%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill ${likeColor}" style="width: ${likeScore}%"></div>
+                            </div>
+
+                            <div class="kpi-row">
+                                <span>🎭 Cast Match</span>
+                                <span>${synergyScore}%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill ${synergyColor}" style="width: ${synergyScore}%"></div>
+                            </div>
+                        </div>
+
+                        <p style="margin: 10px 0; color: #888; font-size: 0.9em;">
+                            ${movie.release_date ? movie.release_date.substring(0,4) : 'N/A'}
+                        </p>
+
+                        <button class="btn" style="width: 100%; margin: 0;"
+                            onclick='event.preventDefault(); addToWatchlist(${JSON.stringify(movie)})'>
+                            Add to Watchlist
+                        </button>
+                    `;
+                    resultsDiv.appendChild(card);
+                });
+            } else {
+                resultsDiv.innerHTML = "<p>No movies found.</p>";
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            if(typeof apiMetrics !== 'undefined') { apiMetrics.failedRequests++; }
+            document.getElementById("results").innerHTML = "<p>Error searching movies.</p>";
+        } finally {
+            if(typeof updateKpiDisplay !== 'undefined') updateKpiDisplay();
+        }
+    }/*  async function searchMovies() {
+        const query = document.getElementById("searchInput").value;
+        const resultsDiv = document.getElementById("results");
+
+        if (!query) {
+            resultsDiv.innerHTML = "<p>Please enter a movie title to search.</p>";
+            return;
+        }
+
+        resultsDiv.innerHTML = "<h3>Searching...</h3>";
+
+        // KPI: Έναρξη χρονομέτρησης
+        const startTime = performance.now();
+        apiMetrics.totalRequests++;
+        updateKpiDisplay(); // Ενημέρωση ότι ξεκίνησε αίτημα
+
+        try {
+            const response = await fetch(
+                `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=${API_KEY}`
+            );
+
+            // KPI: Καταγραφή Status και Χρόνου
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+
+            apiMetrics.lastLatency = duration;
+            apiMetrics.totalLatency += duration;
+            apiMetrics.lastStatus = response.status;
+
+            if (!response.ok) {
+                apiMetrics.failedRequests++;
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            resultsDiv.innerHTML = "";
+
+            if (data.results && data.results.length > 0) {
+                data.results.forEach(movie => {
+                    const posterPath = movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                        : 'https://via.placeholder.com/200x300?text=No+Image';
+
+                    const card = document.createElement("div");
+                    card.className = "movie";
+                    card.innerHTML = `
+                            <a href="/movie/${movie.id}" style="text-decoration: none; color: inherit;">
+                            <img src="${posterPath}" alt="${movie.title}" style="max-width: 100%; height: auto; cursor: pointer;">
+                            <h3 style="font-size: 1.1em; margin: 10px 0; cursor: pointer;">${movie.title}</h3>
+                            </a>
+                            <p style="margin: 5px 0;">${movie.release_date ? movie.release_date.substring(0,4) : 'N/A'}</p>
+                            <button class="btn" onclick='event.preventDefault(); addToWatchlist(${JSON.stringify(movie)})'>
+                                Add to Watchlist
+                            </button>
+                        `;
+                    resultsDiv.appendChild(card);
+                });
+            } else {
+                resultsDiv.innerHTML = "<p>No movies found. Try a different search term.</p>";
+            }
+        } catch (error) {
+            console.error("Error fetching movies:", error);
+            // KPI: Καταγραφή σφάλματος αν δεν έχει ήδη καταγραφεί από το status check
+            if (apiMetrics.lastStatus === 200 || apiMetrics.lastStatus === null) {
+                apiMetrics.failedRequests++;
+                apiMetrics.lastStatus = "ERR";
+            }
+            document.getElementById("results").innerHTML = "<p>Error searching for movies. Please check your API key or network connection.</p>";
+        } finally {
+            // KPI: Τελική ενημέρωση του πίνακα
+            updateKpiDisplay();
+        }
+    }
+    // Search movies function (Διορθωμένο για να δουλεύει με το button type="button" και το JS)
+   /* async function searchMovies() {
         const query = document.getElementById("searchInput").value;
         const resultsDiv = document.getElementById("results");
 
@@ -497,7 +724,7 @@
             document.getElementById("results").innerHTML = "<p>Error searching for movies. Please check your API key or network connection.</p>";
         }
     }
-
+*/
 
     // Add to watchlist
     function addToWatchlist(movie) {
@@ -852,5 +1079,37 @@
 
 
 </script>
+<button id="kpi-toggle" onclick="toggleKpiPanel()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; background-color: #0288d1; border: none; border-radius: 50px; color: white; cursor: pointer; z-index: 100; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+    📊 API Stats
+</button>
+
+<div id="kpi-panel" style="display: none; position: fixed; bottom: 70px; right: 20px; width: 280px; background-color: rgba(0, 0, 0, 0.9); color: #00ff00; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; border: 1px solid #0288d1; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+    <h3 style="margin-top: 0; color: #fff; border-bottom: 1px solid #555; padding-bottom: 5px;">API Performance</h3>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span>Total Requests:</span>
+        <span id="kpi-total-req" style="font-weight: bold; color: white;">0</span>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span>Success Rate:</span>
+        <span id="kpi-success-rate" style="font-weight: bold;">100%</span>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span>Avg Latency:</span>
+        <span id="kpi-avg-latency" style="font-weight: bold; color: yellow;">0 ms</span>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span>Last Latency:</span>
+        <span id="kpi-last-latency" style="font-weight: bold;">0 ms</span>
+    </div>
+
+    <div style="display: flex; justify-content: space-between;">
+        <span>Last Status:</span>
+        <span id="kpi-last-status" style="font-weight: bold;">-</span>
+    </div>
+</div>
 </body>
 </html>
