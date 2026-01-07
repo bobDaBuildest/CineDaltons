@@ -60,30 +60,74 @@
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
-            border-radius: 6px;
+            align-items: center; /* Κεντράρισμα κάθετα */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
+        .watchlist-info {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .watchlist-thumb {
+            width: 50px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 12px;
+            background: #ddd;
+        }
+        .watchlist-title {
+            font-weight: bold;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Τρεις τελείες αν ο τίτλος είναι τεράστιος */
+            max-width: 190px;
+        }
+        .remove-btn {
+            background: #ff4d4d; color: white; border:none;
+            width: 30px; height: 30px; border-radius: 50%;
+            cursor: pointer; font-weight: bold;
+            flex-shrink: 0; /* Για να μην συμπιέζεται το κουμπί */
+        }
+        /* -------------------------------------------------- */
+
         /* MOVIE CARD */
+        #results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
         .movie {
             border: 1px solid #ddd;
             width: 250px;
             padding: 10px;
             margin-bottom: 20px;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         .movie img {
             width: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
+        }
+        .movie h3 { font-size: 16px; margin: 10px 0; height: 40px; overflow: hidden;}
+        .movie button {
+            background: #2b8cff; color: white; border: none;
+            padding: 8px 12px; border-radius: 6px; cursor: pointer; width: 100%;
         }
     </style>
 </head>
 <body>
 
 <h1>CineMatch (No Backend)</h1>
-
+<input type="text" id="searchInput" placeholder="Search movies..." style="padding:10px; width:250px; border-radius: 20px; border:1px solid #ccc;">
+<button onclick="searchMovies()" style="padding: 10px 15px; border-radius: 20px; background: #333; color:white; border:none; cursor:pointer;">Search</button>
 <!-- SEARCH BAR -->
-<input type="text" id="searchInput" placeholder="Search movies..." style="padding:8px; width:250px;">
 <button onclick="searchMovies()">Search</button>
 
 <h2>Search Results</h2>
@@ -102,7 +146,10 @@
 </div>
 
 <script>
-    const API_KEY = "YOUR_API_KEY_HERE";  // ⬅ ΒΑΛΕ ΤΟ API KEY ΕΔΩ
+    const API_KEY = "fbdfbb87f57e7fd7d5778016a7b26f49";
+
+
+    let currentMovies = [];
 
     // --- GET WATCHLIST FROM localStorage ---
     function getWatchlist() {
@@ -119,19 +166,15 @@
         const query = document.getElementById("searchInput").value;
         if (!query) return;
 
-        const response = await fetch(
-            `https://api.themoviedb.org/3/search/movie?query=${query}`,
-            {
-                headers: {
-                    "Authorization": `Bearer ${API_KEY}`,
-                    "Content-Type": "application/json;charset=utf-8"
-                }
-            }
-        );
+        // Χρήση του API key στο URL (γιατί είναι v3 key)
 
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
+        const response = await fetch(url);
         const data = await response.json();
+        currentMovies = data.results; // Αποθήκευση για ασφάλεια
         const resultsDiv = document.getElementById("results");
         resultsDiv.innerHTML = "";
+
 
         data.results.forEach(movie => {
             const card = `
@@ -146,6 +189,10 @@
             resultsDiv.innerHTML += card;
         });
     }
+    function addByIndex(index) {
+        addToWatchlist(currentMovies[index]);
+    }
+
 
     // --- ADD TO WATCHLIST ---
     function addToWatchlist(movie) {
@@ -176,13 +223,27 @@
         const items = getWatchlist();
         const container = document.getElementById("watchlist");
         container.innerHTML = "";
+        document.getElementById("watchlist-badge").innerText = items.length;
+
+        if (items.length === 0) {
+            container.innerHTML = "<p>List is empty.</p>";
+            return;
+        }
 
         updateBadge();
 
         items.forEach(movie => {
+            // 1. Δημιουργία του link της εικόνας (χρησιμοποιούμε μικρότερο μέγεθος w92)
+            const posterUrl = movie.poster_path
+                ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
+                : 'https://via.placeholder.com/50x75?text=No+Img'; // Εικόνα αν δεν υπάρχει poster
+
             container.innerHTML += `
                 <div class="watchlist-item">
-                    <span>${movie.title}</span>
+                <div class="watchlist-info">
+                <img src="${posterUrl}" class="watchlist-thumb" alt="${movie.title}">
+                <span>${movie.title}</span>
+                </div>
                     <button onclick="removeFromWatchlist(${movie.id})">X</button>
                 </div>
             `;
