@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0e9b8109-c5ab-4923-975d-e334dc32df48" name="Changes" comment="MIT pop up">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/html/search bar- watchlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/cinedaltonsproj/src/main/java/com/cinedaltons/html/search bar- watchlist.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +30,12 @@
     &quot;assignee&quot;: &quot;KyriakosTerzoudis&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/bobDaBuildest/CineDaltons.git",
-    "accountId": "0b81fcd1-c5f9-4eb2-9d6b-002f9ad703b4"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/bobDaBuildest/CineDaltons.git&quot;,
+    &quot;accountId&quot;: &quot;2190a3ec-8348-4d4a-9bcc-17c27c4ed384&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -51,10 +49,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JUnit.TmdbServiceTest.executor": "Run",
     "JUnit.UserServiceImplTest.executor": "Run",
     "JUnit.UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists.executor": "Run",
-    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.index.html.executor": "Debug",
     "Maven.CineDaltons [-X,clean,spring-boot:run].executor": "Run",
     "Maven.CineDaltons [-v].executor": "Run",
     "Maven.CineDaltons [clean,compile].executor": "Run",
@@ -68,10 +65,9 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CinedaltonsMain.executor": "Run",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "46-patch-watchlist",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -82,7 +78,6 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -96,13 +91,18 @@
       <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\konis\Desktop\CineDaltons\cinedaltonsproj\src\main\resources\templates\static\css" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\static\css" />
+      <recent name="C:\Users\kyrte\OneDrive\Έγγραφα\GitHub\CineDaltons\cinedaltonsproj\src\main\resources\templates" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.cinedaltons.service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\konis\Desktop\CineDaltons\cinedaltonsproj\src\main\resources\templates\static\css" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -152,7 +152,7 @@
     </configuration>
     <configuration name="CinedaltonsMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="CineDaltons" />
+      <module name="cinedaltons-proj" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cinedaltons.CinedaltonsMain" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,8 +169,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
-        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
@@ -188,9 +188,6 @@
       <workItem from="1764666391368" duration="946000" />
       <workItem from="1764849838411" duration="228000" />
       <workItem from="1765382696424" duration="1368000" />
-      <workItem from="1765577087715" duration="1697000" />
-      <workItem from="1765999226441" duration="2057000" />
-      <workItem from="1766857397688" duration="746000" />
     </task>
     <task id="LOCAL-00001" summary="database connection">
       <option name="closed" value="true" />
@@ -245,6 +242,10 @@
     <MESSAGE value="database connection" />
     <MESSAGE value="MIT pop up" />
     <option name="LAST_COMMIT_MESSAGE" value="MIT pop up" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">
