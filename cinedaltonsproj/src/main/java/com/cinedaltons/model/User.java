@@ -1,5 +1,7 @@
 package com.cinedaltons.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*; // Για JPA annotations
 import lombok.Data;          // Για getters/setters (προαιρετικό, αλλά συχνό)
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +37,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password; // Προσοχή: Αποθηκεύεται πάντα κρυπτογραφημένο (hashed)
 
     // Πεδίο απαραίτητο για τη λειτουργία Quiz/Trivia [cite: 38]
@@ -42,8 +46,9 @@ public class User {
     // Πρόσθετα πεδία για την αξιολόγηση και παρακολούθηση
     private LocalDateTime registrationDate = LocalDateTime.now();
 
-     //   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<QuizScore> quizHistory;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<QuizScore> quizHistory = new ArrayList<>();
 
 // ...
     // *******************************************************************
