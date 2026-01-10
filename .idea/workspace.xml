@@ -71,10 +71,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JUnit.TmdbServiceTest.executor": "Run",
     "JUnit.UserServiceImplTest.executor": "Run",
     "JUnit.UserServiceImplTest.testRegisterUser_ThrowsException_WhenUserExists.executor": "Run",
-    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.index.html.executor": "Debug",
     "Maven.CineDaltons [-X,clean,spring-boot:run].executor": "Run",
     "Maven.CineDaltons [-v].executor": "Run",
     "Maven.CineDaltons [clean,compile].executor": "Run",
@@ -89,7 +88,6 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CinedaltonsMain.executor": "Run",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "quiz3",
@@ -125,6 +123,9 @@
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.cinedaltons.service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\konis\Desktop\CineDaltons\cinedaltonsproj\src\main\resources\templates\static\css" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -174,7 +175,7 @@
     </configuration>
     <configuration name="CinedaltonsMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="CineDaltons" />
+      <module name="cinedaltons-proj" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cinedaltons.CinedaltonsMain" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -191,8 +192,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
-        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
@@ -279,6 +280,10 @@
     <MESSAGE value="MIT pop up" />
     <MESSAGE value="PARE LAE QUIZ" />
     <option name="LAST_COMMIT_MESSAGE" value="PARE LAE QUIZ" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
