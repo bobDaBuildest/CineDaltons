@@ -153,6 +153,7 @@
     <header class="top-right">
         <div id="auth-buttons">
             <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
+            <button class="btn btn-quiz" onclick="window.location.href='/quiz'">🎬 Movie Quiz</button>
             <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
             <button class="btn" onclick="openModal('signinModal')">Sign In</button>
         </div>
@@ -216,6 +217,12 @@
     <div id="watchlist"></div>
 </div>
 
+<div class="quiz-section">
+    <a href="/quiz" class="btn btn-quiz">
+        🎬 Movie Quiz!
+    </a>
+</div>
+
 <div id="signupModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('signupModal')">&times;</span>
@@ -259,6 +266,8 @@
         </form>
     </div>
 </div>
+
+
 
 <div id="signinModal" class="modal">
     <div class="modal-content">

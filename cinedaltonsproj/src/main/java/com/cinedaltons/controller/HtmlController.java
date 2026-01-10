@@ -10,4 +10,9 @@ public class HtmlController {
     public String index() {
         return "index"; // Θα αναζητήσει το index.html στο φάκελο templates
     }
+
+    @GetMapping("/quiz")
+    public String quiz() {
+        return "quiz"; // Θα αναζητήσει το quiz.html στο φάκελο templates
+    }
 }
