@@ -326,6 +326,31 @@
     </div>
 </div>
 
+<div id="gameModal" class="modal">
+    <div class="modal-content" style="text-align: center;">
+        <span class="close" onclick="closeModal('gameModal')">&times;</span>
+        <h2 style="color: black;">Which Movie Era Do You Belong To?</h2>
+        <p style="color: #666;">Upload a photo and our AI will match your vibe to a classic film era!</p>
+
+        <div class="upload-area" style="margin: 20px 0; padding: 20px; border: 2px dashed #ccc; border-radius: 8px;">
+            <input type="file" id="gameUserPhoto" accept="image/*" style="color: black;">
+        </div>
+
+        <button onclick="findMovieEra()" class="submit-btn"
+                style="background-color: #ff5722; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">
+            Analyze Me!
+        </button>
+
+        <!--<button onclick="findLookalike()" class="submit-btn" style="background-color: #ff5722; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">
+            Analyze Me!
+        </button>-->
+
+        <div id="gameResult" style="margin-top: 20px; color: black; min-height: 50px;"></div>
+
+        <div id="gameTop3" style="margin-top: 10px; color: #333;"></div>
+    </div>
+</div>
+
 <script>
     // API Configuration
     // ΠΡΟΣΟΧΗ: Το API key είναι δημόσιο, αλλά είναι καλό να μην το εκθέτετε σε πραγματική εφαρμογή.
@@ -361,6 +386,7 @@
             authButtons.innerHTML = `
                 <div class="user-info">
                     <span class="welcome-message">Welcome, ${currentUser.username || currentUser.email}</span>
+                    <button class="btn" onclick="openModal('gameModal')" style="background-color: #ff5722; color: white;">Play Movie Era Game</button>
                     <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
                     <button class="btn" onclick="logout()">Logout</button>
                 </div>
@@ -370,6 +396,7 @@
             watchlistToggle.style.display = 'none';
             document.getElementById('watchlist-container').classList.add('hidden');
             authButtons.innerHTML = `
+                <button class="btn" onclick="openModal('gameModal')" style="background-color: #ff5722; color: white;">Play Lookalike Game</button>
                 <button class="btn" onclick="showPreferencesModal()">Genre Preferences</button>
                 <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
                 <button class="btn" onclick="openModal('signinModal')">Sign In</button>
@@ -1086,6 +1113,72 @@
         }
     });
 
+    // ==============================================
+    // AI GAME FUNCTION
+    // ==============================================
+    async function findMovieEra() {
+        const input = document.getElementById('gameUserPhoto');
+        const resultDiv = document.getElementById('gameResult');
+        const top3Div = document.getElementById('gameTop3');
+
+        // 1. Check if user selected a file
+        if (input.files.length === 0) {
+            alert("Please select a photo first!");
+            return;
+        }
+
+        resultDiv.innerHTML = "Analyzing your vibe... <br> (This might take a few seconds)";
+        top3Div.innerHTML = "";
+        // 2. Prepare the form data to send to Java
+        const formData = new FormData();
+        formData.append('photo', input.files[0]);
+
+        try {
+            // 3. Send request to YOUR Java Backend
+            const response = await fetch('/api/movie-era', {
+                method: 'POST',
+                body: formData
+            });
+
+            const raw = await response.text();
+            console.log("RAW /api/movie-era:", raw); // replaced 1.
+
+            //1.const data = await response.json();
+
+            if (!response.ok) {
+                resultDiv.innerHTML = `<span style="color:red">Server error: ${response.status}</span>`;
+                return;
+            }
+
+            let data;
+            try { data = JSON.parse(raw); }
+            catch (e) {
+                resultDiv.innerHTML = "<span style='color:red'>Server returned non-JSON.</span>";
+                return;
+            }
+
+            resultDiv.innerHTML = `
+                <div style="font-size: 1.4em; color: green; margin-top:10px;">
+                    Your Movie Era: <strong>${data.bestEra}</strong>
+                </div>
+                <div style="color: #555;">Confidence: ${data.confidence}%</div>
+            `;
+
+            if (data.top5 && data.top5.length) {
+                top3Div.innerHTML = `
+                    <hr style="margin:10px 0;">
+                    <div style="font-weight:600; margin-bottom:6px;">Top matches</div>
+                    <div style="text-align:left; display:inline-block;">
+                        ${data.top5.map(x => `• ${x.era} (${x.score}%)`).join("<br>")}
+                    </div>
+            `;
+            }
+
+        } catch (err) {
+            console.error(err);
+            resultDiv.innerHTML = "<span style='color:red'>Error connecting to server.</span>";
+        }
+    }
 
 </script>
 <button id="kpi-toggle" onclick="toggleKpiPanel()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; background-color: #0288d1; border: none; border-radius: 50px; color: white; cursor: pointer; z-index: 100; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
