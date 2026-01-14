@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-
+import org.springframework.core.ParameterizedTypeReference;
+import java.util.List;
+import java.util.Map;
 import java.util.*;
 
 @Service
@@ -222,5 +224,60 @@ public class HuggingFaceService {
 
         Collections.shuffle(fallbacks);
         return fallbacks.subList(0, Math.min(3, fallbacks.size()));
+    }
+    private static final String EMOTION_MODEL_URL ="https://api-inference.huggingface.co/models/SamLowe/roberta-base-go_emotions";
+
+    /**
+     * Αναλύει το συναίσθημα ενός κειμένου (π.χ. overview ταινίας).
+     * Επιστρέφει: "joy", "sadness", "fear", "anger", "surprise", "disgust", "neutral"
+     */
+    public String analyzeEmotion(String text) {
+        if (text == null || text.isEmpty()) return "neutral";
+
+        // Απλοποιημένο Prompt για το Phi-3.5
+        String prompt = "Classify the sentiment of this movie plot into exactly one word: Happy, Sad, Scary, Tense, or Exciting.\n" +
+                "Plot: \"" + text + "\"\n" +
+                "Answer:";
+
+        try {
+            // Καλούμε το API χρησιμοποιώντας το URL από το application.properties
+            String response = callHuggingFaceAPI(prompt);
+            return cleanEmotionResponse(response);
+        } catch (Exception e) {
+            logger.error("Error analyzing emotion: {}", e.getMessage());
+            return "neutral";
+        }
+    }
+
+    // Βοηθητική μέθοδος για να καθαρίσουμε την απάντηση του AI
+    private String cleanEmotionResponse(String response) {
+        if (response == null) return "neutral";
+
+        // Κρατάμε μόνο την τελευταία λέξη (σε περίπτωση που το AI πει "The emotion is Happy")
+        String clean = response.trim();
+        // Αν το response περιέχει το [/INST], παίρνουμε ό,τι είναι μετά
+        if (clean.contains("[/INST]")) {
+            clean = clean.substring(clean.lastIndexOf("[/INST]") + 7).trim();
+        }
+
+        // Αφαιρούμε σημεία στίξης
+        clean = clean.replaceAll("[^a-zA-Z]", "");
+        return clean.toLowerCase();
+    }
+
+    private String getTopEmotion(List<Map<String, Object>> emotions) {
+        String topLabel = "neutral";
+        double maxScore = -1.0;
+
+        for (Map<String, Object> entry : emotions) {
+            String label = (String) entry.get("label");
+            Double score = ((Number) entry.get("score")).doubleValue();
+
+            if (score > maxScore) {
+                maxScore = score;
+                topLabel = label;
+            }
+        }
+        return topLabel;
     }
 }
