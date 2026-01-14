@@ -728,8 +728,40 @@
         }
     }
 
+
     // Show Results
     function showResults(result) {
+        questionScreen.style.display = 'none';
+        resultsScreen.classList.add('active');
+        resultsScreen.style.display = 'block';
+
+        // ΥΠΟΛΟΓΙΣΜΟΣ ΣΚΟΡ: (Σωστές Απαντήσεις / Σύνολο Ερωτήσεων) * 100
+        // Χρησιμοποιούμε Math.round για να μην έχουμε δεκαδικά
+        const finalScore = Math.round((quizState.correctAnswers / quizState.questions.length) * 100);
+
+        // Ενημέρωση του UI με το υπολογισμένο σκορ
+        document.getElementById('finalScore').textContent = `${finalScore}/100`;
+
+        document.getElementById('correctAnswers').textContent = quizState.correctAnswers;
+        document.getElementById('totalQuestions').textContent = quizState.questions.length;
+
+        const timeInSeconds = Math.floor((Date.now() - quizState.startTime) / 1000);
+        document.getElementById('timeTaken').textContent = `${timeInSeconds}s`;
+
+        // Μηνύματα αποτελεσμάτων με βάση το finalScore
+        let message = '';
+        if (finalScore >= 90) {
+            message = '🌟 Εκπληκτικό! Είσαι ειδικός του κινηματογράφου!';
+        } else if (finalScore >= 70) {
+            message = '🎬 Πολύ καλά! Γνωρίζεις τις ταινίες σου!';
+        } else if (finalScore >= 50) {
+            message = '🎥 Όχι άσχημα! Συνέχισε να βλέπεις ταινίες!';
+        } else {
+            message = '🍿 Χρειάζεσαι περισσότερες ταινίες! Δοκίμασε ξανά!';
+        }
+        document.getElementById('resultsMessage').textContent = message;
+    }
+    /*function showResults(result) {
         questionScreen.style.display = 'none';
         resultsScreen.classList.add('active');
         resultsScreen.style.display = 'block';
@@ -753,7 +785,7 @@
             message = '🍿 Χρειάζεσαι περισσότερες ταινίες! Δοκίμασε ξανά!';
         }
         document.getElementById('resultsMessage').textContent = message;
-    }
+    }*/
 
     // Load Leaderboard
     async function loadLeaderboard() {
