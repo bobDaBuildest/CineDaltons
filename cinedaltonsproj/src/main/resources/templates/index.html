@@ -1213,5 +1213,24 @@
         <span id="kpi-last-status" style="font-weight: bold;">-</span>
     </div>
 </div>
+<form action="/search" method="get" class="search-section" ...>
+</form>
+
+<div class="search-section" style="margin-top: 10px; background-color: #222;">
+    <h3 style="color: #fdd835; margin-bottom: 10px;">Find movies by Mood (AI)</h3>
+    <form action="/search/mood" method="get" style="display: flex; justify-content: center; gap: 10px;">
+
+        <select name="mood" style="padding: 10px; border-radius: 4px; border: none;">
+            <option value="happy">Happy 😊</option>
+            <option value="sad">Sad 😢</option>
+            <option value="scary">Scared 😱</option>
+            <option value="exciting">Surprised 😲</option>
+            <option value="angry">Tense 😠</option>
+        </select>
+
+        <button type="submit" class="btn">AI Filter</button>
+    </form>
+    <p style="font-size: 0.8em; color: #777; margin-top: 5px;">*Analyses top movies description using Hugging Face</p>
+</div>
 </body>
 </html>
