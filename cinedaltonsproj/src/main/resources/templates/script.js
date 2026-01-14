@@ -324,8 +324,58 @@ function setupSignupValidation() {
         }
     });
 
+
     // Password Match Check on submit
-    signupForm.addEventListener("submit", e => {
+    signupForm.addEventListener("submit", async e => {
+        // 1. Stop the form from reloading the page
+        e.preventDefault();
+
+        // 2. Check for password match
+        if (suPass.value !== suConfirm.value) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        // 3. Prepare Data for Java
+        const userData = {
+            username: document.getElementById("su_username").value,
+            firstName: document.getElementById("su_first").value,
+            lastName: document.getElementById("su_last").value,
+            email: document.getElementById("su_email").value,
+            password: suPass.value
+        };
+
+        try {
+            // 4. Send "Real" request to your Java Backend
+            const response = await fetch('/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+
+            // 5. Get the text message from the server (e.g., "Success" or "Username exists")
+            const message = await response.text();
+
+            if (response.ok) {
+                // Success!
+                alert('Success: ' + message);
+                closeModal('signupModal');
+                signupForm.reset(); // Clear the inputs
+            } else {
+                // Server validation failed (e.g. username taken)
+                alert('Registration Failed: ' + message);
+            }
+
+        } catch (error) {
+            console.error("Registration Error:", error);
+            alert("Could not connect to the server. Is Spring Boot running?");
+        }
+    });
+
+    // Password Match Check on submit
+    /*signupForm.addEventListener("submit", e => {
         // Check for password match
         if (suPass.value !== suConfirm.value) {
             e.preventDefault();
@@ -347,7 +397,7 @@ function setupSignupValidation() {
         console.log("Simulating registration with data:", userData);
         alert("Account created successfully (Simulated)! You can now sign in.");
         closeModal('signupModal');
-    });
+    });*/
 }
 
 // -------------------------------------------------------------
