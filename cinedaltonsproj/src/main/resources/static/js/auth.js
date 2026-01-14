@@ -1,3 +1,4 @@
+//authentication
 /*// Χρησιμοποιεί τις μεταβλητές: supabase, currentAuthUser (από supabase.js)
 
 async function updateUIForAuthState(session) {
